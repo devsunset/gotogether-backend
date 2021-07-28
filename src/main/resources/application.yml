@@ -1,0 +1,84 @@
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+    # job:
+    #     names: ${job.name:NONE}
+  datasource:
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 30
+    password: ''
+    url: jdbc:h2:~/temp/gotogether;
+    username: sa
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql : true
+        format_sql: true
+        use_sql_comments: true
+
+  sql:
+    init:
+      platform: h2
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    properties:
+      org:
+        quartz:
+        scheduler:
+          instanceId: AUTO
+        jobStore:
+          class: org.quartz.impl.jdbcjobstore.JobStoreTX
+          driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+          useProperties: false
+          tablePrefix: QRTZ_
+          misfireThreshold: 60000
+          clusterCheckinInterval: 1000
+          isClustered: true
+        threadPool:
+          class: org.quartz.simpl.SimpleThreadPool
+          threadCount: 10
+          threadPriority: 5
+          threadsInheritContextClassLoaderOfInitializingThread: true
+
+logging:
+  file:
+    name: logs/app.log
+  level:
+    com:
+      example:
+        springwork:
+          dao:
+            mapper: TRACE
+      zaxxer:
+        hikari: TRACE
+    jdbc: debug
+    org:
+      hibernate:
+        SQL: 'DEBUG'
+        type:
+          descriptor:
+            sql : trace
+      springframework:
+        web: "debug\t\t"
+        batch: DEBUG
+  #        sql: debug
+
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log
+      max-file-size: 100MB
+      max-history: 9999999
+  pattern:
+    console: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
+            - %msg%n'
+    file: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
+            - %msg%n'
