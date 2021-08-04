@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.gotogether.support.jwt.AuthEntryPointJwt;
 import com.gotogether.support.jwt.AuthTokenFilter;
-import com.gotogether.service.UserDetailsServiceImpl;
+import com.gotogether.support.jwt.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

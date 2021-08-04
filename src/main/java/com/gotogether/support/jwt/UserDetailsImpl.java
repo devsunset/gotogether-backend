@@ -1,4 +1,4 @@
-package com.gotogether.service;
+package com.gotogether.support.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gotogether.entity.User;

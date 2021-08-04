@@ -7,7 +7,7 @@ import com.gotogether.entity.User;
 import com.gotogether.repository.RoleRepository;
 import com.gotogether.repository.UserRepository;
 import com.gotogether.service.RefreshTokenService;
-import com.gotogether.service.UserDetailsImpl;
+import com.gotogether.support.jwt.UserDetailsImpl;
 import com.gotogether.support.exception.TokenRefreshException;
 import com.gotogether.support.jwt.JwtUtils;
 import com.gotogether.support.jwt.payload.request.LogOutRequest;

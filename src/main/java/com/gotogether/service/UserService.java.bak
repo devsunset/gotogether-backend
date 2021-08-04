@@ -37,8 +37,6 @@ public class UserService implements UserDetailsService {
 						+ "http://localhost:8080/sign-up/user-active?token="
 						+ token);
 		log.info(mailMessage.toString());
-
-
 		emailSenderService.sendEmail(mailMessage);
 	}
 
