@@ -19,6 +19,7 @@ public class TokenControllerAdvice {
         HttpStatus.FORBIDDEN.value(),
         new Date(),
         ex.getMessage(),
-        request.getDescription(false));
+        request.getDescription(false)
+    );
   }
 }
