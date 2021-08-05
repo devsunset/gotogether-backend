@@ -2,6 +2,7 @@ package com.gotogether.controller;
 
 import com.gotogether.service.AuthService;
 import com.gotogether.service.RefreshTokenService;
+import com.gotogether.service.UserActiveTokenService;
 import com.gotogether.system.security.payload.request.LogOutRequest;
 import com.gotogether.system.security.payload.request.LoginRequest;
 import com.gotogether.system.security.payload.request.SignupRequest;
@@ -10,9 +11,11 @@ import com.gotogether.system.security.payload.response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -26,6 +29,9 @@ public class AuthController {
 
   @Autowired
   RefreshTokenService refreshTokenService;
+
+  @Autowired
+  UserActiveTokenService userActiveTokenService;
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -49,6 +55,12 @@ public class AuthController {
   public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
     refreshTokenService.deleteByUserId(logOutRequest.getUserId());
     return ResponseEntity.ok(new MessageResponse("Log out successful!"));
+  }
+
+  @GetMapping("/signup/activeuser")
+  public String activeUser(@RequestParam("token") String token) {
+    authService.activeUser(token);
+    return null;
   }
 
 }

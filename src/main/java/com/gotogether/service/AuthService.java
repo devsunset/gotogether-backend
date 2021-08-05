@@ -4,6 +4,7 @@ import com.gotogether.entity.RefreshToken;
 import com.gotogether.entity.Role;
 import com.gotogether.entity.RoleType;
 import com.gotogether.entity.User;
+import com.gotogether.entity.UserActiveToken;
 import com.gotogether.repository.RoleRepository;
 import com.gotogether.repository.UserRepository;
 import com.gotogether.system.exception.TokenRefreshException;
@@ -15,6 +16,7 @@ import com.gotogether.system.security.payload.response.JwtResponse;
 import com.gotogether.system.security.payload.response.MessageResponse;
 import com.gotogether.system.security.payload.response.TokenRefreshResponse;
 import com.gotogether.system.security.service.UserDetailsImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,9 +28,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class AuthService {
 
@@ -50,6 +54,13 @@ public class AuthService {
     @Autowired
     RefreshTokenService refreshTokenService;
 
+    @Autowired
+    UserActiveTokenService userActiveTokenService;
+
+    @Autowired
+    EmailSenderService emailSenderService;
+
+
     public ResponseEntity<JwtResponse> authenticaeUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -65,6 +76,7 @@ public class AuthService {
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
+        //To-Do (isEnable Check)
         return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
@@ -78,7 +90,6 @@ public class AuthService {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Create new user's account
         User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
@@ -114,6 +125,11 @@ public class AuthService {
 
         user.setRoles(roles);
         userRepository.save(user);
+
+        UserActiveToken userActiveToken = new UserActiveToken(user);
+        userActiveTokenService.saveUserActiveToken(userActiveToken);
+        sendUserActiveMail(user.getEmail(), userActiveToken.getUserActiveToken());
+
         return null;
     }
 
@@ -129,5 +145,29 @@ public class AuthService {
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
                         "Refresh token is not in database!"));
+    }
+
+    public void activeUser (String token){
+        Optional<UserActiveToken> userActiveToken = userActiveTokenService.findUserActiveTokenByToken(token);
+        final User user = userActiveToken.get().getUser();
+        user.setEnabled("Y");
+        userRepository.save(user);
+        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActive_id());
+    }
+
+    public void sendUserActiveMail(String userMail, String token) {
+        // To-Do (Gmail security setting)
+        log.info(token);
+        /*
+        final SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(userMail);
+        mailMessage.setSubject("gotogether User Account Active Mail Confirmation Link");
+        mailMessage.setFrom("<MAIL>");
+        mailMessage.setText("Thank you for registering. Please click on the below link to activate your account."
+                + "http://localhost:8080/api/auth/signup/activeuser?token="
+                + token);
+
+        emailSenderService.sendEmail(mailMessage);
+        */
     }
 }

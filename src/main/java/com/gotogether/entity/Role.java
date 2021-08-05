@@ -26,20 +26,4 @@ public class Role extends BaseEntity {
 		this.name = name;
 	}
 
-/*
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public RoleType getName() {
-		return name;
-	}
-
-	public void setName(RoleType name) {
-		this.name = name;
-	}*/
 }
