@@ -1,5 +1,8 @@
 package com.gotogether.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.time.Instant;
 
+@Getter
+@Setter
 @Entity(name = "refreshtoken")
-public class RefreshToken {
+public class RefreshToken extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
@@ -27,7 +32,7 @@ public class RefreshToken {
 
   public RefreshToken() {
   }
-
+/*
   public long getId() {
     return id;
   }
@@ -58,6 +63,5 @@ public class RefreshToken {
 
   public void setExpiryDate(Instant expiryDate) {
     this.expiryDate = expiryDate;
-  }
-
+  }*/
 }
