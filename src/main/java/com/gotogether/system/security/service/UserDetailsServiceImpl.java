@@ -1,4 +1,4 @@
-package com.gotogether.support.jwt;
+package com.gotogether.system.security.service;
 
 import com.gotogether.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

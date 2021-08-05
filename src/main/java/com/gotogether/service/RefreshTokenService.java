@@ -1,22 +1,19 @@
 package com.gotogether.service;
 
-import java.time.Instant;
-import java.util.Optional;
-import java.util.UUID;
-
-import com.gotogether.support.exception.TokenRefreshException;
+import com.gotogether.entity.RefreshToken;
 import com.gotogether.repository.RefreshTokenRepository;
 import com.gotogether.repository.UserRepository;
+import com.gotogether.system.exception.TokenRefreshException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-
-import com.gotogether.entity.RefreshToken;
+import java.time.Instant;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Configuration

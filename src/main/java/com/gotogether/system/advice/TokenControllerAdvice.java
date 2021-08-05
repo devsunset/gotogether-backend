@@ -1,6 +1,6 @@
-package com.gotogether.support.advice;
+package com.gotogether.system.advice;
 
-import com.gotogether.support.exception.TokenRefreshException;
+import com.gotogether.system.exception.TokenRefreshException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

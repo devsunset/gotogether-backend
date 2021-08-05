@@ -1,4 +1,4 @@
-package com.gotogether.support.configuration;
+package com.gotogether.system.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.gotogether.support.jwt.AuthEntryPointJwt;
-import com.gotogether.support.jwt.AuthTokenFilter;
-import com.gotogether.support.jwt.UserDetailsServiceImpl;
+import com.gotogether.system.security.jwt.AuthEntryPointJwt;
+import com.gotogether.system.security.jwt.AuthTokenFilter;
+import com.gotogether.system.security.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

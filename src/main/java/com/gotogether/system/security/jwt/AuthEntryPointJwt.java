@@ -1,4 +1,4 @@
-package com.gotogether.support.jwt;
+package com.gotogether.system.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

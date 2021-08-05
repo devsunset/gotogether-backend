@@ -1,5 +1,6 @@
-package com.gotogether.support.jwt;
+package com.gotogether.system.security.jwt;
 
+import com.gotogether.system.security.service.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
