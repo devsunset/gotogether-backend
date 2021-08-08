@@ -164,7 +164,7 @@ public class AuthService {
         mailMessage.setSubject("gotogether User Account Active Mail Confirmation Link");
         mailMessage.setFrom("<MAIL>");
         mailMessage.setText("Thank you for registering. Please click on the below link to activate your account."
-                + "http://localhost:8080/api/auth/signup/activeuser?token="
+                + "http://localhost:8081/api/auth/signup/activeuser?token="
                 + token);
 
         emailSenderService.sendEmail(mailMessage);
