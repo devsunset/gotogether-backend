@@ -1,6 +1,7 @@
 package com.gotogether.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,8 +13,9 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
-@Table(	name = "users", 
+@Table(	name = "USERS",
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
@@ -47,9 +49,6 @@ public class User extends BaseEntity {
 
 
 	private String enabled = "N";
-
-	public User() {
-	}
 
 	public User(String username, String email, String password) {
 		this.username = username;

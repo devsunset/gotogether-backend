@@ -1,6 +1,7 @@
 package com.gotogether.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -14,7 +15,8 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Entity(name = "refreshtoken")
+@NoArgsConstructor
+@Entity(name = "REFRESHTOKEN")
 public class RefreshToken extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +31,5 @@ public class RefreshToken extends BaseEntity {
 
   @Column(nullable = false)
   private Instant expiryDate;
-
-  public RefreshToken() {
-  }
 
 }

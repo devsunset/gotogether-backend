@@ -1,14 +1,16 @@
 package com.gotogether.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "ROLES")
 public class Role extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +19,6 @@ public class Role extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private RoleType name;
-
-	public Role() {
-
-	}
 
 	public Role(RoleType name) {
 		this.name = name;
