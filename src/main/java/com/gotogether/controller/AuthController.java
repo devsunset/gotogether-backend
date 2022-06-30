@@ -1,7 +1,7 @@
 package com.gotogether.controller;
 
 import com.gotogether.service.AuthService;
-import com.gotogether.service.RefreshTokenService;
+import com.gotogether.service.UserRefreshTokenService;
 import com.gotogether.service.UserActiveTokenService;
 import com.gotogether.system.security.payload.request.LogOutRequest;
 import com.gotogether.system.security.payload.request.LoginRequest;
@@ -31,7 +31,7 @@ public class AuthController {
   AuthService authService;
 
   @Autowired
-  RefreshTokenService refreshTokenService;
+  UserRefreshTokenService userRefreshTokenService;
 
   @Autowired
   UserActiveTokenService userActiveTokenService;
@@ -63,7 +63,7 @@ public class AuthController {
 
   @PostMapping("/logout")
   public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
-    refreshTokenService.deleteByUserId(logOutRequest.getUserId());
+    userRefreshTokenService.deleteByUserId(logOutRequest.getUserId());
     return ResponseEntity.ok(new MessageResponse("Log out successful!"));
   }
 

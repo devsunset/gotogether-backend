@@ -1,10 +1,7 @@
 package com.gotogether.service;
 
-import com.gotogether.entity.RefreshToken;
-import com.gotogether.entity.Role;
-import com.gotogether.entity.RoleType;
-import com.gotogether.entity.User;
-import com.gotogether.entity.UserActiveToken;
+import com.gotogether.entity.*;
+import com.gotogether.entity.UserRefreshToken;
 import com.gotogether.repository.RoleRepository;
 import com.gotogether.repository.UserRepository;
 import com.gotogether.system.exception.TokenRefreshException;
@@ -22,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,7 +50,7 @@ public class AuthService {
     JwtUtils jwtUtils;
 
     @Autowired
-    RefreshTokenService refreshTokenService;
+    UserRefreshTokenService userRefreshTokenService;
 
     @Autowired
     UserActiveTokenService userActiveTokenService;
@@ -71,13 +69,13 @@ public class AuthService {
 
         String jwt = jwtUtils.generateJwtToken(userDetails);
 
-        List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+        List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+        UserRefreshToken userRefreshToken = userRefreshTokenService.createRefreshToken(userDetails.getId());
 
         //To-Do (isEnable Check)
-        return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
+        return ResponseEntity.ok(new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getId(),
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
@@ -136,9 +134,9 @@ public class AuthService {
     public ResponseEntity<TokenRefreshResponse> refreshtoken(TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
 
-        return refreshTokenService.findByToken(requestRefreshToken)
-                .map(refreshTokenService::verifyExpiration)
-                .map(RefreshToken::getUser)
+        return userRefreshTokenService.findByToken(requestRefreshToken)
+                .map(userRefreshTokenService::verifyExpiration)
+                .map(UserRefreshToken::getUser)
                 .map(user -> {
                     String token = jwtUtils.generateTokenFromUsername(user.getUsername());
                     return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
