@@ -61,7 +61,7 @@ public class AuthService {
 
     public ResponseEntity<JwtResponse> authenticaeUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserid(), loginRequest.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -72,23 +72,29 @@ public class AuthService {
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        UserRefreshToken userRefreshToken = userRefreshTokenService.createRefreshToken(userDetails.getUserid());
+        UserRefreshToken userRefreshToken = userRefreshTokenService.createRefreshToken(userDetails.getUsername());
 
         //To-Do (isEnable Check)
-        return ResponseEntity.ok(new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getUserid(),
+        return ResponseEntity.ok(new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getUsername(),
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
     public ResponseEntity<MessageResponse> registerUser(SignupRequest signUpRequest) {
+
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: UserId is already taken!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: username is already taken!"));
         }
+
+        if (userRepository.existsByNickname(signUpRequest.getNickname())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: userid is already taken!"));
+        }
+
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: email is already in use!"));
         }
 
-        User user = new User(signUpRequest.getUserid(),signUpRequest.getUsername(), signUpRequest.getEmail(),
+        User user = new User(signUpRequest.getUsername(),signUpRequest.getNickname(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();

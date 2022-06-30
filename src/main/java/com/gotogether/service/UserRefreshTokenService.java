@@ -32,10 +32,10 @@ public class UserRefreshTokenService {
     return userRefreshTokenRepository.findByToken(token);
   }
 
-  public UserRefreshToken createRefreshToken(String userid) {
+  public UserRefreshToken createRefreshToken(String username) {
     UserRefreshToken userRefreshToken = new UserRefreshToken();
 
-    userRefreshToken.setUser(userRepository.findByUserid(userid).get());
+    userRefreshToken.setUser(userRepository.findByUsername(username).get());
     userRefreshToken.setExpiryDate(Instant.now().plusMillis(userRefreshTokenDurationMs));
     userRefreshToken.setToken(UUID.randomUUID().toString());
 
@@ -52,7 +52,7 @@ public class UserRefreshTokenService {
   }
 
   @Transactional
-  public int deleteByUserid(String userid) {
-    return userRefreshTokenRepository.deleteByUser(userRepository.findByUserid(userid).get());
+  public int deleteByUsername(String username) {
+    return userRefreshTokenRepository.deleteByUser(userRepository.findByUsername(username).get());
   }
 }

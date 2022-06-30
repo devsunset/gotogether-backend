@@ -20,11 +20,11 @@ public class User extends BaseEntity {
 	@Id
 	@NotBlank
 	@Size(max = 20)
-	private String userid;
+	private String username;
 
 	@NotBlank
 	@Size(max = 20)
-	private String username;
+	private String nickname;
 
 	@NotBlank
 	@Size(max = 50)
@@ -37,7 +37,7 @@ public class User extends BaseEntity {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "userid"),
+				joinColumns = @JoinColumn(name = "username"),
 				inverseJoinColumns = @JoinColumn(name = "roleid"))
 	private Set<Role> roles = new HashSet<>();
 
@@ -47,9 +47,9 @@ public class User extends BaseEntity {
 
 	private String enabled = "N";
 
-	public User(String userid,String username, String email, String password) {
-		this.userid = userid;
+	public User(String username, String nickname ,String email, String password) {
 		this.username = username;
+		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
 	}

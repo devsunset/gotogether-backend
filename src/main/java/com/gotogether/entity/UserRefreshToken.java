@@ -23,7 +23,7 @@ public class UserRefreshToken extends BaseEntity {
   private long refreshid;
 
   @OneToOne
-  @JoinColumn(name = "userid", referencedColumnName = "userid")
+  @JoinColumn(name = "username", referencedColumnName = "username")
   private User user;
 
   @Column(nullable = false, unique = true)

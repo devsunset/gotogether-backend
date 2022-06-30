@@ -25,7 +25,7 @@ public class UserActiveToken extends BaseEntity {
 	private Long activeid;
 	private String userActiveToken;
 	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false, name = "userid")
+	@JoinColumn(nullable = false, name = "username")
 	private User user;
 	public UserActiveToken(User user) {
 		this.user = user;

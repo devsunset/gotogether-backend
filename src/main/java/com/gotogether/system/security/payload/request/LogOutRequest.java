@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LogOutRequest {
 
-  private String userid;
+  private String username;
 
 }
