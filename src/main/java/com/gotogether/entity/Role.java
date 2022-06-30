@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Role extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer role_id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)

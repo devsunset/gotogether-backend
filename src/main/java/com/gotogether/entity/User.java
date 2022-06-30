@@ -16,13 +16,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(	uniqueConstraints = {
-			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
 		})
 public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long user_id;
 
 	@NotBlank
 	@Size(max = 20)

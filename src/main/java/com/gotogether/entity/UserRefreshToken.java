@@ -20,10 +20,10 @@ import java.time.Instant;
 public class UserRefreshToken extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  private long refresh_id;
 
   @OneToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
   private User user;
 
   @Column(nullable = false, unique = true)
