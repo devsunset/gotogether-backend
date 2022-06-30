@@ -14,18 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.util.UUID;
 
-@Entity
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class UserActiveToken extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long active_id;
+	private Long activeid;
 	private String userActiveToken;
 	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false, name = "user_id")
+	@JoinColumn(nullable = false, name = "userid")
 	private User user;
 	public UserActiveToken(User user) {
 		this.user = user;

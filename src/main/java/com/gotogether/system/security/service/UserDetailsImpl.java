@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private String userid;
 
 	private String username;
 
@@ -25,9 +25,9 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
+	public UserDetailsImpl(String userid, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
-		this.id = id;
+		this.userid = userid;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -36,11 +36,11 @@ public class UserDetailsImpl implements UserDetails {
 
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+				.map(role -> new SimpleGrantedAuthority(role.getRolename().name()))
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(
-				user.getUser_id(),
+				user.getUserid(),
 				user.getUsername(), 
 				user.getEmail(),
 				user.getPassword(), 
@@ -52,9 +52,7 @@ public class UserDetailsImpl implements UserDetails {
 		return authorities;
 	}
 
-	public Long getId() {
-		return id;
-	}
+	public String getUserid() {return userid;}
 
 	public String getEmail() {
 		return email;
@@ -97,6 +95,6 @@ public class UserDetailsImpl implements UserDetails {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
-		return Objects.equals(id, user.id);
+		return Objects.equals(userid, user.userid);
 	}
 }

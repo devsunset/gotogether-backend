@@ -1,7 +1,15 @@
 package com.gotogether.system.advice;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class ErrorMessage {
   private int statusCode;
   private Date timestamp;
@@ -13,21 +21,5 @@ public class ErrorMessage {
     this.timestamp = timestamp;
     this.message = message;
     this.description = description;
-  }
-
-  public int getStatusCode() {
-    return statusCode;
-  }
-
-  public Date getTimestamp() {
-    return timestamp;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public String getDescription() {
-    return description;
   }
 }

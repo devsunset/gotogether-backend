@@ -1,9 +1,14 @@
 package com.gotogether.system.security.payload.request;
 
-public class LogOutRequest {
-  private Long userId;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-  public Long getUserId() {
-    return this.userId;
-  }
+@Getter
+@Setter
+@NoArgsConstructor
+public class LogOutRequest {
+
+  private String userid;
+
 }

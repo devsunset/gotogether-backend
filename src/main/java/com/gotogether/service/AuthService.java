@@ -61,7 +61,7 @@ public class AuthService {
 
     public ResponseEntity<JwtResponse> authenticaeUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserid(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -72,10 +72,10 @@ public class AuthService {
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        UserRefreshToken userRefreshToken = userRefreshTokenService.createRefreshToken(userDetails.getId());
+        UserRefreshToken userRefreshToken = userRefreshTokenService.createRefreshToken(userDetails.getUserid());
 
         //To-Do (isEnable Check)
-        return ResponseEntity.ok(new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getId(),
+        return ResponseEntity.ok(new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getUserid(),
                 userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
@@ -88,33 +88,33 @@ public class AuthService {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
+        User user = new User(signUpRequest.getUsername(),signUpRequest.getUsername(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
+            Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = roleRepository.findByName(RoleType.ROLE_ADMIN)
+                        Role adminRole = roleRepository.findByRolename(RoleType.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
                     case "mod":
-                        Role modRole = roleRepository.findByName(RoleType.ROLE_MODERATOR)
+                        Role modRole = roleRepository.findByRolename(RoleType.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
 
                         break;
                     default:
-                        Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
+                        Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }
@@ -150,7 +150,7 @@ public class AuthService {
         final User user = userActiveToken.get().getUser();
         user.setEnabled("Y");
         userRepository.save(user);
-        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActive_id());
+        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActiveid());
     }
 
     public void sendUserActiveMail(String userMail, String token) {

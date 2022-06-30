@@ -3,6 +3,7 @@ package com.gotogether.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,13 +16,11 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(	uniqueConstraints = {
-			@UniqueConstraint(columnNames = "email") 
-		})
 public class User extends BaseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long user_id;
+	@NotBlank
+	@Size(max = 20)
+	private String userid;
 
 	@NotBlank
 	@Size(max = 20)
@@ -38,8 +37,8 @@ public class User extends BaseEntity {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
+				joinColumns = @JoinColumn(name = "userid"),
+				inverseJoinColumns = @JoinColumn(name = "roleid"))
 	private Set<Role> roles = new HashSet<>();
 
 
@@ -48,7 +47,8 @@ public class User extends BaseEntity {
 
 	private String enabled = "N";
 
-	public User(String username, String email, String password) {
+	public User(String userid,String username, String email, String password) {
+		this.userid = userid;
 		this.username = username;
 		this.email = email;
 		this.password = password;
