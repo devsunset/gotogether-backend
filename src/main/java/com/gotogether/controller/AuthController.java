@@ -8,6 +8,9 @@ import com.gotogether.system.security.payload.request.LoginRequest;
 import com.gotogether.system.security.payload.request.SignupRequest;
 import com.gotogether.system.security.payload.request.TokenRefreshRequest;
 import com.gotogether.system.security.payload.response.MessageResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +36,13 @@ public class AuthController {
   @Autowired
   UserActiveTokenService userActiveTokenService;
 
+  @Operation(summary = "signin", description = "signin api")
+  @ApiResponses({
+          @ApiResponse(responseCode = "200", description = "OK"),
+          @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+          @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+          @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+  })
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
     return authService.authenticaeUser(loginRequest);
