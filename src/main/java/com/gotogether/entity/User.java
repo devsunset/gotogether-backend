@@ -41,12 +41,6 @@ public class User extends BaseEntity {
 				inverseJoinColumns = @JoinColumn(name = "rolename"))
 	private Set<Role> roles = new HashSet<>();
 
-
-	private String locked = "N";
-
-
-	private String enabled = "N";
-
 	public User(String username, String nickname ,String email, String password) {
 		this.username = username;
 		this.nickname = nickname;

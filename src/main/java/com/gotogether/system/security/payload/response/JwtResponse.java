@@ -13,9 +13,7 @@ public class JwtResponse {
 	private String token;
 
 	private String type = "Bearer";
-
 	private String refreshToken;
-
 	private String username;
 	private String nickname;
 	private String email;

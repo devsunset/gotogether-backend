@@ -114,15 +114,15 @@ public class AuthService {
 
                         break;
                     case "user":
-                        Role modRole = roleRepository.findByRolename(RoleType.ROLE_USER)
+                        Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
+                        roles.add(userRole);
 
                         break;
                     default:
-                        Role userRole = roleRepository.findByRolename(RoleType.ROLE_NOT_APPROVE)
+                        Role notApproveRole = roleRepository.findByRolename(RoleType.ROLE_NOT_APPROVE)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
+                        roles.add(notApproveRole);
                 }
             });
         }
@@ -154,7 +154,14 @@ public class AuthService {
     public void activeUser (String token){
         Optional<UserActiveToken> userActiveToken = userActiveTokenService.findUserActiveTokenByToken(token);
         final User user = userActiveToken.get().getUser();
-        user.setEnabled("Y");
+
+        Set<Role> roles = new HashSet<>();
+
+        Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(userRole);
+
+        user.setRoles(roles);
         userRepository.save(user);
         userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActiveid());
     }
