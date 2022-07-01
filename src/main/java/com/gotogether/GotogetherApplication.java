@@ -20,11 +20,8 @@ public class GotogetherApplication {
 	@Bean
 	public CommandLineRunner initRoleTypeDataJPACommandLineRunner(RoleRepository repository) {
 		return (args) -> {
-//			INSERT INTO roles(name) VALUES('ROLE_USER');
-//			INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
-//			INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+			repository.save(new Role(RoleType.ROLE_NOT_APPROVE));
 			repository.save(new Role(RoleType.ROLE_USER));
-			repository.save(new Role(RoleType.ROLE_MODERATOR));
 			repository.save(new Role(RoleType.ROLE_ADMIN));
 		};
 	}

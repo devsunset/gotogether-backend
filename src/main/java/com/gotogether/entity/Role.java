@@ -12,9 +12,6 @@ import javax.persistence.*;
 @Entity
 public class Role extends BaseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer roleid;
-
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private RoleType rolename;
