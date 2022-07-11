@@ -8,6 +8,8 @@ import com.gotogether.system.security.payload.request.LoginRequest;
 import com.gotogether.system.security.payload.request.SignupRequest;
 import com.gotogether.system.security.payload.request.TokenRefreshRequest;
 import com.gotogether.system.security.payload.response.MessageResponse;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -62,6 +64,9 @@ public class AuthController {
   }
 
   @PostMapping("/logout")
+  @ApiImplicitParams({
+          @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "access_token", required = true, dataType = "String", paramType = "header")
+  })
   public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
     userRefreshTokenService.deleteByUsername(logOutRequest.getUsername());
     return ResponseEntity.ok(new MessageResponse("Log out successful!"));
