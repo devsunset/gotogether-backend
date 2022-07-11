@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Comment extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "comment_id")
-    private Long id;
+    private Long comment_id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "username")

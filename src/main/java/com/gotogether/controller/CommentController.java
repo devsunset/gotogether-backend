@@ -16,7 +16,7 @@ public class CommentController {
 
     @PostMapping("/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void commentSave(@PathVariable("postId") Long postId
+    public void save(@PathVariable("postId") Long postId
                             , Comment comment){
         //commentService.save(postId, comment);
     }

@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity getInfo(@PathVariable("postId") Long postId){
+    public ResponseEntity get(@PathVariable("postId") Long postId){
 //        return ResponseEntity.ok(postService.getPostInfo(postId));
         return null;
     }
@@ -40,7 +40,7 @@ public class PostController {
     public void delete(@PathVariable("postId") Long postId){
     }
 
-    @GetMapping("/post")
+    @GetMapping("/search")
     public ResponseEntity search(Pageable pageable,
                        @ModelAttribute Post post){
 //        return ResponseEntity.ok(postService.getPostList(pageable,post));

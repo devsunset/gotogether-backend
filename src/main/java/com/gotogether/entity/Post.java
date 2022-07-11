@@ -26,7 +26,7 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "username")
     private User writer;
 
-    @Column(length = 40, nullable = false)
+    @Column(length = 255, nullable = false)
     private String title;
 
     @Lob

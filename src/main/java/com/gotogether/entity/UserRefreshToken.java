@@ -20,7 +20,7 @@ import java.time.Instant;
 public class UserRefreshToken extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long refreshid;
+  private long refresh_id;
 
   @OneToOne
   @JoinColumn(name = "username", referencedColumnName = "username")

@@ -1,6 +1,5 @@
 package com.gotogether.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +23,7 @@ import java.util.UUID;
 public class UserActiveToken extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long activeid;
+	private Long active_id;
 	@NotBlank
 	@Size(max = 255)
 	private String userActiveToken;

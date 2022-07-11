@@ -163,7 +163,7 @@ public class AuthService {
 
         user.setRoles(roles);
         userRepository.save(user);
-        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActiveid());
+        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActive_id());
     }
 
     public void sendUserActiveMail(String userMail, String token) {
