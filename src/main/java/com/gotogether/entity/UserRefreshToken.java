@@ -31,5 +31,4 @@ public class UserRefreshToken extends BaseEntity {
 
   @Column(nullable = false)
   private Instant expiryDate;
-
 }

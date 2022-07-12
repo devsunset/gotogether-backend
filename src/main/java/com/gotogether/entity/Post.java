@@ -1,9 +1,6 @@
 package com.gotogether.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,39 +12,35 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Table(name = "POST")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Post extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "post_id")
-    private Long id;
+    private Long post_id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "username")
-    private User writer;
-
+    @Column(length = 20, nullable = false)
+    private String category;
     @Column(length = 255, nullable = false)
     private String title;
-
     @Lob
     @Column(nullable = false)
     private String content;
 
-    @Builder
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
+    private boolean deleted;
+
+    private int hit;
 
     @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true)
     private List<Comment> commentList = new ArrayList<>();
-
-    public void updateTitle(String title) {
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "username")
+    private User writer;
+    @Builder
+    public Post(String title, String content, User writer) {
         this.title = title;
-    }
-
-    public void updateContent(String content) {
         this.content = content;
+        this.writer = writer;
     }
-
 }
