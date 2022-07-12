@@ -32,7 +32,7 @@ public class Post extends BaseEntity {
 
     private int hit;
 
-    @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true, fetch = LAZY)
     private List<Comment> commentList = new ArrayList<>();
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "username")

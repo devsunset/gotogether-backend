@@ -64,9 +64,6 @@ public class AuthController {
   }
 
   @PostMapping("/logout")
-  @ApiImplicitParams({
-          @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "access_token", required = true, dataType = "String", paramType = "header")
-  })
   public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
     userRefreshTokenService.deleteByUsername(logOutRequest.getUsername());
     return ResponseEntity.ok(new MessageResponse("Log out successful!"));

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig{
 
     @Bean
-    public FilterRegistrationBean firstFilterRegister() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new GlobalFilter());
+    public FilterRegistrationBean<GlobalFilter> firstFilterRegister() {
+        FilterRegistrationBean<GlobalFilter> registrationBean = new FilterRegistrationBean<>(new GlobalFilter());
         return registrationBean;
     }
 }

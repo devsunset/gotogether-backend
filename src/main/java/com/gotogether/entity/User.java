@@ -18,24 +18,20 @@ import java.util.Set;
 @Entity
 public class User extends BaseEntity {
 	@Id
-	@NotBlank
 	@Size(max = 20)
 	private String username;
 
-	@NotBlank
 	@Size(max = 20)
 	private String nickname;
 
-	@NotBlank
 	@Size(max = 50)
 	@Email
 	private String email;
 
-	@NotBlank
 	@Size(max = 120)
 	private String password;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "username"),
 				inverseJoinColumns = @JoinColumn(name = "rolename"))

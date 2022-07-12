@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -51,7 +50,6 @@ public class UserRefreshTokenService {
     return token;
   }
 
-  @Transactional
   public int deleteByUsername(String username) {
     return userRefreshTokenRepository.deleteByUser(userRepository.findByUsername(username).get());
   }

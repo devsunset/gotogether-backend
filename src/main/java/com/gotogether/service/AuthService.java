@@ -83,7 +83,7 @@ public class AuthService {
     public ResponseEntity<MessageResponse> registerUser(SignupRequest signUpRequest) {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: username is already taken!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: userid is already taken!"));
         }
 
         if (userRepository.existsByNickname(signUpRequest.getNickname())) {
@@ -164,7 +164,7 @@ public class AuthService {
 
         user.setRoles(roles);
         userRepository.save(user);
-        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActive_id());
+        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActiveId());
     }
 
     public void sendUserActiveMail(String userMail, String token) {
