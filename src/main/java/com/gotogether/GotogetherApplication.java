@@ -1,7 +1,7 @@
 package com.gotogether;
 
 import com.gotogether.entity.Role;
-import com.gotogether.entity.RoleType;
+import com.gotogether.system.enums.RoleType;
 import com.gotogether.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

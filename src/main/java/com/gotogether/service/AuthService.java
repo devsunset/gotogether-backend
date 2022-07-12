@@ -4,6 +4,7 @@ import com.gotogether.entity.*;
 import com.gotogether.entity.UserRefreshToken;
 import com.gotogether.repository.RoleRepository;
 import com.gotogether.repository.UserRepository;
+import com.gotogether.system.enums.RoleType;
 import com.gotogether.system.exception.TokenRefreshException;
 import com.gotogether.system.security.jwt.JwtUtils;
 import com.gotogether.system.security.payload.request.LoginRequest;

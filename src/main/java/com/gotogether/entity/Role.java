@@ -1,5 +1,6 @@
 package com.gotogether.entity;
 
+import com.gotogether.system.enums.RoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
