@@ -4,6 +4,7 @@ import com.gotogether.system.enums.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class ErrorResponse {
     private final String description;
 
     public static ResponseEntity<ErrorResponse> toResponseEntity(Exception e) {
-        ErrorCode errorCode = ErrorCode.SERVER_ERROR;
+        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
         return ResponseEntity
                 .status(errorCode.getHttpStatus())
                 .body(ErrorResponse.builder()
@@ -33,6 +34,20 @@ public class ErrorResponse {
 
     public static ResponseEntity<ErrorResponse> toResponseEntity(CustomException e) {
         ErrorCode errorCode = e.getErrorCode();
+        return ResponseEntity
+                .status(errorCode.getHttpStatus())
+                .body(ErrorResponse.builder()
+                        .status(errorCode.getHttpStatus().value())
+                        .error(errorCode.getHttpStatus().name())
+                        .code(errorCode.name())
+                        .message(errorCode.getDescription())
+                        .description(e.getMessage())
+                        .build()
+                );
+    }
+
+    public static ResponseEntity<ErrorResponse> toResponseEntity(TokenRefreshException e, WebRequest request) {
+        ErrorCode errorCode = ErrorCode.TOKEN_INVALID;
         return ResponseEntity
                 .status(errorCode.getHttpStatus())
                 .body(ErrorResponse.builder()
