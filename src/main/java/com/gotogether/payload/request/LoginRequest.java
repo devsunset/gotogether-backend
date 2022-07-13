@@ -1,4 +1,4 @@
-package com.gotogether.system.security.payload.request;
+package com.gotogether.payload.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

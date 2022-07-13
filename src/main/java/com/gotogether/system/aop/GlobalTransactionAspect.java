@@ -15,7 +15,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 import java.util.Collections;
 
 @Configuration
-public class TransactionAspect {
+public class GlobalTransactionAspect {
 
     private static final String AOP_TRANSACTION_METHOD_NAME="*";
     private static final String AOP_TRANSACTION_EXPRESSION="execution(* com.together.service.*Service.*(..))";

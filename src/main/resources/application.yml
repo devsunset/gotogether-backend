@@ -85,7 +85,7 @@ spring:
 
 logging:
   file:
-    name: logs/app.log
+    name: /workspace/logs/app.log
   level:
     com:
       example:
@@ -116,9 +116,6 @@ logging:
             - %msg%n'
     file: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
             - %msg%n'
-
-
-
 
 
 

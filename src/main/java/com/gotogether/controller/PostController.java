@@ -20,13 +20,15 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public void save(@Valid @ModelAttribute Post post) throws Exception {
+    public ResponseEntity save(@Valid @ModelAttribute Post post) throws Exception {
+        return null;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{postId}")
-    public void update(@PathVariable("postId") Long postId,
+    public ResponseEntity update(@PathVariable("postId") Long postId,
                        @ModelAttribute Post post) throws Exception {
+        return null;
     }
 
     @GetMapping("/{postId}")
@@ -37,7 +39,8 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{postId}")
-    public void delete(@PathVariable("postId") Long postId) throws Exception {
+    public ResponseEntity delete(@PathVariable("postId") Long postId) throws Exception {
+        return null;
     }
 
     @GetMapping("/search")
