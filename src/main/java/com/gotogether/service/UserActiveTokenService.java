@@ -13,15 +13,15 @@ public class UserActiveTokenService {
 
 	private final UserActiveTokenRepository userActiveTokenRepository;
 
-	public void saveUserActiveToken(UserActiveToken userActiveToken) {
+	public void saveUserActiveToken(UserActiveToken userActiveToken) throws Exception {
 		userActiveTokenRepository.save(userActiveToken);
 	}
 
-	public void deleteUserActiveToken(Long id) {
+	public void deleteUserActiveToken(Long id) throws Exception {
 		userActiveTokenRepository.deleteById(id);
 	}
 
-	public Optional<UserActiveToken> findUserActiveTokenByToken(String token) {
+	public Optional<UserActiveToken> findUserActiveTokenByToken(String token)  throws Exception {
 		return userActiveTokenRepository.findUserActiveTokenByUserActiveToken(token);
 	}
 }

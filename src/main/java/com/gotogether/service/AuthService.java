@@ -60,7 +60,7 @@ public class AuthService {
     EmailSenderService emailSenderService;
 
 
-    public ResponseEntity<JwtResponse> authenticaeUser(LoginRequest loginRequest) {
+    public ResponseEntity<JwtResponse> authenticaeUser(LoginRequest loginRequest) throws Exception {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -80,7 +80,7 @@ public class AuthService {
                 userDetails.getNickname(), userDetails.getEmail(), roles));
     }
 
-    public ResponseEntity<MessageResponse> registerUser(SignupRequest signUpRequest) {
+    public ResponseEntity<MessageResponse> registerUser(SignupRequest signUpRequest) throws Exception {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: userid is already taken!"));
@@ -138,7 +138,7 @@ public class AuthService {
         return null;
     }
 
-    public ResponseEntity<TokenRefreshResponse> refreshtoken(TokenRefreshRequest request) {
+    public ResponseEntity<TokenRefreshResponse> refreshtoken(TokenRefreshRequest request) throws Exception {
         String requestRefreshToken = request.getRefreshToken();
 
         return userRefreshTokenService.findByToken(requestRefreshToken)
@@ -152,7 +152,7 @@ public class AuthService {
                         "Refresh token is not in database!"));
     }
 
-    public void activeUser (String token){
+    public void activeUser (String token) throws Exception {
         Optional<UserActiveToken> userActiveToken = userActiveTokenService.findUserActiveTokenByToken(token);
         final User user = userActiveToken.get().getUser();
 
@@ -167,7 +167,7 @@ public class AuthService {
         userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActiveId());
     }
 
-    public void sendUserActiveMail(String userMail, String token) {
+    public void sendUserActiveMail(String userMail, String token) throws Exception {
         // To-Do (Gmail security setting)
         log.info(token);
         /*

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class LogAop {
+public class LogAspect {
     private final LogTrace logTrace;
 
     @Pointcut("execution(* com.gotogether.controller.*Controller*.*(..))")

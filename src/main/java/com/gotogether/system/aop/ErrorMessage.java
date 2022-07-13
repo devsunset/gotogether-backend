@@ -1,4 +1,4 @@
-package com.gotogether.system.advice;
+package com.gotogether.system.aop;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

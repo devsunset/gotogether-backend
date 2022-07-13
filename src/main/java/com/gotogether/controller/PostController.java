@@ -20,29 +20,29 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public void save(@Valid @ModelAttribute Post post){
+    public void save(@Valid @ModelAttribute Post post) throws Exception {
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{postId}")
     public void update(@PathVariable("postId") Long postId,
-                       @ModelAttribute Post post){
+                       @ModelAttribute Post post) throws Exception {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity get(@PathVariable("postId") Long postId){
+    public ResponseEntity get(@PathVariable("postId") Long postId) throws Exception {
 //        return ResponseEntity.ok(postService.getPostInfo(postId));
         return null;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{postId}")
-    public void delete(@PathVariable("postId") Long postId){
+    public void delete(@PathVariable("postId") Long postId) throws Exception {
     }
 
     @GetMapping("/search")
     public ResponseEntity search(Pageable pageable,
-                       @ModelAttribute Post post){
+                       @ModelAttribute Post post) throws Exception {
 //        return ResponseEntity.ok(postService.getPostList(pageable,post));
         return null;
     }

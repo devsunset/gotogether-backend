@@ -17,18 +17,18 @@ public class CommentController {
     @PostMapping("/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@PathVariable("postId") Long postId
-                            , Comment comment){
+                            , Comment comment) throws Exception {
         //commentService.save(postId, comment);
     }
 
     @PutMapping("/{commentId}")
     public void update(@PathVariable("commentId") Long commentId,
-                       Comment comment){
+                       Comment comment) throws Exception {
         //commentService.update(commentId, comment);
     }
 
     @DeleteMapping("/{commentId}")
-    public void delete(@PathVariable("commentId") Long commentId){
+    public void delete(@PathVariable("commentId") Long commentId) throws Exception {
         //commentService.remove(commentId);
     }
 }

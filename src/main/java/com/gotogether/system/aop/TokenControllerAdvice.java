@@ -1,4 +1,4 @@
-package com.gotogether.system.advice;
+package com.gotogether.system.aop;
 
 import com.gotogether.system.exception.TokenRefreshException;
 import org.springframework.http.HttpStatus;
