@@ -1,18 +1,21 @@
 package com.gotogether.service;
 
-import com.gotogether.entity.*;
+import com.gotogether.entity.Role;
+import com.gotogether.entity.User;
+import com.gotogether.entity.UserActiveToken;
 import com.gotogether.entity.UserRefreshToken;
-import com.gotogether.repository.RoleRepository;
-import com.gotogether.repository.UserRepository;
-import com.gotogether.system.enums.RoleType;
-import com.gotogether.system.exception.TokenRefreshException;
-import com.gotogether.system.security.jwt.JwtUtils;
 import com.gotogether.payload.request.LoginRequest;
 import com.gotogether.payload.request.SignupRequest;
 import com.gotogether.payload.request.TokenRefreshRequest;
 import com.gotogether.payload.response.JwtResponse;
-import com.gotogether.payload.response.MessageResponse;
 import com.gotogether.payload.response.TokenRefreshResponse;
+import com.gotogether.repository.RoleRepository;
+import com.gotogether.repository.UserRepository;
+import com.gotogether.system.enums.ErrorCode;
+import com.gotogether.system.enums.RoleType;
+import com.gotogether.system.exception.CustomException;
+import com.gotogether.system.exception.TokenRefreshException;
+import com.gotogether.system.security.jwt.JwtUtils;
 import com.gotogether.system.security.service.UserDetailsImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -60,7 +60,7 @@ public class AuthService {
     EmailSenderService emailSenderService;
 
 
-    public ResponseEntity<JwtResponse> authenticaeUser(LoginRequest loginRequest) throws Exception {
+    public JwtResponse authenticaeUser(LoginRequest loginRequest) throws Exception {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -75,24 +75,22 @@ public class AuthService {
 
         UserRefreshToken userRefreshToken = userRefreshTokenService.createRefreshToken(userDetails.getUsername());
 
-        //To-Do (isEnable Check)
-        return ResponseEntity.ok(new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getUsername(),
-                userDetails.getNickname(), userDetails.getEmail(), roles));
+        return new JwtResponse(jwt, userRefreshToken.getToken(), userDetails.getUsername(),
+                userDetails.getNickname(), userDetails.getEmail(), roles);
     }
 
-    public ResponseEntity<MessageResponse> registerUser(SignupRequest signUpRequest) throws Exception {
+    public ResponseEntity<?> registerUser(SignupRequest signUpRequest) throws Exception {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: userid is already taken!"));
+            throw new CustomException(ErrorCode.USER_ALREADY_USE);
         }
 
         if (userRepository.existsByNickname(signUpRequest.getNickname())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: nickname is already taken!"));
+            throw new CustomException(ErrorCode.NICKNAME_ALREADY_USE);
         }
 
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: email is already in use!"));
+            throw new CustomException(ErrorCode.EMAIL_ALREADY_USE);
         }
 
         User user = new User(signUpRequest.getUsername(),signUpRequest.getNickname(), signUpRequest.getEmail(),
@@ -138,7 +136,7 @@ public class AuthService {
         return null;
     }
 
-    public ResponseEntity<TokenRefreshResponse> refreshtoken(TokenRefreshRequest request) throws Exception {
+    public TokenRefreshResponse refreshtoken(TokenRefreshRequest request) throws Exception {
         String requestRefreshToken = request.getRefreshToken();
 
         return userRefreshTokenService.findByToken(requestRefreshToken)
@@ -146,10 +144,16 @@ public class AuthService {
                 .map(UserRefreshToken::getUser)
                 .map(user -> {
                     String token = jwtUtils.generateTokenFromUsername(user.getUsername());
-                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+
+                    List<String> roles = new ArrayList<String>();
+
+                    for (Role element :user.getRoles()) {
+                        roles.add(element.getRolename().toString());
+                    }
+
+                    return new TokenRefreshResponse(token, requestRefreshToken, user.getUsername(), user.getNickname(),user.getEmail(),roles);
                 })
-                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
-                        "Refresh token is not in database!"));
+                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
     }
 
     public void activeUser (String token) throws Exception {

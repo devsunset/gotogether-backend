@@ -17,21 +17,21 @@ public class CommentController {
 
     @PostMapping("/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity save(@PathVariable("postId") Long postId
+    public ResponseEntity<?> save(@PathVariable("postId") Long postId
                             , Comment comment) throws Exception {
         //commentService.save(postId, comment);
         return null;
     }
 
     @PutMapping("/{commentId}")
-    public ResponseEntity update(@PathVariable("commentId") Long commentId,
+    public ResponseEntity<?> update(@PathVariable("commentId") Long commentId,
                        Comment comment) throws Exception {
         //commentService.update(commentId, comment);
         return null;
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity delete(@PathVariable("commentId") Long commentId) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable("commentId") Long commentId) throws Exception {
         //commentService.remove(commentId);
         return null;
     }
