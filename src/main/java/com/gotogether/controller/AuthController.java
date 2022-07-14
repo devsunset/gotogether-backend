@@ -10,6 +10,7 @@ import com.gotogether.payload.request.TokenRefreshRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,11 +39,13 @@ public class AuthController {
   }
 
   @PostMapping("/refreshtoken")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
   public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) throws Exception {
     return CommonResponse.toResponseEntity(authService.refreshtoken(request));
   }
 
   @PostMapping("/logout")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
   public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) throws Exception {
     userRefreshTokenService.deleteByUsername(logOutRequest.getUsername());
     return CommonResponse.toResponseEntity("","Log out successful");
