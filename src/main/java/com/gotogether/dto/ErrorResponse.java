@@ -1,4 +1,4 @@
-package com.gotogether.payload;
+package com.gotogether.dto;
 
 import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
@@ -6,11 +6,13 @@ import com.gotogether.system.exception.CustomException;
 import com.gotogether.system.exception.TokenRefreshException;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 
 @Getter
+@ToString
 @Builder
 public class ErrorResponse {
     private final LocalDateTime timestamp = LocalDateTime.now();

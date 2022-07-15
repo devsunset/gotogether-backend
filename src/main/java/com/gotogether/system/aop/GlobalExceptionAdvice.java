@@ -1,7 +1,7 @@
 package com.gotogether.system.aop;
 
 import com.gotogether.system.exception.CustomException;
-import com.gotogether.payload.ErrorResponse;
+import com.gotogether.dto.ErrorResponse;
 import com.gotogether.system.exception.TokenRefreshException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

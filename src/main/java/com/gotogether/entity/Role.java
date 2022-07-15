@@ -4,11 +4,13 @@ import com.gotogether.system.enums.RoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Entity
 public class Role extends BaseEntity {

@@ -10,6 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name="COMMENT")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Comment extends BaseEntity {

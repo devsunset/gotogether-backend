@@ -1,12 +1,12 @@
 package com.gotogether.controller;
 
-import com.gotogether.payload.CommonResponse;
+import com.gotogether.dto.CommonResponse;
 import com.gotogether.service.AuthService;
 import com.gotogether.service.UserRefreshTokenService;
-import com.gotogether.payload.request.LogOutRequest;
-import com.gotogether.payload.request.LoginRequest;
-import com.gotogether.payload.request.SignupRequest;
-import com.gotogether.payload.request.TokenRefreshRequest;
+import com.gotogether.dto.request.LogOutRequest;
+import com.gotogether.dto.request.LoginRequest;
+import com.gotogether.dto.request.SignupRequest;
+import com.gotogether.dto.request.TokenRefreshRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

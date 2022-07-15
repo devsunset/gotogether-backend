@@ -1,4 +1,4 @@
-package com.gotogether.payload.request;
+package com.gotogether.dto.request;
 
 import lombok.*;
 
