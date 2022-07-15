@@ -1,6 +1,7 @@
 package com.gotogether.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,14 +34,16 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    //@Column(columnDefinition = "default Y")
+    @NotNull
+    @ColumnDefault("'N'")
     private String deleted;
 
-    //@Column(columnDefinition = "default 0")
+    @ColumnDefault("0")
     private int hit;
 
     @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true, fetch = LAZY)
     private List<Comment> commentList = new ArrayList<>();
+    @NotNull
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "username")
     private User writer;
