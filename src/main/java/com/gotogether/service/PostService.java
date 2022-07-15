@@ -29,16 +29,15 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Autowired
+    private final AuthService authService;
+
+    @Autowired
     private final ModelMapper modelMapper;
 
-    public Post save(PostCreateRequest postCreateRequest) {
-        log.debug("#################postCreateRequest###############"+postCreateRequest.toString());
+    public Long save(PostCreateRequest postCreateRequest) throws Exception {
         Post post = modelMapper.map(postCreateRequest, Post.class);
-        UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByUsername(userDetail.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userDetail.getUsername()));
-        post.setWriter(user);
+        post.setWriter(authService.getSessionUserFromJwt());
         log.debug("#################post###############"+post.toString());
-        return postRepository.save(post);
+        return postRepository.save(post).getPost_id();
     }
 }

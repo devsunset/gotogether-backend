@@ -34,7 +34,6 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @NotNull
     @ColumnDefault("'N'")
     private String deleted;
 
