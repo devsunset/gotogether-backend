@@ -1,6 +1,8 @@
 package com.gotogether.controller;
 
 import com.gotogether.entity.Post;
+import com.gotogether.payload.CommonResponse;
+import com.gotogether.payload.request.PostCreateRequest;
 import com.gotogether.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +22,8 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public ResponseEntity<?> save(@Valid @ModelAttribute Post post) throws Exception {
-        return null;
+    public ResponseEntity<?> save(@Valid @ModelAttribute PostCreateRequest postCreateRequest) throws Exception {
+        return CommonResponse.toResponseEntity(postService.save(postCreateRequest));
     }
 
     @ResponseStatus(HttpStatus.OK)
