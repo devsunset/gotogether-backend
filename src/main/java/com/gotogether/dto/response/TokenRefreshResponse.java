@@ -1,28 +1,32 @@
 package com.gotogether.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
-
+@Schema(description = "refreshToken 응답")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class TokenRefreshResponse {
+  @Schema(description = "token")
   private String token;
 
+  @Schema(description = "auth type")
   private String type = "Bearer";
+  @Schema(description = "refreshToken")
   private String refreshToken;
-
+  @Schema(description = "userid == username")
   private String username;
-
+  @Schema(description = "nickname")
   private String nickname;
-
+  @Schema(description = "email")
   private String email;
-
+  @Schema(description = "roles")
   private List<String> roles;
 
   public TokenRefreshResponse(String token, String refreshToken, String username, String nickname, String email, List<String> roles) {
