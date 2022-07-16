@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 @Setter
 @ToString
 @NoArgsConstructor
-public class SignupRequest {
+public class SignUpRequest {
 
     @Schema(description = "userid == username")
     @NotBlank

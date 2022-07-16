@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @ToString
 @NoArgsConstructor
-public class LoginRequest {
+public class LogInRequest {
 
 	@Schema(description = "userid == username")
 	@NotBlank

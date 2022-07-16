@@ -4,8 +4,8 @@ import com.gotogether.dto.CommonResponse;
 import com.gotogether.service.AuthService;
 import com.gotogether.service.UserRefreshTokenService;
 import com.gotogether.dto.request.LogOutRequest;
-import com.gotogether.dto.request.LoginRequest;
-import com.gotogether.dto.request.SignupRequest;
+import com.gotogether.dto.request.LogInRequest;
+import com.gotogether.dto.request.SignUpRequest;
 import com.gotogether.dto.request.TokenRefreshRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class AuthController {
 
   @Operation(summary = "signin", description = "signin api")
   @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest)  throws Exception {
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogInRequest loginRequest)  throws Exception {
     return CommonResponse.toResponseEntity(authService.authenticaeUser(loginRequest));
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest)  throws Exception {
+  public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest)  throws Exception {
     authService.registerUser(signUpRequest);
     return CommonResponse.toResponseEntity("","User registered successfully");
   }

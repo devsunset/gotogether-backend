@@ -4,8 +4,8 @@ import com.gotogether.entity.Role;
 import com.gotogether.entity.User;
 import com.gotogether.entity.UserActiveToken;
 import com.gotogether.entity.UserRefreshToken;
-import com.gotogether.dto.request.LoginRequest;
-import com.gotogether.dto.request.SignupRequest;
+import com.gotogether.dto.request.LogInRequest;
+import com.gotogether.dto.request.SignUpRequest;
 import com.gotogether.dto.request.TokenRefreshRequest;
 import com.gotogether.dto.response.JwtResponse;
 import com.gotogether.dto.response.TokenRefreshResponse;
@@ -62,7 +62,7 @@ public class AuthService {
     EmailSenderService emailSenderService;
 
 
-    public JwtResponse authenticaeUser(LoginRequest loginRequest) throws Exception {
+    public JwtResponse authenticaeUser(LogInRequest loginRequest) throws Exception {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -81,7 +81,7 @@ public class AuthService {
                 userDetails.getNickname(), userDetails.getEmail(), roles);
     }
 
-    public ResponseEntity<?> registerUser(SignupRequest signUpRequest) throws Exception {
+    public ResponseEntity<?> registerUser(SignUpRequest signUpRequest) throws Exception {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             throw new CustomException(ErrorCode.USER_ALREADY_USE);
