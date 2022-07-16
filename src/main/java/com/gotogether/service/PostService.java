@@ -1,6 +1,6 @@
 package com.gotogether.service;
 
-import com.gotogether.dto.request.PostCreateRequest;
+import com.gotogether.dto.request.PostRequest;
 import com.gotogether.entity.Post;
 import com.gotogether.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class PostService {
     @Autowired
     private final ModelMapper modelMapper;
 
-    public Long save(PostCreateRequest postCreateRequest) throws Exception {
+    public Long save(PostRequest postCreateRequest) throws Exception {
         Post post = modelMapper.map(postCreateRequest, Post.class);
-        post.setWriter(authService.getSessionUserFromJwt());
+        post.setWriter(authService.getSessionUser());
         return postRepository.save(post).getPost_id();
     }
 }

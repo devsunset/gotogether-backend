@@ -189,10 +189,16 @@ public class AuthService {
         */
     }
 
-    public User getSessionUserFromJwt() throws Exception {
+    public User getSessionUser() throws Exception {
         UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByUsername(userDetail.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userDetail.getUsername()));
         return user;
     }
+
+    public String getSessionUsername() throws Exception {
+        UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetail.getUsername();
+    }
+
 }

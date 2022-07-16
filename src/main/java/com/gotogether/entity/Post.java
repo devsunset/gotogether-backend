@@ -30,9 +30,11 @@ public class Post extends BaseEntity {
     @NotNull
     @Column(length = 20, nullable = false)
     private String category;
+
     @NotNull
     @Column(length = 255, nullable = false)
     private String title;
+
     @Lob
     @NotNull
     @Column(nullable = false)
@@ -46,6 +48,7 @@ public class Post extends BaseEntity {
 
     @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true, fetch = LAZY)
     private List<Comment> commentList = new ArrayList<>();
+
     @NotNull
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "username")

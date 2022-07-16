@@ -1,10 +1,10 @@
 package com.gotogether.controller;
 
-import com.gotogether.entity.Post;
 import com.gotogether.dto.CommonResponse;
-import com.gotogether.dto.request.PostCreateRequest;
+import com.gotogether.dto.request.PostRequest;
 import com.gotogether.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,38 +17,35 @@ import javax.validation.Valid;
 @RequestMapping("/api/post")
 @RequiredArgsConstructor
 public class PostController {
-
+    @Autowired
     private final PostService postService;
 
     @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
-    public ResponseEntity<?> save(@Valid @RequestBody PostCreateRequest postCreateRequest) throws Exception {
-        return CommonResponse.toResponseEntity(postService.save(postCreateRequest));
+    public ResponseEntity<?> save(@Valid @RequestBody PostRequest postRequest) throws Exception {
+        return CommonResponse.toResponseEntity(postService.save(postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/{postId}")
-    public ResponseEntity<?> update(@PathVariable("postId") Long postId,
-                       @ModelAttribute Post post) throws Exception {
-        return null;
-    }
-
-    @GetMapping("/{postId}")
-    public ResponseEntity<?> get(@PathVariable("postId") Long postId) throws Exception {
-//        return ResponseEntity.ok(postService.getPostInfo(postId));
-        return null;
+    @PutMapping("/")
+    public ResponseEntity<?> update(@Valid @RequestBody PostRequest postRequest) throws Exception {
+        return CommonResponse.toResponseEntity(postService.save(postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/{postId}")
-    public ResponseEntity<?> delete(@PathVariable("postId") Long postId) throws Exception {
+    @DeleteMapping("/{post_id}")
+    public ResponseEntity<?> delete(@PathVariable("post_id") Long postId) throws Exception {
         return null;
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> search(Pageable pageable,
-                                    @Valid @RequestBody Post post) throws Exception {
-//        return ResponseEntity.ok(postService.getPostList(pageable,post));
+    @GetMapping("/{post_id}")
+    public ResponseEntity<?> get(@PathVariable("post_id") Long postId) throws Exception {
+        return null;
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getList(Pageable pageable,
+                                    @Valid @RequestBody PostRequest postRequest) throws Exception {
         return null;
     }
 

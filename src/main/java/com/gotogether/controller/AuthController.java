@@ -25,7 +25,6 @@ public class AuthController {
   @Autowired
   UserRefreshTokenService userRefreshTokenService;
 
-
   @Operation(summary = "signin", description = "signin api")
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogInRequest loginRequest)  throws Exception {
