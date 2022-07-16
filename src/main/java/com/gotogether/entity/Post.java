@@ -2,6 +2,8 @@ package com.gotogether.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,6 +19,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@DynamicUpdate
 @Entity
 public class Post extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
@@ -46,10 +50,4 @@ public class Post extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "username")
     private User writer;
-    @Builder
-    public Post(String title, String content, User writer) {
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-    }
 }

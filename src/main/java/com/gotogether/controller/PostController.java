@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,13 +21,13 @@ public class PostController {
 
     private final PostService postService;
 
-    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
-    public ResponseEntity<?> save(@Valid @ModelAttribute PostCreateRequest postCreateRequest) throws Exception {
+    public ResponseEntity<?> save(@Valid @RequestBody PostCreateRequest postCreateRequest) throws Exception {
         return CommonResponse.toResponseEntity(postService.save(postCreateRequest));
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{postId}")
     public ResponseEntity<?> update(@PathVariable("postId") Long postId,
                        @ModelAttribute Post post) throws Exception {
@@ -39,7 +40,7 @@ public class PostController {
         return null;
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{postId}")
     public ResponseEntity<?> delete(@PathVariable("postId") Long postId) throws Exception {
         return null;
@@ -47,7 +48,7 @@ public class PostController {
 
     @GetMapping("/search")
     public ResponseEntity<?> search(Pageable pageable,
-                       @ModelAttribute Post post) throws Exception {
+                                    @Valid @RequestBody Post post) throws Exception {
 //        return ResponseEntity.ok(postService.getPostList(pageable,post));
         return null;
     }
