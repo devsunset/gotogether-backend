@@ -34,12 +34,12 @@ public class PostController {
 
     @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{post_id}")
-    public ResponseEntity<?> delete(@PathVariable("post_id") Long postId) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable("post_id") Long post_id) throws Exception {
         return null;
     }
 
     @GetMapping("/{post_id}")
-    public ResponseEntity<?> get(@PathVariable("post_id") Long postId) throws Exception {
+    public ResponseEntity<?> get(@PathVariable("post_id") Long post_id) throws Exception {
         return null;
     }
 

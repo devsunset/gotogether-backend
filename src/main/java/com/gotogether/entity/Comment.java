@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Table(name="COMMENT")
 @Getter
@@ -18,7 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @DynamicUpdate
 @Entity
 public class Comment extends BaseEntity {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "comment_id")
     private Long comment_id;
 
@@ -30,7 +31,7 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "username")
     private User writer;
 }

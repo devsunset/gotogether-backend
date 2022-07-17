@@ -2,6 +2,7 @@ package com.gotogether.service;
 
 import com.gotogether.dto.request.CommentRequest;
 import com.gotogether.entity.Comment;
+import com.gotogether.entity.Post;
 import com.gotogether.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

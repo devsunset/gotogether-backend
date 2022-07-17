@@ -93,7 +93,7 @@ logging:
           dao:
             mapper: TRACE
       zaxxer:
-        hikari: TRACE
+        hikari: ERROR
       gotogether: DEBUG
     jdbc: debug
     org:

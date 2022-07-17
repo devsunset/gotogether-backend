@@ -3,10 +3,10 @@ package com.gotogether.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-@Schema(description = "Comment 생성 요청")
+@Schema(description = "Comment 요청")
 @Getter
 @Setter
 @ToString
@@ -14,10 +14,8 @@ import javax.validation.constraints.NotBlank;
 public class CommentRequest {
 
     @Schema(description = "post_id")
+    @NotNull
     private Long post_id;
-
-    @Column(name = "comment_id")
-    private Long comment_id;
 
     @Schema(description = "Comment 내용")
     @NotBlank
