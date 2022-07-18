@@ -20,22 +20,23 @@ public class PostController {
     @Autowired
     private final PostService postService;
 
-    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody PostRequest postRequest) throws Exception {
         return CommonResponse.toResponseEntity(postService.save(postRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/")
-    public ResponseEntity<?> update(@Valid @RequestBody PostRequest postRequest) throws Exception {
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PutMapping("/{post_id}")
+    public ResponseEntity<?> update(@PathVariable("post_id") Long post_id, @Valid @RequestBody PostRequest postRequest) throws Exception {
         return CommonResponse.toResponseEntity(postService.save(postRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{post_id}")
     public ResponseEntity<?> delete(@PathVariable("post_id") Long post_id) throws Exception {
-        return null;
+        postService.delete(post_id);
+        return CommonResponse.toResponseEntity();
     }
 
     @GetMapping("/{post_id}")

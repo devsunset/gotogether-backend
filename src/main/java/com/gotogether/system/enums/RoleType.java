@@ -1,7 +1,7 @@
 package com.gotogether.system.enums;
 
 public enum RoleType {
-  ROLE_NOT_APPROVE,
+  ROLE_GUEST,
   ROLE_USER,
   ROLE_ADMIN
 }

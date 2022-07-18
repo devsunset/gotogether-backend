@@ -28,4 +28,8 @@ public class PostService {
         post.setWriter(authService.getSessionUser());
         return postRepository.save(post).getPost_id();
     }
+
+    public void delete(Long post_id) throws Exception {
+        postRepository.deleteById(post_id);
+    }
 }

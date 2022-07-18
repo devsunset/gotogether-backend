@@ -102,7 +102,7 @@ public class AuthService {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByRolename(RoleType.ROLE_NOT_APPROVE)
+            Role userRole = roleRepository.findByRolename(RoleType.ROLE_GUEST)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
@@ -121,7 +121,7 @@ public class AuthService {
 
                         break;
                     default:
-                        Role notApproveRole = roleRepository.findByRolename(RoleType.ROLE_NOT_APPROVE)
+                        Role notApproveRole = roleRepository.findByRolename(RoleType.ROLE_GUEST)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(notApproveRole);
                 }
@@ -199,6 +199,17 @@ public class AuthService {
     public String getSessionUsername() throws Exception {
         UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetail.getUsername();
+    }
+
+    public String getSessionUserRole() throws Exception {
+        UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByUsername(userDetail.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userDetail.getUsername()));
+        String rolename = RoleType.ROLE_GUEST.toString();
+        for (Role element :user.getRoles()) {
+            rolename = element.getRolename().toString();
+        }
+        return rolename;
     }
 
 }

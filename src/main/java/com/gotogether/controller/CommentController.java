@@ -18,21 +18,22 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody CommentRequest commentRequest) throws Exception {
         return CommonResponse.toResponseEntity(commentService.save(commentRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/")
-    public ResponseEntity<?> update(@Valid @RequestBody CommentRequest commentRequest) throws Exception {
-        return CommonResponse.toResponseEntity(commentService.save(commentRequest));
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PutMapping("/{comment_id}")
+    public ResponseEntity<?> update(@PathVariable("comment_id") Long comment_id, @Valid @RequestBody CommentRequest commentRequest) throws Exception {
+        return CommonResponse.toResponseEntity(commentService.update(comment_id,commentRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_NOT_APPROVE') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{comment_id}")
     public ResponseEntity<?> delete(@PathVariable("comment_id") Long comment_id) throws Exception {
-        return null;
+        commentService.delete(comment_id);
+        return CommonResponse.toResponseEntity();
     }
 }

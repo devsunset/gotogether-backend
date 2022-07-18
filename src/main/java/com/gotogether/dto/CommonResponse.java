@@ -23,6 +23,22 @@ public class CommonResponse {
     private final String description;
     private final Object data;
 
+    public static ResponseEntity<CommonResponse> toResponseEntity() {
+        ErrorCode errorCode = ErrorCode.OK;
+        return ResponseEntity
+                .status(errorCode.getHttpStatus())
+                .body(CommonResponse.builder()
+                        .result(Constants.Result.SUCCESS)
+                        .status(errorCode.getHttpStatus().value())
+                        .error(errorCode.getHttpStatus().name())
+                        .code(errorCode.name())
+                        .message(errorCode.getDescription())
+                        .description(errorCode.getDescription())
+                        .data("")
+                        .build()
+                );
+    }
+
     public static ResponseEntity<CommonResponse> toResponseEntity(Object obj) {
         ErrorCode errorCode = ErrorCode.OK;
         return ResponseEntity
