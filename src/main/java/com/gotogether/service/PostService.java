@@ -23,8 +23,8 @@ public class PostService {
     @Autowired
     private final ModelMapper modelMapper;
 
-    public Long save(PostRequest postCreateRequest) throws Exception {
-        Post post = modelMapper.map(postCreateRequest, Post.class);
+    public Long save(PostRequest postRequest) throws Exception {
+        Post post = modelMapper.map(postRequest, Post.class);
         post.setWriter(authService.getSessionUser());
         return postRepository.save(post).getPost_id();
     }

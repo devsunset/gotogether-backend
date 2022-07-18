@@ -46,8 +46,9 @@ public class Post extends BaseEntity {
     @ColumnDefault("0")
     private int hit;
 
-    @OneToMany(mappedBy = "post", cascade = ALL, orphanRemoval = true, fetch = LAZY)
-    private List<Comment> commentList = new ArrayList<>();
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("createdDate asc")
+    private List<Comment> comments;
 
     @NotNull
     @ManyToOne(fetch = LAZY)
