@@ -1,11 +1,14 @@
 package com.gotogether.controller;
 
+import com.gotogether.dto.request.CommentRequest;
+import com.gotogether.dto.request.PostRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
@@ -26,5 +29,14 @@ public class TestController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String adminAccess() throws Exception {
 		return "Admin Board.";
+	}
+
+
+	@PostMapping("/xss/{name}")
+	public String xss(@PathVariable("name") String name, @Valid @RequestBody PostRequest postRequest, @ModelAttribute CommentRequest commentRequest) throws Exception {
+		log.debug("########### name : "+name);
+		log.debug("########### PostRequest : "+postRequest.toString());
+		log.debug("########### CommentRequest : "+commentRequest.toString());
+		return "XSS-TEST";
 	}
 }
