@@ -3,6 +3,7 @@ package com.gotogether.service;
 import com.gotogether.dto.request.PostRequest;
 import com.gotogether.entity.Post;
 import com.gotogether.repository.PostRepository;
+import com.gotogether.system.constants.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,14 @@ public class PostService {
 
     public Long save(PostRequest postRequest) throws Exception {
         Post post = modelMapper.map(postRequest, Post.class);
+        post.setWriter(authService.getSessionUser());
+        return postRepository.save(post).getPost_id();
+    }
+
+    public Long update(Long post_id, PostRequest postRequest) throws Exception {
+        Post post = modelMapper.map(postRequest, Post.class);
+        post.setPost_id(post_id);
+        post.setDeleted(Constants.NO);
         post.setWriter(authService.getSessionUser());
         return postRepository.save(post).getPost_id();
     }
