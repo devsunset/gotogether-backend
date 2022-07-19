@@ -17,12 +17,13 @@ public class FilterConfig{
     }
 
     @Bean
+    public XssEscapeServletFilter xssFilterBean(){
+        return new XssEscapeServletFilter();
+    }
+
+    @Bean
     public RequestBodyXSSFIleter requestBodyXSSFIleterBean(){
         return new RequestBodyXSSFIleter();
     }
 
-    @Bean
-    public XssEscapeServletFilter xssFilterBean(){
-        return new XssEscapeServletFilter();
-    }
 }

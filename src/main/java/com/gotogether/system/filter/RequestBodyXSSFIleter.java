@@ -16,11 +16,16 @@ public class RequestBodyXSSFIleter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         RequestWrapper requestWrapper = null;
-        try {requestWrapper = new RequestWrapper(request);}
-        catch (Exception e) {
-            e.printStackTrace();
+        //xss h2-console skip
+        if(((HttpServletRequest) req).getRequestURL().indexOf("/h2-console") > -1){
+            chain.doFilter(request, response);
+        }else{
+            try {requestWrapper = new RequestWrapper(request);}
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            chain.doFilter(requestWrapper, response);
         }
-        chain.doFilter(requestWrapper, response);
     }
 
     @Override
