@@ -1,13 +1,20 @@
 package com.gotogether.service;
 
 import com.gotogether.dto.request.CommentRequest;
+import com.gotogether.dto.response.CommentResponse;
 import com.gotogether.entity.Comment;
+import com.gotogether.entity.Post;
 import com.gotogether.repository.CommentRepository;
+import com.gotogether.repository.PostRepository;
+import com.gotogether.system.util.ObjectMapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -16,6 +23,8 @@ public class CommentService{
 
     @Autowired
     private final CommentRepository commentRepository;
+    @Autowired
+    private final PostRepository postRepository;
     @Autowired
     private final AuthService authService;
     @Autowired
@@ -35,7 +44,14 @@ public class CommentService{
         return commentRepository.save(comment).getComment_id();
     }
 
-    public void delete(Long comment_id) {
+    public void delete(Long comment_id) throws Exception {
         commentRepository.deleteById(comment_id);
+    }
+
+    public  List<CommentResponse> getList(Long post_id) throws Exception {
+        Post post = postRepository.findById(post_id).orElseThrow(() ->
+                new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + post_id));
+        List<Comment> comments = post.getComments();
+        return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
     }
 }

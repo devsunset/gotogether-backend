@@ -40,12 +40,12 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}")
-    public ResponseEntity<?> get(@PathVariable("post_id") Long post_id) throws Exception {
+    public ResponseEntity<?> getDetail(@PathVariable("post_id") Long post_id) throws Exception {
         return null;
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getList(Pageable pageable,
+    public ResponseEntity<?> getPageList(Pageable pageable,
                                     @Valid @RequestBody PostRequest postRequest) throws Exception {
         return null;
     }

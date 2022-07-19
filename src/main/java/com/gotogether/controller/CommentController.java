@@ -36,4 +36,9 @@ public class CommentController {
         commentService.delete(comment_id);
         return CommonResponse.toResponseEntity();
     }
+
+    @GetMapping("/{post_id}")
+    public ResponseEntity<?> getList(@PathVariable("post_id") Long post_id) throws Exception {
+        return CommonResponse.toResponseEntity(commentService.getList(post_id));
+    }
 }
