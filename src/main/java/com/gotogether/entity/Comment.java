@@ -31,7 +31,7 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @OneToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "username")
     private User writer;
 }
