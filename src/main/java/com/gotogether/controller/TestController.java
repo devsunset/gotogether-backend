@@ -1,12 +1,15 @@
 package com.gotogether.controller;
 
+import com.gotogether.dto.CommonResponse;
 import com.gotogether.dto.request.CommentRequest;
 import com.gotogether.dto.request.PostRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -32,11 +35,13 @@ public class TestController {
 	}
 
 
-	@PostMapping("/xss/{name}")
-	public String xss(@PathVariable("name") String name, @Valid @RequestBody PostRequest postRequest, @ModelAttribute CommentRequest commentRequest) throws Exception {
-		log.debug("########### name : "+name);
+	@PostMapping("/xss/")
+	public ResponseEntity<?> xss(@Valid @RequestBody PostRequest postRequest, @ModelAttribute CommentRequest commentRequest) throws Exception {
 		log.debug("########### PostRequest : "+postRequest.toString());
 		log.debug("########### CommentRequest : "+commentRequest.toString());
-		return "XSS-TEST";
+		ArrayList<Object> result = new ArrayList<Object>();
+		result.add(postRequest);
+		result.add(commentRequest);
+		return CommonResponse.toResponseEntity(result);
 	}
 }

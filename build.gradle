@@ -54,6 +54,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'org.modelmapper:modelmapper:3.1.0'
 	implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
+	implementation 'commons-io:commons-io:2.11.0'
 }
 
 dependencyManagement {
