@@ -103,26 +103,26 @@ public class AuthService {
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByRolename(RoleType.ROLE_GUEST)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByRolename(RoleType.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
                         roles.add(adminRole);
 
                         break;
                     case "user":
                         Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
                         roles.add(userRole);
 
                         break;
                     default:
                         Role notApproveRole = roleRepository.findByRolename(RoleType.ROLE_GUEST)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
                         roles.add(notApproveRole);
                 }
             });
@@ -165,7 +165,7 @@ public class AuthService {
         Set<Role> roles = new HashSet<>();
 
         Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
         roles.add(userRole);
 
         user.setRoles(roles);

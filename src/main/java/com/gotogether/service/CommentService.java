@@ -6,6 +6,8 @@ import com.gotogether.entity.Comment;
 import com.gotogether.entity.Post;
 import com.gotogether.repository.CommentRepository;
 import com.gotogether.repository.PostRepository;
+import com.gotogether.system.enums.ErrorCode;
+import com.gotogether.system.exception.CustomException;
 import com.gotogether.system.util.ObjectMapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +52,7 @@ public class CommentService{
 
     public  List<CommentResponse> getList(Long post_id) throws Exception {
         Post post = postRepository.findById(post_id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + post_id));
+                new CustomException(ErrorCode.NOT_EXISTS_POST));
         List<Comment> comments = post.getComments();
         return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
     }
