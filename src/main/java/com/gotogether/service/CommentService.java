@@ -8,7 +8,6 @@ import com.gotogether.repository.CommentRepository;
 import com.gotogether.repository.PostRepository;
 import com.gotogether.system.enums.ErrorCode;
 import com.gotogether.system.exception.CustomException;
-import com.gotogether.system.util.ObjectMapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
