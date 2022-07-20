@@ -45,9 +45,9 @@ public class CommentService{
         Comment orignal = commentRepository.findById(comment_id).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
 
-        if(!user.getRoles().contains(Constants.ROLE_ADMIN)){
-            if(!user.getUsername().equals(orignal.getWriter().getUsername())){
-                new CustomException(ErrorCode.NOT_WRITE_POST);
+        if(!(user.getRoles().contains(Constants.ROLE_ADMIN))){
+            if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
+                throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
 
@@ -62,9 +62,9 @@ public class CommentService{
         Comment orignal = commentRepository.findById(comment_id).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
 
-        if(!user.getRoles().contains(Constants.ROLE_ADMIN)){
-            if(!user.getUsername().equals(orignal.getWriter().getUsername())){
-                new CustomException(ErrorCode.NOT_WRITE_POST);
+        if(!(user.getRoles().contains(Constants.ROLE_ADMIN))){
+            if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
+                throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
 
