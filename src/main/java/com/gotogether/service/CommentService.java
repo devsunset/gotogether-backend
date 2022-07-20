@@ -10,6 +10,7 @@ import com.gotogether.repository.PostRepository;
 import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
 import com.gotogether.system.exception.CustomException;
+import com.gotogether.system.util.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -45,7 +46,7 @@ public class CommentService{
         Comment orignal = commentRepository.findById(comment_id).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
 
-        if(!(user.getRoles().contains(Constants.ROLE_ADMIN))){
+        if(!(Utils.isAdmin(user.getRoles()))){
             if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
@@ -62,7 +63,7 @@ public class CommentService{
         Comment orignal = commentRepository.findById(comment_id).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
 
-        if(!(user.getRoles().contains(Constants.ROLE_ADMIN))){
+        if(!(Utils.isAdmin(user.getRoles()))){
             if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }

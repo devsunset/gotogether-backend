@@ -1,5 +1,7 @@
 package com.gotogether.system.filter;
 
+import com.gotogether.system.constants.Constants;
+
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,7 +19,7 @@ public class RequestBodyXSSFIleter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         RequestWrapper requestWrapper = null;
         //xss h2-console skip
-        if(((HttpServletRequest) req).getRequestURL().indexOf("/h2-console") > -1){
+        if(((HttpServletRequest) req).getRequestURL().indexOf(Constants.XSS_H2CONSOLE_SKIP) > -1){
             chain.doFilter(request, response);
         }else{
             try {requestWrapper = new RequestWrapper(request);}

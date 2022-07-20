@@ -46,8 +46,8 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}")
-    public ResponseEntity<?> getDetail(@PathVariable("post_id") Long post_id) throws Exception {
-        return null;
+    public ResponseEntity<?> get(@PathVariable("post_id") Long post_id) throws Exception {
+        return CommonResponse.toResponseEntity(postService.get(post_id));
     }
 
     @GetMapping("/list")

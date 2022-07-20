@@ -26,8 +26,8 @@ public class CommentResponse {
     public CommentResponse(Comment comment) {
         this.comment_id = comment.getComment_id();
         this.content = comment.getContent();
-        this.createdDate = comment.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));;
-        this.modifiedDate = comment.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));;
+        this.createdDate = comment.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
+        this.modifiedDate = comment.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.nickname = comment.getWriter().getNickname();
         this.username = comment.getWriter().getUsername();
         this.post_id = comment.getPost().getPost_id();
