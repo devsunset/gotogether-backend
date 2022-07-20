@@ -38,6 +38,12 @@ public class PostService {
         return postRepository.save(post).getPost_id();
     }
 
+    public Long changecategory(Long post_id, PostRequest postRequest) throws Exception {
+        Post post = postRepository.getById(post_id);
+        post.setCategory(postRequest.getCategory());
+        return postRepository.save(post).getPost_id();
+    }
+
     public void delete(Long post_id) throws Exception {
         postRepository.deleteById(post_id);
     }

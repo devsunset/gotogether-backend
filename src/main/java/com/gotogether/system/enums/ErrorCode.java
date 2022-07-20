@@ -22,7 +22,9 @@ public enum ErrorCode {
     NEED_TO_LOGIN(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
 
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "회원을 찾을 수 없습니다."),
-    NOT_EXISTS_POST(HttpStatus.BAD_REQUEST, "해당 게시물이 존재 하지 않습니다.");
+    NOT_EXISTS_POST(HttpStatus.BAD_REQUEST, "해당 게시물이 존재 하지 않습니다."),
+
+    NOT_WRITE_POST(HttpStatus.UNAUTHORIZED, "본인이 작성 한 게시물이 아닙니다.");
 
     private final HttpStatus httpStatus;
     private final String description;

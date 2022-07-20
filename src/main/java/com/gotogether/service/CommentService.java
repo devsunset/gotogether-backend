@@ -4,8 +4,10 @@ import com.gotogether.dto.request.CommentRequest;
 import com.gotogether.dto.response.CommentResponse;
 import com.gotogether.entity.Comment;
 import com.gotogether.entity.Post;
+import com.gotogether.entity.User;
 import com.gotogether.repository.CommentRepository;
 import com.gotogether.repository.PostRepository;
+import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
 import com.gotogether.system.exception.CustomException;
 import lombok.RequiredArgsConstructor;
@@ -39,13 +41,33 @@ public class CommentService{
     }
 
     public Long update(Long comment_id, CommentRequest commentRequest) throws Exception {
+        User user = authService.getSessionUser();
+        Comment orignal = commentRepository.findById(comment_id).orElseThrow(() ->
+                new CustomException(ErrorCode.NOT_EXISTS_POST));
+
+        if(!user.getRoles().contains(Constants.ROLE_ADMIN)){
+            if(!user.getUsername().equals(orignal.getWriter().getUsername())){
+                new CustomException(ErrorCode.NOT_WRITE_POST);
+            }
+        }
+
         Comment comment = modelMapper.map(commentRequest, Comment.class);
         comment.setComment_id(comment_id);
-        comment.setWriter(authService.getSessionUser());
+        comment.setWriter(user);
         return commentRepository.save(comment).getComment_id();
     }
 
     public void delete(Long comment_id) throws Exception {
+        User user = authService.getSessionUser();
+        Comment orignal = commentRepository.findById(comment_id).orElseThrow(() ->
+                new CustomException(ErrorCode.NOT_EXISTS_POST));
+
+        if(!user.getRoles().contains(Constants.ROLE_ADMIN)){
+            if(!user.getUsername().equals(orignal.getWriter().getUsername())){
+                new CustomException(ErrorCode.NOT_WRITE_POST);
+            }
+        }
+
         commentRepository.deleteById(comment_id);
     }
 

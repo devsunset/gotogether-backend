@@ -32,6 +32,12 @@ public class PostController {
         return CommonResponse.toResponseEntity(postService.update(post_id,postRequest));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/changecategory/{post_id}")
+    public ResponseEntity<?> changecategory(@PathVariable("post_id") Long post_id, @Valid @RequestBody PostRequest postRequest) throws Exception {
+        return CommonResponse.toResponseEntity(postService.changecategory(post_id,postRequest));
+    }
+
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{post_id}")
     public ResponseEntity<?> delete(@PathVariable("post_id") Long post_id) throws Exception {
