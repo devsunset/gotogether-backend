@@ -11,12 +11,14 @@ import lombok.ToString;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Schema(description = "Error 공통 응답")
 @Getter
 @ToString
 @Builder
 public class ErrorResponse {
-    private final LocalDateTime timestamp = LocalDateTime.now();
+    private final String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_MIS_FORMAT));
     private final String result;
     private final int status;
     private final String error;
