@@ -92,6 +92,9 @@ public class PostService {
     public PostResponse get(Long post_id) {
         Post post = postRepository.findById(post_id).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
+        postRepository.updateHit(post_id);
         return new PostResponse(post);
     }
+
+
 }
