@@ -127,8 +127,11 @@ public class PostService {
         if(!(Utils.isValidPostType(postSearchCondition.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "postId"));
+
+        log.info("###########################");
+        log.info(pageable.toString());
+//        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+//        pageable = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "postId"));
 
         return postRepository.findByCategory(postSearchCondition.getCategory(), pageable).map(PostResponse::new);
     }

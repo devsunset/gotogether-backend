@@ -54,8 +54,8 @@ public class PostController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<?> getPageList(@PageableDefault(sort = "postId", direction = Sort.Direction.DESC)
-                                         Pageable pageable,
+    public ResponseEntity<?> getPageList(@PageableDefault(size=3, sort = "postId", direction = Sort.Direction.DESC)
+                                             Pageable pageable,
                                     @Valid @RequestBody PostSearchCondition postSearchCondition ) throws Exception {
         return CommonResponse.toResponseEntity(postService.getList(pageable,postSearchCondition));
     }
