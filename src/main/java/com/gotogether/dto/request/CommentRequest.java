@@ -10,12 +10,11 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentRequest {
 
-    @Schema(description = "post_id")
+    @Schema(description = "postId")
     @NotNull
-    private Long post_id;
+    private Long postId;
 
     @Schema(description = "Comment 내용")
     @NotBlank

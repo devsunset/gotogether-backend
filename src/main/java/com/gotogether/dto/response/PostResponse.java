@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostResponse {
-    private Long post_id;
+    private Long postId;
     private String category;
     private String title;
     private String content;
@@ -26,7 +26,7 @@ public class PostResponse {
 
     /* Entity -> Response*/
     public PostResponse(Post post){
-        this.post_id = post.getPost_id();
+        this.postId = post.getPostId();
         this.category = post.getCategory();
         this.title = post.getTitle();
         this.content = post.getContent();

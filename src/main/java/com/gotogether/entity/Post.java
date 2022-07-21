@@ -1,7 +1,5 @@
 package com.gotogether.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -24,8 +22,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Post extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "post_id")
-    private Long post_id;
+    private Long postId;
 
     @NotNull
     @Column(length = 20, nullable = false)
@@ -39,9 +36,6 @@ public class Post extends BaseEntity {
     @NotNull
     @Column(nullable = false)
     private String content;
-
-    @ColumnDefault("'N'")
-    private String deleted;
 
     @ColumnDefault("0")
     private int hit;

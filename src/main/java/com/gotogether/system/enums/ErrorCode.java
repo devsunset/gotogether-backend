@@ -24,6 +24,8 @@ public enum ErrorCode {
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "회원을 찾을 수 없습니다."),
     NOT_EXISTS_POST(HttpStatus.BAD_REQUEST, "해당 게시물이 존재 하지 않습니다."),
     NOT_POST_TYPE(HttpStatus.BAD_REQUEST, "유효한 Post Category 값이 아닙니다."),
+
+    NOT_CHANG_EQUAL_CATEGEORY(HttpStatus.BAD_REQUEST, "동일한 Post Category 로 변경이 안됩니다."),
     NOT_ROLE_ADMIN(HttpStatus.BAD_REQUEST, "Admin 권한이 아닙니다."),
     NOT_WRITE_POST(HttpStatus.UNAUTHORIZED, "본인이 작성 한 게시물이 아닙니다.");
 

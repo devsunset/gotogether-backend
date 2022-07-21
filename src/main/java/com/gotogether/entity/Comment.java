@@ -1,8 +1,6 @@
 package com.gotogether.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -22,8 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Comment extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "comment_id")
-    private Long comment_id;
+    private Long commentId;
 
     @ManyToOne
     @JoinColumn(name = "post_id")

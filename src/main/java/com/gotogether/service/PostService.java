@@ -1,5 +1,6 @@
 package com.gotogether.service;
 
+import com.gotogether.dto.request.CommentRequest;
 import com.gotogether.dto.request.PostRequest;
 import com.gotogether.dto.request.PostSearchCondition;
 import com.gotogether.dto.response.PostResponse;
@@ -14,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -31,6 +33,9 @@ public class PostService {
     private final AuthService authService;
 
     @Autowired
+    private final CommentService commentService;
+
+    @Autowired
     private final ModelMapper modelMapper;
 
     public Long save(PostRequest postRequest) throws Exception {
@@ -39,15 +44,15 @@ public class PostService {
         }
         Post post = modelMapper.map(postRequest, Post.class);
         post.setWriter(authService.getSessionUser());
-        return postRepository.save(post).getPost_id();
+        return postRepository.save(post).getPostId();
     }
 
-    public Long update(Long post_id, PostRequest postRequest) throws Exception {
+    public Long update(Long postId, PostRequest postRequest) throws Exception {
         if(!(Utils.isValidPostType(postRequest.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
         User user = authService.getSessionUser();
-        Post orignal = postRepository.findById(post_id).orElseThrow(() ->
+        Post orignal = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
 
         if(!(Utils.isAdmin(user.getRoles()))){
@@ -57,32 +62,50 @@ public class PostService {
         }
 
         Post post = modelMapper.map(postRequest, Post.class);
-        post.setPost_id(post_id);
-        post.setDeleted(Constants.NO);
+        post.setPostId(postId);
         post.setWriter(authService.getSessionUser());
-        return postRepository.save(post).getPost_id();
+        return postRepository.save(post).getPostId();
     }
 
-    public Long changecategory(Long post_id, PostRequest postRequest) throws Exception {
+    public Long changecategory(Long postId, PostRequest postRequest) throws Exception {
         if(!(Utils.isValidPostType(postRequest.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
 
         User user = authService.getSessionUser();
-        Post post = postRepository.findById(post_id).orElseThrow(() ->
+        Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
+
+        if(post.getCategory().equals(postRequest.getCategory())){
+            throw new CustomException(ErrorCode.NOT_CHANG_EQUAL_CATEGEORY);
+        }
 
         if(!(Utils.isAdmin(user.getRoles()))){
             throw new CustomException(ErrorCode.NOT_ROLE_ADMIN);
         }
 
         post.setCategory(postRequest.getCategory());
-        return postRepository.save(post).getPost_id();
+        Long postId_result = postRepository.save(post).getPostId();
+
+        //Comment Service
+        CommentRequest commentRequest = new CommentRequest();
+        commentRequest.setPostId(postId);
+
+        String content = "";
+        if(Constants.PostType.TALK.equals(postRequest.getCategory())){
+            content = "QA 에서 TALK 게시판으로 "+user.getNickname()+"(관리자)에 의해 이동 되었습니다.";
+        }else{
+            content = "TALK 에서 QA 게시판으로 "+user.getNickname()+"(관리자)에 의해 이동 되었습니다.";
+        }
+        commentRequest.setContent(content);
+        commentService.save(commentRequest);
+
+        return postId_result;
     }
 
-    public void delete(Long post_id) throws Exception {
+    public void delete(Long postId) throws Exception {
         User user = authService.getSessionUser();
-        Post post = postRepository.findById(post_id).orElseThrow(() ->
+        Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
 
         if(!(Utils.isAdmin(user.getRoles()))){
@@ -90,21 +113,23 @@ public class PostService {
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
-        postRepository.deleteById(post_id);
+        postRepository.deleteById(postId);
     }
 
-    public PostResponse get(Long post_id) {
-        Post post = postRepository.findById(post_id).orElseThrow(() ->
+    public PostResponse get(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_POST));
-        postRepository.updateHit(post_id);
+        postRepository.updateHit(postId);
         return new PostResponse(post);
     }
 
-    public List<PostResponse> getList(Pageable pageable, PostSearchCondition postSearchCondition) {
+    public Page<Post> getList(Pageable pageable, PostSearchCondition postSearchCondition) {
         if(!(Utils.isValidPostType(postSearchCondition.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "postId"));
 
-        return null;
+        return postRepository.findByCategory(postSearchCondition.getCategory(), pageable);
     }
 }

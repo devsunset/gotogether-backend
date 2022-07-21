@@ -7,6 +7,8 @@ import com.gotogether.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,31 +30,32 @@ public class PostController {
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/{post_id}")
-    public ResponseEntity<?> update(@PathVariable("post_id") Long post_id, @Valid @RequestBody PostRequest postRequest) throws Exception {
-        return CommonResponse.toResponseEntity(postService.update(post_id,postRequest));
+    @PutMapping("/{postId}")
+    public ResponseEntity<?> update(@PathVariable("postId") Long postId, @Valid @RequestBody PostRequest postRequest) throws Exception {
+        return CommonResponse.toResponseEntity(postService.update(postId,postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/changecategory/{post_id}")
-    public ResponseEntity<?> changecategory(@PathVariable("post_id") Long post_id, @Valid @RequestBody PostRequest postRequest) throws Exception {
-        return CommonResponse.toResponseEntity(postService.changecategory(post_id,postRequest));
+    @PutMapping("/changecategory/{postId}")
+    public ResponseEntity<?> changecategory(@PathVariable("postId") Long postId, @Valid @RequestBody PostRequest postRequest) throws Exception {
+        return CommonResponse.toResponseEntity(postService.changecategory(postId,postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/{post_id}")
-    public ResponseEntity<?> delete(@PathVariable("post_id") Long post_id) throws Exception {
-        postService.delete(post_id);
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> delete(@PathVariable("postId") Long postId) throws Exception {
+        postService.delete(postId);
         return CommonResponse.toResponseEntity();
     }
 
-    @GetMapping("/{post_id}")
-    public ResponseEntity<?> get(@PathVariable("post_id") Long post_id) throws Exception {
-        return CommonResponse.toResponseEntity(postService.get(post_id));
+    @GetMapping("/{postId}")
+    public ResponseEntity<?> get(@PathVariable("postId") Long postId) throws Exception {
+        return CommonResponse.toResponseEntity(postService.get(postId));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<?> getPageList(Pageable pageable,
+    @PostMapping("/list")
+    public ResponseEntity<?> getPageList(@PageableDefault(sort = "postId", direction = Sort.Direction.DESC)
+                                         Pageable pageable,
                                     @Valid @RequestBody PostSearchCondition postSearchCondition ) throws Exception {
         return CommonResponse.toResponseEntity(postService.getList(pageable,postSearchCondition));
     }
