@@ -93,9 +93,9 @@ public class PostService {
 
         String content = "";
         if(Constants.PostType.TALK.equals(postRequest.getCategory())){
-            content = "QA 에서 TALK 게시판으로 "+user.getNickname()+"(관리자)에 의해 이동 되었습니다.";
+            content = "QA 게시판 에서 TALK 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
         }else{
-            content = "TALK 에서 QA 게시판으로 "+user.getNickname()+"(관리자)에 의해 이동 되었습니다.";
+            content = "TALK 게시판 에서  QA 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
         }
         commentRequest.setContent(content);
         commentService.save(commentRequest);
@@ -123,13 +123,13 @@ public class PostService {
         return new PostResponse(post);
     }
 
-    public Page<Post> getList(Pageable pageable, PostSearchCondition postSearchCondition) {
+    public Page<PostResponse> getList(Pageable pageable, PostSearchCondition postSearchCondition) {
         if(!(Utils.isValidPostType(postSearchCondition.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "postId"));
 
-        return postRepository.findByCategory(postSearchCondition.getCategory(), pageable);
+        return postRepository.findByCategory(postSearchCondition.getCategory(), pageable).map(PostResponse::new);
     }
 }
