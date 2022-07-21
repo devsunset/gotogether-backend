@@ -91,9 +91,9 @@ public class PostService {
 
         String content = "";
         if(Constants.PostType.TALK.equals(postRequest.getCategory())){
-            content = "QA 게시판 에서 TALK 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
+            content = "QA ---&gt; TALK 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
         }else{
-            content = "TALK 게시판 에서  QA 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
+            content = "TALK ---&gt; QA 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
         }
         commentRequest.setContent(content);
         commentService.save(commentRequest);
