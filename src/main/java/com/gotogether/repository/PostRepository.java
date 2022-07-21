@@ -1,6 +1,5 @@
 package com.gotogether.repository;
 
-import com.gotogether.dto.response.PostResponse;
 import com.gotogether.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     int updateHit(Long postId);
 
     Page<Post> findByCategory(String category, Pageable pageable);
+
+    Page<Post> findByCategoryAndTitleLikeOrCategoryAndContentLike(String categoryOne, String title,String categoryTwo, String content,Pageable pageable);
 
 }

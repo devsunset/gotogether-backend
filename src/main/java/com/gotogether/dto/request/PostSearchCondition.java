@@ -14,5 +14,5 @@ public class PostSearchCondition {
     private String category;
 
     @Schema(description = "검색어")
-    private String word;
+    private String keyword;
 }

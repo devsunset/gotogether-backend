@@ -16,9 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -128,11 +126,10 @@ public class PostService {
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
 
-        log.info("###########################");
-        log.info(pageable.toString());
-//        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-//        pageable = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "postId"));
-
-        return postRepository.findByCategory(postSearchCondition.getCategory(), pageable).map(PostResponse::new);
+        if(postSearchCondition.getKeyword() !=null && "".equalsIgnoreCase(postSearchCondition.getKeyword().trim())){
+            return postRepository.findByCategoryAndTitleLikeOrCategoryAndContentLike(postSearchCondition.getCategory(), postSearchCondition.getKeyword(),postSearchCondition.getCategory(), postSearchCondition.getKeyword(), pageable).map(PostResponse::new);
+        }else{
+            return postRepository.findByCategory(postSearchCondition.getCategory(), pageable).map(PostResponse::new);
+        }
     }
 }
