@@ -19,8 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -53,7 +51,7 @@ public class PostService {
         }
         User user = authService.getSessionUser();
         Post orignal = postRepository.findById(postId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
         if(!(Utils.isAdmin(user.getRoles()))){
             if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
@@ -74,7 +72,7 @@ public class PostService {
 
         User user = authService.getSessionUser();
         Post post = postRepository.findById(postId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
         if(post.getCategory().equals(postRequest.getCategory())){
             throw new CustomException(ErrorCode.NOT_CHANG_EQUAL_CATEGEORY);
@@ -106,7 +104,7 @@ public class PostService {
     public void delete(Long postId) throws Exception {
         User user = authService.getSessionUser();
         Post post = postRepository.findById(postId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
         if(!(Utils.isAdmin(user.getRoles()))){
             if(!(user.getUsername().equals(post.getWriter().getUsername()))){
@@ -116,14 +114,14 @@ public class PostService {
         postRepository.deleteById(postId);
     }
 
-    public PostResponse get(Long postId) {
+    public PostResponse get(Long postId) throws Exception {
         Post post = postRepository.findById(postId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
         postRepository.updateHit(postId);
         return new PostResponse(post);
     }
 
-    public Page<PostResponse> getList(Pageable pageable, PostSearchCondition postSearchCondition) {
+    public Page<PostResponse> getPageList(Pageable pageable, PostSearchCondition postSearchCondition) throws Exception {
         if(!(Utils.isValidPostType(postSearchCondition.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }

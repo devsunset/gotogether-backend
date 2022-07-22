@@ -43,7 +43,7 @@ public class CommentService{
     public Long update(Long commentId, CommentRequest commentRequest) throws Exception {
         User user = authService.getSessionUser();
         Comment orignal = commentRepository.findById(commentId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
         if(!(Utils.isAdmin(user.getRoles()))){
             if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
@@ -60,7 +60,7 @@ public class CommentService{
     public void delete(Long commentId) throws Exception {
         User user = authService.getSessionUser();
         Comment orignal = commentRepository.findById(commentId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
         if(!(Utils.isAdmin(user.getRoles()))){
             if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
@@ -73,7 +73,7 @@ public class CommentService{
 
     public  List<CommentResponse> getList(Long postId) throws Exception {
         Post post = postRepository.findById(postId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_POST));
+                new CustomException(ErrorCode.NOT_EXISTS_DATA));
         List<Comment> comments = post.getComments();
         return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
     }

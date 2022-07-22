@@ -196,6 +196,12 @@ public class AuthService {
         return user;
     }
 
+    public User getUser(String username) throws Exception {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+        return user;
+    }
+
     public String getSessionUsername() throws Exception {
         UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetail.getUsername();
