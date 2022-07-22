@@ -3,6 +3,8 @@ package com.gotogether.system.util;
 import com.gotogether.entity.Role;
 import com.gotogether.system.constants.Constants;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -57,5 +59,11 @@ public class Utils {
           return true;
         }
         return false;
+    }
+
+    public static String getPrintStackTrace(Exception e) {
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        return errors.toString();
     }
 }

@@ -127,7 +127,7 @@ public class PostService {
         }
 
         if(postSearchCondition.getKeyword() !=null && "".equalsIgnoreCase(postSearchCondition.getKeyword().trim())){
-            return postRepository.findByCategoryAndTitleLikeOrCategoryAndContentLike(postSearchCondition.getCategory(), postSearchCondition.getKeyword(),postSearchCondition.getCategory(), postSearchCondition.getKeyword(), pageable).map(PostResponse::new);
+            return postRepository.findByCategoryAndTitleLikeIgnoreCaseOrCategoryAndContentLikeIgnoreCase(postSearchCondition.getCategory(), postSearchCondition.getKeyword(),postSearchCondition.getCategory(), postSearchCondition.getKeyword(), pageable).map(PostResponse::new);
         }else{
             return postRepository.findByCategory(postSearchCondition.getCategory(), pageable).map(PostResponse::new);
         }

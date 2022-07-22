@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class TestController {
 	@GetMapping("/all")
 	public String allAccess() throws Exception {
-//		throw new CustomException(ErrorCode.NEED_TO_LOGIN);
 		return "Public Content.";
 	}
 	

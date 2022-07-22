@@ -3,6 +3,7 @@ package com.gotogether.system.filter;
 import com.navercorp.lucy.security.xss.servletfilter.XssEscapeFilter;
 import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilterWrapper;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -11,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class XssEscapeServletFilter extends OncePerRequestFilter implements Ordered {
+@Order(2)
+public class RequestServletXssFilter extends OncePerRequestFilter implements Ordered {
     private XssEscapeFilter xssEscapeFilter = XssEscapeFilter.getInstance();
 
     @Override

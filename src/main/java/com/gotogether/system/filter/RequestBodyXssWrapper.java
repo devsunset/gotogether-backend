@@ -7,10 +7,10 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
-public class RequestWrapper extends HttpServletRequestWrapper {
+public class RequestBodyXssWrapper extends HttpServletRequestWrapper {
     private byte[] b;
 
-    public RequestWrapper(HttpServletRequest request) throws IOException {
+    public RequestBodyXssWrapper(HttpServletRequest request) throws IOException {
         super(request);
         XssFilter filter = XssFilter.getInstance("lucy-xss-sax.xml",true);
         b = new String(filter.doFilter(getBody(request))).getBytes();
