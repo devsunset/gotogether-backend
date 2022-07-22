@@ -2,7 +2,6 @@ package com.gotogether.controller;
 
 import com.gotogether.dto.CommonResponse;
 import com.gotogether.dto.request.NoteRequest;
-import com.gotogether.dto.request.NoteSearchCondition;
 import com.gotogether.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +47,16 @@ public class NoteController {
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("/list")
-    public ResponseEntity<?> getPageList(@PageableDefault(size=10, sort = "noteId", direction = Sort.Direction.DESC)
-                                             Pageable pageable,
-                                    @Valid @RequestBody NoteSearchCondition noteSearchCondition ) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.getList(pageable,noteSearchCondition));
+    @PostMapping("/sendlist")
+    public ResponseEntity<?> getPageSendList(@PageableDefault(size=10, sort = "noteId", direction = Sort.Direction.DESC)
+                                             Pageable pageable) throws Exception {
+        return CommonResponse.toResponseEntity(noteService.getSendList(pageable));
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PostMapping("/receivelist")
+    public ResponseEntity<?> getPageReceiveList(@PageableDefault(size=10, sort = "noteId", direction = Sort.Direction.DESC)
+                                             Pageable pageable) throws Exception {
+        return CommonResponse.toResponseEntity(noteService.getReceiveList(pageable));
     }
 }

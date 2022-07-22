@@ -1,7 +1,6 @@
 package com.gotogether.service;
 
 import com.gotogether.dto.request.NoteRequest;
-import com.gotogether.dto.request.NoteSearchCondition;
 import com.gotogether.dto.response.NoteResponse;
 import com.gotogether.entity.Note;
 import com.gotogether.entity.User;
@@ -86,7 +85,13 @@ public class NoteService {
         return new NoteResponse(note);
     }
 
-    public Page<NoteResponse> getList(Pageable pageable, NoteSearchCondition noteSearchCondition) {
-        return null;
+    public Page<NoteResponse> getSendList(Pageable pageable) throws Exception {
+        User user = authService.getSessionUser();
+        return noteRepository.findByFromUserAndFromDeleted(user, Constants.NO, pageable).map(NoteResponse::new);
+    }
+
+    public Page<NoteResponse> getReceiveList(Pageable pageable) throws Exception {
+        User user = authService.getSessionUser();
+        return noteRepository.findByToUserAndToDeleted(user, Constants.NO, pageable).map(NoteResponse::new);
     }
 }

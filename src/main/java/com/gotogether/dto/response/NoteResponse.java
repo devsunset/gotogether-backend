@@ -1,7 +1,6 @@
 package com.gotogether.dto.response;
 
 import com.gotogether.entity.Note;
-import com.gotogether.entity.Post;
 import com.gotogether.system.constants.Constants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
