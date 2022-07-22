@@ -1,10 +1,10 @@
 package com.gotogether.system.filter;
 
+import com.gotogether.system.constants.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -19,14 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 @Slf4j
-@Component
 @Order(1)
 public class LoggingFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         MDC.put("traceId", UUID.randomUUID().toString());
-        if (isAsyncDispatch(request)) {
+        //xss h2-console skip
+        if (isAsyncDispatch(request) || ((HttpServletRequest) request).getRequestURL().indexOf(Constants.XSS_H2CONSOLE_SKIP) > -1) {
             filterChain.doFilter(request, response);
         } else {
             doFilterWrapped(new LoggingRequestWrapper(request), new LoggingResponseWrapper(response), filterChain);

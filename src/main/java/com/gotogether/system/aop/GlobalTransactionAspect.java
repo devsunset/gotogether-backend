@@ -18,7 +18,7 @@ import java.util.Collections;
 public class GlobalTransactionAspect {
 
     private static final String AOP_TRANSACTION_METHOD_NAME="*";
-    private static final String AOP_TRANSACTION_EXPRESSION="execution(* com.together.service.*Service.*(..))";
+    private static final String AOP_TRANSACTION_EXPRESSION="execution(* com.gotogether.service.*Service*.*(..))";
 
     @Autowired
     private TransactionManager transactionManager;

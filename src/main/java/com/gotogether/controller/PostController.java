@@ -36,9 +36,9 @@ public class PostController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/changecategory/{postId}")
+    @PutMapping("/updatecategory/{postId}")
     public ResponseEntity<?> changecategory(@PathVariable("postId") Long postId, @Valid @RequestBody PostRequest postRequest) throws Exception {
-        return CommonResponse.toResponseEntity(postService.changecategory(postId,postRequest));
+        return CommonResponse.toResponseEntity(postService.updatecategory(postId,postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")

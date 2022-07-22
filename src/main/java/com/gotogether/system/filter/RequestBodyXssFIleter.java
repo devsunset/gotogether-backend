@@ -1,19 +1,13 @@
 package com.gotogether.system.filter;
 
 import com.gotogether.system.constants.Constants;
-import com.gotogether.system.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 
-import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 @Slf4j
 @Order(3)
 public class RequestBodyXssFIleter implements Filter {

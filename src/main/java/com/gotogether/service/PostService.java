@@ -19,6 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -65,7 +67,7 @@ public class PostService {
         return postRepository.save(post).getPostId();
     }
 
-    public Long changecategory(Long postId, PostRequest postRequest) throws Exception {
+    public Long updatecategory(Long postId, PostRequest postRequest) throws Exception {
         if(!(Utils.isValidPostType(postRequest.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }

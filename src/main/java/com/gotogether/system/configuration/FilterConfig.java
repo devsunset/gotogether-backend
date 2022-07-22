@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig{
 
     /*
-    ##########################################################
-    필요한 경우 주석 해제 후 사용
+    //##########################################################
+    //필요한 경우 주석 해제 후 사용
 
     @Bean
     public FilterRegistrationBean<GlobalFilter> filterRegister() {
@@ -25,7 +25,7 @@ public class FilterConfig{
     public LoggingFilter loggingFilterBean(){
         return new LoggingFilter();
     }
-    ##########################################################
+    //##########################################################
      */
 
     @Bean
