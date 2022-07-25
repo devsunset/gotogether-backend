@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-
-@Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Slf4j
 @RestController
 @RequestMapping("/api/test")
 public class TestController {

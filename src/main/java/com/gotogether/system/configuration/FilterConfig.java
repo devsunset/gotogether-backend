@@ -15,6 +15,22 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class FilterConfig{
 
+//    To-Do CorsFilter 처리
+//    @Bean
+//    public FilterRegistrationBean<CorsFilter> corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        config.setMaxAge(3600L);
+//        source.registerCorsConfiguration("/*", config);
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(0);
+//        return bean;
+//    }
+
     /*
     //##########################################################
     //[삭제 금지] 필요한 경우 주석 해제 후 사용//
@@ -40,26 +56,4 @@ public class FilterConfig{
     public RequestBodyXssFIleter requestBodyXssFIleterBean(){
         return new RequestBodyXssFIleter();
     }
-
-
-    /*
-    // CORS Filter 적용 하려면 아래 설정 내용중 cors().and()를 삭제 필요
-    http.cors().and().csrf().disable() -> http.csrf().disable()
-
-    @Bean
-    public FilterRegistrationBean corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.setMaxAge(3600L);
-        source.registerCorsConfiguration("/api/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
-    }
-    */
-
 }
