@@ -39,5 +39,6 @@ out/
 ### logs ###
 /logs
 
-### yml prod ###
+### prod exclude ###
 application-prod.yml
+appinfo-prod.properties

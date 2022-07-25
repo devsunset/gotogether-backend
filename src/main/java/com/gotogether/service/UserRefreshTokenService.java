@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @Service
 @Configuration
-@PropertySource("classpath:app-info.properties")
 public class UserRefreshTokenService {
   @Value("${go.together.jwtRefreshExpirationMs}")
   private Long userRefreshTokenDurationMs;

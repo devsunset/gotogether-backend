@@ -1,16 +1,10 @@
 package com.gotogether.system.security.jwt;
 
 import com.gotogether.system.security.service.UserDetailsImpl;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -18,7 +12,6 @@ import java.util.Date;
 @Slf4j
 @Component
 @Configuration
-@PropertySource("classpath:app-info.properties")
 public class JwtUtils {
 
   @Value("${go.together.jwtSecret}")

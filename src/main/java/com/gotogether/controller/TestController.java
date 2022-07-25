@@ -16,6 +16,7 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+
 	@GetMapping("/all")
 	public String allAccess() throws Exception {
 		return "Public Content.";
