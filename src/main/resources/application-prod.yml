@@ -40,7 +40,7 @@ spring:
       #update       : 변경분만 반영(운영DB에서는 사용하면 안됨)
       #validate     : 엔티티와 테이블이 정상 매핑되었는지만 확인
       #none         : 사용하지 않음(사실상 없는 값이지만 관례상 none이라고 한다.)
-      #개발 create 또는 update
+      #개발 create 또는  update
       #테스트 update 또는 validate
       #스테이징과 운영 서버는 validate 또는 none
       #운영 장비에서는 crate, create-drop, update 사용금지
