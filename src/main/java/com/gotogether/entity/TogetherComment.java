@@ -17,13 +17,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Comment extends BaseEntity {
+public class TogetherComment extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long commentId;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "together_id")
+    private Together together;
 
     @Lob
     @Column(nullable = false)

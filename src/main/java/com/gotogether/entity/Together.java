@@ -19,9 +19,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Post extends BaseEntity {
+public class Together extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
-    private Long postId;
+    private Long togetherId;
 
     @NotNull
     @Column(length = 20, nullable = false)
@@ -36,12 +36,30 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
+    @NotNull
+    @Column(length = 255, nullable = false)
+    private String involveType;
+
+    @NotNull
+    @Column(length = 255)
+    private String location;
+
+    @NotNull
+    @Column(length = 255)
+    private String togetherName;
+
+    @Column(length = 255)
+    private String latitude;
+
+    @Column(length = 255)
+    private String longitude;
+
     @ColumnDefault("0")
     private int hit;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "together", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("createdDate asc")
-    private List<Comment> comments;
+    private List<TogetherComment> togetherComments;
 
     @NotNull
     @ManyToOne(fetch = LAZY)
