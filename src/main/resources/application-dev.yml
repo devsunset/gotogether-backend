@@ -1,0 +1,128 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+  error:
+    include-exception: false      # Response 에 Exception 을 표시할지
+    include-message: never        # Response 에 Exception Message 를 표시할지 (never | always | on_param)
+    include-stacktrace: never     # Response 에 Stack Trace 를 표시할지 (never | always | on_param) on_trace_params 은 deprecated
+    whitelabel.enabled: false     # 에러 발생 시 Spring 기본 에러 페이지 노출 여부
+
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+    # job:
+    #     names: ${job.name:NONE}
+  h2:
+    console:
+      enabled: true
+      path : /h2-console
+  datasource:
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 30
+    password: ''
+    url: jdbc:h2:~/temp/gotogether_dev;AUTO_SERVER=true;
+    username: sa
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      #create       : 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
+      #create-drop  : create와 같으나 종료시점에 테이블 DROP
+      #update       : 변경분만 반영(운영DB에서는 사용하면 안됨)
+      #validate     : 엔티티와 테이블이 정상 매핑되었는지만 확인
+      #none         : 사용하지 않음(사실상 없는 값이지만 관례상 none이라고 한다.)
+      #개발 create 또는 update
+      #테스트 update 또는 validate
+      #스테이징과 운영 서버는 validate 또는 none
+      #운영 장비에서는 crate, create-drop, update 사용금지
+    properties:
+      hibernate:
+        show_sql : true
+        format_sql: true
+        use_sql_comments: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: <MAIL>
+    password: <PASSWORD>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+  sql:
+    init:
+      platform: h2
+#  quartz:
+#    job-store-type: jdbc
+#    jdbc:
+#      initialize-schema: always
+#    properties:
+#      org:
+#        quartz:
+#        scheduler:
+#          instanceId: AUTO
+#        jobStore:
+#          class: org.quartz.impl.jdbcjobstore.JobStoreTX
+#          driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+#          useProperties: false
+#          tablePrefix: QRTZ_
+#          misfireThreshold: 60000
+#          clusterCheckinInterval: 1000
+#          isClustered: true
+#        threadPool:
+#          class: org.quartz.simpl.SimpleThreadPool
+#          threadCount: 10
+#          threadPriority: 5
+#          threadsInheritContextClassLoaderOfInitializingThread: true
+
+logging:
+  file:
+    name: /workspace/logs/app_dev.log
+  level:
+    com:
+      example:
+        springwork:
+          dao:
+            mapper: TRACE
+      zaxxer:
+        hikari: ERROR
+      gotogether: DEBUG
+    jdbc: debug
+    org:
+      hibernate:
+        SQL: 'DEBUG'
+        type:
+          descriptor:
+            sql : trace
+      springframework:
+        web: "debug\t\t"
+        batch: DEBUG
+  #        sql: debug
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log
+      max-file-size: 100MB
+      max-history: 9999999
+  pattern:
+    console: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
+            - %msg%n'
+    file: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
+            - %msg%n'
+
+
+
