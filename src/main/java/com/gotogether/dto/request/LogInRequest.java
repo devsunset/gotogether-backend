@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class LogInRequest {
 
-	@Schema(description = "userid == username")
+	@Schema(description = "userid")
 	@NotBlank
 	private String username;
 

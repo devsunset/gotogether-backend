@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class TokenRefreshRequest {
 
-  @Schema(description = "refreshToken")
   @NotBlank
   private String refreshToken;
 }

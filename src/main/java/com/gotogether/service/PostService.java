@@ -37,7 +37,7 @@ public class PostService {
     private final ModelMapper modelMapper;
 
     public Long save(PostRequest postRequest) throws Exception {
-        if(!(Constants.PostType.TALK.equals(postRequest.getCategory()) || Constants.PostType.QA.equals(postRequest.getCategory()))){
+        if(!(Utils.isValidPostType(postRequest.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
         Post post = modelMapper.map(postRequest, Post.class);

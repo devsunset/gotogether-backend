@@ -12,11 +12,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class NoteRequest {
 
-    @Schema(description = "Note 내용")
     @NotBlank
     private String note;
 
-    @Schema(description = "수신자")
     @NotBlank
     private String toUser;
 }

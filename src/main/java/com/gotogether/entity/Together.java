@@ -31,27 +31,33 @@ public class Together extends BaseEntity {
     @Column(length = 255, nullable = false)
     private String title;
 
+    @NotNull
+    @Column(length = 255)
+    private String togetherName;
+
+    @NotNull
+    @Column(length = 255, nullable = false)
+    private String purpose;
+
     @Lob
     @NotNull
     @Column(nullable = false)
     private String content;
 
     @NotNull
-    @Column(length = 255, nullable = false)
+    @Column(length = 20, nullable = false)
     private String involveType;
 
-    @NotNull
-    @Column(length = 255)
+    @Column(length = 255, nullable = false)
+    private String openKakaoChat;
+
+    @Column(length = 50)
     private String location;
 
-    @NotNull
-    @Column(length = 255)
-    private String togetherName;
-
-    @Column(length = 255)
+    @Column(length = 50)
     private String latitude;
 
-    @Column(length = 255)
+    @Column(length = 50)
     private String longitude;
 
     @ColumnDefault("0")

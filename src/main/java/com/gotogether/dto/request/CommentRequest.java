@@ -12,11 +12,9 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class CommentRequest {
 
-    @Schema(description = "postId")
     @NotNull
     private Long postId;
 
-    @Schema(description = "Comment 내용")
     @NotBlank
     private String content;
 }

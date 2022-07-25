@@ -32,9 +32,6 @@ public class NoteResponse {
 
     private String to_nickname;
 
-
-
-    /* Entity -> Response*/
     public NoteResponse(Note note){
         this.noteId = note.getNoteId();
         this.note = note.getNote();

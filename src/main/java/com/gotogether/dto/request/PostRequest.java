@@ -11,15 +11,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostRequest {
 
-    @Schema(description = "Post 유형", defaultValue = "TALK", allowableValues = {"TALK", "QA"})
+    @Schema(description = "Post Type", defaultValue = "TALK", allowableValues = {"TALK", "QA"})
     @NotBlank
     private String category;
 
-    @Schema(description = "Post 제목")
     @NotBlank
     private String title;
 
-    @Schema(description = "Post 내용")
     @NotBlank
     private String content;
 }

@@ -21,8 +21,6 @@ public class CommentResponse {
     private String username;
     private Long postId;
 
-
-    /* Entity -> Response*/
     public CommentResponse(Comment comment) {
         this.commentId = comment.getCommentId();
         this.content = comment.getContent();

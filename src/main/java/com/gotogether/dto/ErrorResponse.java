@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Schema(description = "Error 공통 응답")
+@Schema(description = "공통 에러 응답")
 @Getter
 @ToString
 @Builder

@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class LogOutRequest {
 
-  @Schema(description = "userid == username")
+  @Schema(description = "userid")
   private String username;
 
 }
