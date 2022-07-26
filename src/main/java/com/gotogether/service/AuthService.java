@@ -202,6 +202,10 @@ public class AuthService {
         return user;
     }
 
+    public User getUserOrEmptyNull(String username) throws Exception {
+         return userRepository.findByUsername(username).orElse(null);
+    }
+
     public String getSessionUsername() throws Exception {
         UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetail.getUsername();

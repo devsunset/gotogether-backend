@@ -22,7 +22,7 @@ public class SignUpRequest {
     private String username;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 2, max = 20)
     private String nickname;
 
     @NotBlank

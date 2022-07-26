@@ -2,6 +2,7 @@ package com.gotogether.service;
 
 import com.gotogether.dto.request.UserInfoRequest;
 import com.gotogether.dto.response.UserInfoResponse;
+import com.gotogether.entity.User;
 import com.gotogether.entity.UserInfo;
 import com.gotogether.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,16 @@ public class UserInfoService {
     }
 
     public UserInfoResponse get(String userId) throws Exception {
-        return new UserInfoResponse(userInfoRepository.findByUser(authService.getUser(userId)));
+        User user = authService.getUserOrEmptyNull(userId);
+        if(user !=null){
+            UserInfo userInfo = userInfoRepository.findByUser(user);
+            if(userInfo == null){
+                return null;
+            }else{
+                return new UserInfoResponse(userInfoRepository.findByUser(user));
+            }
+        }else{
+            return null;
+        }
     }
 }
