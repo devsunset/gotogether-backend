@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 @Schema(description = "Post 요청")
 @Getter
 @Setter
@@ -16,6 +18,7 @@ public class PostRequest {
     private String category;
 
     @NotBlank
+    @Size(max = 120)
     private String title;
 
     @NotBlank

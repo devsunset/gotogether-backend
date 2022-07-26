@@ -36,7 +36,7 @@ public class Together extends BaseEntity {
     private String togetherName;
 
     @NotNull
-    @Column(length = 255, nullable = false)
+    @Column(length = 500, nullable = false)
     private String purpose;
 
     @Lob
@@ -62,6 +62,12 @@ public class Together extends BaseEntity {
 
     @ColumnDefault("0")
     private int hit;
+
+    @ColumnDefault("0")
+    private int maxMember;
+
+    @ColumnDefault("0")
+    private int currentMember;
 
     @OneToMany(mappedBy = "together", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("createdDate asc")

@@ -16,9 +16,9 @@ import javax.validation.constraints.NotNull;
 public class UserInfo extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long infoId;
+  private Long userInfoId;
 
-  @ManyToOne(targetEntity=User.class, fetch=FetchType.LAZY)
+  @OneToOne(targetEntity=User.class, fetch=FetchType.EAGER)
   @JoinColumn(name="username")
   private User user;
 
@@ -27,13 +27,13 @@ public class UserInfo extends BaseEntity {
   private String introduce;
 
   @NotNull
-  @Lob
+  @Column(length = 1000)
   private String note;
 
-  @Column(length = 255)
+  @Column(length = 500)
   private String github;
 
-  @Column(length = 255)
+  @Column(length = 500)
   private String homepage;
 
 }

@@ -8,6 +8,7 @@ import com.gotogether.dto.request.LogInRequest;
 import com.gotogether.dto.request.SignUpRequest;
 import com.gotogether.dto.request.TokenRefreshRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
   @Autowired
   AuthService authService;

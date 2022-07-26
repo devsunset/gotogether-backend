@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class TogetherSkill extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long togetherSkillId;
+  private Long togetherSkillId;
 
   @ManyToOne(targetEntity=Together.class, fetch=FetchType.LAZY)
   @JoinColumn(name="together_id")
