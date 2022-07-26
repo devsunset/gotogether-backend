@@ -25,4 +25,9 @@ public class UserInfoController {
         return CommonResponse.toResponseEntity(userInfoService.save(userInfoRequest));
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> get(@PathVariable("userId") String userId) throws Exception {
+        return CommonResponse.toResponseEntity(userInfoService.get(userId));
+    }
+
 }

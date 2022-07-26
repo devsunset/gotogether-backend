@@ -36,6 +36,9 @@ public class UserInfo extends BaseEntity {
   @Column(length = 500)
   private String homepage;
 
+  @Column(length = 500)
+  private String profileImageLink;
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.gotogether.service;
 
 import com.gotogether.dto.request.UserInfoRequest;
+import com.gotogether.dto.response.UserInfoResponse;
 import com.gotogether.entity.UserInfo;
 import com.gotogether.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,10 @@ public class UserInfoService {
             userInfo.setHomepage(userInfoRequest.getHomepage());
             userInfo.setUser(authService.getSessionUser());
         }
-
         return userInfoRepository.save(userInfo).getUserInfoId();
+    }
+
+    public UserInfoResponse get(String userId) throws Exception {
+        return new UserInfoResponse(userInfoRepository.findByUser(authService.getUser(userId)));
     }
 }
