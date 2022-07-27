@@ -9,6 +9,7 @@ import com.gotogether.entity.User;
 import com.gotogether.repository.PostRepository;
 import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
+import com.gotogether.system.enums.PostType;
 import com.gotogether.system.exception.CustomException;
 import com.gotogether.system.util.Utils;
 import lombok.RequiredArgsConstructor;
@@ -90,7 +91,7 @@ public class PostService {
         commentRequest.setPostId(postId);
 
         String content = "";
-        if(Constants.PostType.TALK.equals(postRequest.getCategory())){
+        if(PostType.TALK.getName().equals(postRequest.getCategory())){
             content = "QA ---&gt; TALK 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
         }else{
             content = "TALK ---&gt; QA 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";

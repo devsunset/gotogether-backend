@@ -41,15 +41,17 @@ public class UserInfoService {
 
     public UserInfoResponse get(String userId) throws Exception {
         User user = authService.getUserOrEmptyNull(userId);
-        if(user !=null){
+        if(user != null){
             UserInfo userInfo = userInfoRepository.findByUser(user);
-            if(userInfo == null){
-                return null;
+            if(userInfo != null){
+                return new UserInfoResponse(userInfo);
             }else{
-                return new UserInfoResponse(userInfoRepository.findByUser(user));
+                return null;
             }
         }else{
             return null;
         }
     }
+
+
 }

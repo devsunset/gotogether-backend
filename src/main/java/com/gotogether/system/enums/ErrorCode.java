@@ -27,6 +27,7 @@ public enum ErrorCode {
     NOT_CHANG_EQUAL_CATEGEORY(HttpStatus.BAD_REQUEST, "동일한 Post Category 로 변경이 안됩니다."),
     NOT_ROLE_ADMIN(HttpStatus.BAD_REQUEST, "Admin 권한이 아닙니다."),
     NOT_SEND_NOTE_SELF(HttpStatus.BAD_REQUEST, "자신에게 Note를 전송 할 수 없습니다."),
+    NOT_SKILL_LEVEL_TYPE(HttpStatus.BAD_REQUEST, "유효한 Skill Level 값이 아닙니다."),
 
     NOT_AUTH_NOTE(HttpStatus.BAD_REQUEST, "본인의 Note가 아닙니다."),
     NOT_WRITE_POST(HttpStatus.UNAUTHORIZED, "본인이 작성 한 게시물이 아닙니다.");

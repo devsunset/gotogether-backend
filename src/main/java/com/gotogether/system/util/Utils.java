@@ -2,6 +2,8 @@ package com.gotogether.system.util;
 
 import com.gotogether.entity.Role;
 import com.gotogether.system.constants.Constants;
+import com.gotogether.system.enums.PostType;
+import com.gotogether.system.enums.SkillLevelType;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -55,11 +57,25 @@ public class Utils {
     }
 
     public static boolean isValidPostType(String category){
-        if((Constants.PostType.TALK.equals(category) || Constants.PostType.QA.equals(category))){
-          return true;
+        boolean result = false;
+        for (PostType type : PostType.values()) {
+            if(type.getName().equals(category)){
+                result = true;
+            }
         }
-        return false;
+        return result;
     }
+
+    public static boolean isValidSkillLevelType(String itemLevel){
+        boolean result = false;
+        for (SkillLevelType type : SkillLevelType.values()) {
+            if(type.getName().equals(itemLevel)){
+                result = true;
+            }
+        }
+        return result;
+    }
+
 
     public static String getPrintStackTrace(Exception e) {
         StringWriter errors = new StringWriter();

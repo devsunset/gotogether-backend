@@ -98,21 +98,21 @@ logging:
       example:
         springwork:
           dao:
-            mapper: TRACE
+            mapper: ERROR
       zaxxer:
         hikari: ERROR
-      gotogether: DEBUG
-    jdbc: debug
+      gotogether: ERROR
+    jdbc: error
     org:
       hibernate:
-        SQL: 'DEBUG'
+        SQL: 'ERROR'
         type:
           descriptor:
-            sql : trace
+            sql : error
       springframework:
-        web: "debug\t\t"
+        web: "error\t\t"
         batch: DEBUG
-  #        sql: debug
+  #        sql: error
   logback:
     rollingpolicy:
       file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log

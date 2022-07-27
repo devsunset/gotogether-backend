@@ -23,10 +23,4 @@ public class Constants {
         public static final String SUCCESS = "S"; // Success
         public static final String ERROR = "E";   // Fail
     }
-
-    public static class PostType {
-        public static final String TALK = "TALK";
-
-        public static final String QA = "QA";
-    }
 }

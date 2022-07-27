@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @Entity
 public class UserSkill extends BaseEntity {
   @Id
