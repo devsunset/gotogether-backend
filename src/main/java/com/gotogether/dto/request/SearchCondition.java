@@ -3,12 +3,12 @@ package com.gotogether.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-@Schema(description = "Post 검색 조건")
+@Schema(description = "검색 조건")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostSearchCondition {
+public class SearchCondition {
 
     @Schema(description = "Post Type")
     private String category;

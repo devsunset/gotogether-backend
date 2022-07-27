@@ -2,12 +2,11 @@ package com.gotogether.service;
 
 import com.gotogether.dto.request.CommentRequest;
 import com.gotogether.dto.request.PostRequest;
-import com.gotogether.dto.request.PostSearchCondition;
+import com.gotogether.dto.request.SearchCondition;
 import com.gotogether.dto.response.PostResponse;
 import com.gotogether.entity.Post;
 import com.gotogether.entity.User;
 import com.gotogether.repository.PostRepository;
-import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
 import com.gotogether.system.enums.PostType;
 import com.gotogether.system.exception.CustomException;
@@ -122,15 +121,15 @@ public class PostService {
         return new PostResponse(post);
     }
 
-    public Page<PostResponse> getPageList(Pageable pageable, PostSearchCondition postSearchCondition) throws Exception {
-        if(!(Utils.isValidPostType(postSearchCondition.getCategory()))){
+    public Page<PostResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
+        if(!(Utils.isValidPostType(searchCondition.getCategory()))){
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
 
-        if(postSearchCondition.getKeyword() !=null && "".equalsIgnoreCase(postSearchCondition.getKeyword().trim())){
-            return postRepository.findByCategoryAndTitleLikeIgnoreCaseOrCategoryAndContentLikeIgnoreCase(postSearchCondition.getCategory(), postSearchCondition.getKeyword(),postSearchCondition.getCategory(), postSearchCondition.getKeyword(), pageable).map(PostResponse::new);
+        if(searchCondition.getKeyword() !=null && "".equalsIgnoreCase(searchCondition.getKeyword().trim())){
+            return postRepository.findByCategoryAndTitleContainsIgnoreCaseOrCategoryAndContentContainsIgnoreCase(searchCondition.getCategory(), searchCondition.getKeyword(),searchCondition.getCategory(), searchCondition.getKeyword(), pageable).map(PostResponse::new);
         }else{
-            return postRepository.findByCategory(postSearchCondition.getCategory(), pageable).map(PostResponse::new);
+            return postRepository.findByCategory(searchCondition.getCategory(), pageable).map(PostResponse::new);
         }
     }
 }

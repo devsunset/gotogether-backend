@@ -2,7 +2,7 @@ package com.gotogether.controller;
 
 import com.gotogether.dto.CommonResponse;
 import com.gotogether.dto.request.PostRequest;
-import com.gotogether.dto.request.PostSearchCondition;
+import com.gotogether.dto.request.SearchCondition;
 import com.gotogether.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +55,8 @@ public class PostController {
     @PostMapping("/list")
     public ResponseEntity<?> getPageList(@PageableDefault(size=10, sort = "postId", direction = Sort.Direction.DESC)
                                              Pageable pageable,
-                                    @Valid @RequestBody PostSearchCondition postSearchCondition ) throws Exception {
-        return CommonResponse.toResponseEntity(postService.getPageList(pageable,postSearchCondition));
+                                    @Valid @RequestBody SearchCondition searchCondition ) throws Exception {
+        return CommonResponse.toResponseEntity(postService.getPageList(pageable,searchCondition));
     }
 
 }
