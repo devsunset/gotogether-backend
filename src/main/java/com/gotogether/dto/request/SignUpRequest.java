@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
-
-import javax.validation.constraints.*;
 @Schema(description = "Signup 요청")
 @Getter
 @Setter

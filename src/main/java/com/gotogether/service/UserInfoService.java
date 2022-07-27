@@ -2,8 +2,8 @@ package com.gotogether.service;
 
 import com.gotogether.dto.request.SearchCondition;
 import com.gotogether.dto.request.UserInfoRequest;
-import com.gotogether.dto.response.UserInfoResponse;
 import com.gotogether.dto.response.MembersResponse;
+import com.gotogether.dto.response.UserInfoResponse;
 import com.gotogether.entity.User;
 import com.gotogether.entity.UserInfo;
 import com.gotogether.entity.UserSkill;

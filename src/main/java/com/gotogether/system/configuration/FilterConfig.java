@@ -1,7 +1,8 @@
 package com.gotogether.system.configuration;
 
-import com.gotogether.system.filter.*;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import com.gotogether.system.filter.CorsFilter;
+import com.gotogether.system.filter.RequestBodyXssFIleter;
+import com.gotogether.system.filter.RequestServletXssFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

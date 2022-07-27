@@ -1,9 +1,9 @@
 package com.gotogether.controller;
 
-import com.gotogether.service.UserInfoService;
 import com.gotogether.dto.CommonResponse;
 import com.gotogether.dto.request.SearchCondition;
 import com.gotogether.dto.request.UserInfoRequest;
+import com.gotogether.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

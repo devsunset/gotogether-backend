@@ -1,14 +1,14 @@
 package com.gotogether.service;
 
-import com.gotogether.entity.Role;
-import com.gotogether.entity.User;
-import com.gotogether.entity.UserActiveToken;
-import com.gotogether.entity.UserRefreshToken;
 import com.gotogether.dto.request.LogInRequest;
 import com.gotogether.dto.request.SignUpRequest;
 import com.gotogether.dto.request.TokenRefreshRequest;
 import com.gotogether.dto.response.JwtResponse;
 import com.gotogether.dto.response.TokenRefreshResponse;
+import com.gotogether.entity.Role;
+import com.gotogether.entity.User;
+import com.gotogether.entity.UserActiveToken;
+import com.gotogether.entity.UserRefreshToken;
 import com.gotogether.repository.RoleRepository;
 import com.gotogether.repository.UserRepository;
 import com.gotogether.system.enums.ErrorCode;
