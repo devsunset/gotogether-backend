@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -71,6 +72,8 @@ public class UserInfoService {
     }
 
 
+
+
     private User[] getUserSearch(String searchWord)  throws Exception{
         return userRepository.findByUsernameContainsIgnoreCaseOrNicknameContainsIgnoreCase(searchWord,searchWord);
     }
@@ -79,6 +82,33 @@ public class UserInfoService {
     }
     private UserSkill[] getUserSkillSearch(String searchWord)  throws Exception{
         return userSkillRepository.findByItemContainsIgnoreCase(searchWord);
+    }
+
+    private UserInfo getUserInfo(String userId)  throws Exception{
+        User user = authService.getUserOrEmptyNull(userId);
+        if(user != null){
+           return userInfoRepository.findByUser(user);
+        }else{
+            return null;
+        }
+    }
+
+    private List<HashMap<String,String>> getUserSkills(String userId)  throws Exception{
+        ArrayList<HashMap<String,String>> item = new ArrayList<HashMap<String,String>>();
+        User user = authService.getUserOrEmptyNull(userId);
+        if(user != null){
+            UserSkill[]  userSkills = userSkillRepository.findByUser(user);
+            HashMap<String,String> map;
+            for (UserSkill userSkill : userSkills) {
+                map = new HashMap<String,String>();
+                map.put("ITEM",userSkill.getItem());
+                map.put("ITEM_LEVEL",userSkill.getItemLevel());
+                item.add(map);
+            }
+            return item;
+        }else{
+            return null;
+        }
     }
 
     public Page<MembersResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception{
@@ -109,14 +139,41 @@ public class UserInfoService {
         TreeSet<String> params = new TreeSet<String>();
         for (User user : userList) {
             params.add(user.getUsername());
-            log.info("##################### user >>> #############################"+user.getNickname());
         }
-        String[] result = params.toArray(new String[params.size()]);
+        String[] userIds = params.toArray(new String[params.size()]);
 
-        Page<User> members = userRepository.findByUsernameIn(result,pageable);
-
-        log.info("##################### ok >>> #############################"+members.toString());
-
-        return null;
+        Page<MembersResponse> page = userRepository.findByUsernameIn(userIds,pageable).map(MembersResponse::new);
+        page = page.map(this :: transformResponse);
+        return page;
     }
+
+    private MembersResponse transformResponse(final MembersResponse membersResponse){
+        UserInfo userInfo = null;
+        try{
+            userInfo = this.getUserInfo(membersResponse.getUsername());
+        }catch(Exception e){
+            log.error("ERROR",e);
+        }
+
+        if(userInfo !=null){
+            membersResponse.setIntroduce(userInfo.getIntroduce());
+            membersResponse.setNote(userInfo.getNote());
+            membersResponse.setGithub(userInfo.getGithub());
+            membersResponse.setHomepage(userInfo.getHomepage());
+            membersResponse.setProfileImageLink(userInfo.getProfileImageLink());
+        }
+
+        List<HashMap<String,String>> userSkill = null;
+        try{
+            userSkill  = this.getUserSkills(membersResponse.getUsername());
+        }catch(Exception e){
+            log.error("ERROR",e);
+        }
+
+        if(userSkill !=null){
+            membersResponse.setSkills(userSkill);
+        }
+        return membersResponse;
+    }
+
 }

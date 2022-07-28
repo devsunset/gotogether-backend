@@ -1,13 +1,13 @@
 package com.gotogether.dto.response;
 
 import com.gotogether.entity.User;
-import com.gotogether.entity.UserInfo;
-import com.gotogether.entity.UserSkill;
 import com.gotogether.system.constants.Constants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
 
 @Schema(description = "Member 응답")
 @Getter
@@ -25,22 +25,12 @@ public class MembersResponse {
     private String createdDate;
     private String modifiedDate;
 
-    public MembersResponse(User user, UserInfo userInfo, UserSkill userSkill) {
+    private List<HashMap<String,String>> skills;
+
+    public MembersResponse(User user) {
         this.username = user.getUsername();
         this.nickname = user.getNickname();
         this.createdDate = user.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.modifiedDate = user.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
-
-        if(userInfo !=null){
-            this.introduce = userInfo.getIntroduce();
-            this.note = userInfo.getNote();
-            this.github = userInfo.getGithub();
-            this.homepage = userInfo.getHomepage();
-            this.profileImageLink = userInfo.getProfileImageLink();
-        }
-
-        if(userSkill !=null){
-
-        }
     }
 }
