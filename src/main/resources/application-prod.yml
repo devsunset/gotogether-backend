@@ -23,7 +23,7 @@ spring:
   h2:
     console:
       enabled: true
-      path : /h2-console
+      path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver
     hikari:
@@ -46,7 +46,7 @@ spring:
       #운영 장비에서는 crate, create-drop, update 사용금지
     properties:
       hibernate:
-        show_sql : true
+        show_sql: true
         format_sql: true
         use_sql_comments: true
   mail:
@@ -108,7 +108,7 @@ logging:
         SQL: 'ERROR'
         type:
           descriptor:
-            sql : error
+            sql: error
       springframework:
         web: "error\t\t"
         batch: DEBUG

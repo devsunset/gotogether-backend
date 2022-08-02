@@ -32,7 +32,7 @@ public class NoteResponse {
 
     private String to_nickname;
 
-    public NoteResponse(Note note){
+    public NoteResponse(Note note) {
         this.noteId = note.getNoteId();
         this.note = note.getNote();
         this.createdDate = note.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));

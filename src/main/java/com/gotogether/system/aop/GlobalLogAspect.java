@@ -16,23 +16,32 @@ public class GlobalLogAspect {
     private final LogTrace logTrace;
 
     @Pointcut("execution(* com.gotogether.controller.*Controller*.*(..))")
-    public void allController(){};
+    public void allController() {
+    }
+
+    ;
 
     @Pointcut("execution(* com.gotogether.service.*Service*.*(..))")
-    public void allService(){};
+    public void allService() {
+    }
+
+    ;
 
     @Pointcut("execution(* com.gotogether.repository.*Repository*.*(..))")
-    public void allRepository(){};
+    public void allRepository() {
+    }
+
+    ;
 
     @Around("allController() || allService() || allRepository()")
     public Object logTrace(ProceedingJoinPoint joinPoint) throws Throwable {
         TraceStatus status = null;
-        try{
+        try {
             status = logTrace.begin(joinPoint.getSignature().toShortString());
             Object result = joinPoint.proceed();
             logTrace.end(status);
             return result;
-        }catch (Throwable e){
+        } catch (Throwable e) {
             logTrace.exception(status, e);
             throw e;
         }

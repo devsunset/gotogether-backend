@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserActiveTokenRepository extends JpaRepository<UserActiveToken, Long> {
-	Optional<UserActiveToken> findUserActiveTokenByUserActiveToken(String token);
+    Optional<UserActiveToken> findUserActiveTokenByUserActiveToken(String token);
 }

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommentService{
+public class CommentService {
 
     @Autowired
     private final CommentRepository commentRepository;
@@ -45,8 +45,8 @@ public class CommentService{
         Comment orignal = commentRepository.findById(commentId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(!(Utils.isAdmin(user.getRoles()))){
-            if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
+        if (!(Utils.isAdmin(user.getRoles()))) {
+            if (!(user.getUsername().equals(orignal.getWriter().getUsername()))) {
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
@@ -62,8 +62,8 @@ public class CommentService{
         Comment orignal = commentRepository.findById(commentId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(!(Utils.isAdmin(user.getRoles()))){
-            if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
+        if (!(Utils.isAdmin(user.getRoles()))) {
+            if (!(user.getUsername().equals(orignal.getWriter().getUsername()))) {
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
@@ -71,7 +71,7 @@ public class CommentService{
         commentRepository.deleteById(commentId);
     }
 
-    public  List<CommentResponse> getList(Long postId) throws Exception {
+    public List<CommentResponse> getList(Long postId) throws Exception {
         Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
         List<Comment> comments = post.getComments();

@@ -32,7 +32,7 @@ public class LoggingRequestWrapper extends HttpServletRequestWrapper {
                 try {
                     return cachedBodyInputStream.available() == 0;
                 } catch (IOException e) {
-                    log.error("ERROR",e);
+                    log.error("ERROR", e);
                 }
                 return false;
             }

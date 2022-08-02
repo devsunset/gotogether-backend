@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+
 @Schema(description = "refreshToken 요청")
 @Getter
 @Setter
@@ -14,6 +15,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class TokenRefreshRequest {
 
-  @NotBlank
-  private String refreshToken;
+    @NotBlank
+    private String refreshToken;
 }

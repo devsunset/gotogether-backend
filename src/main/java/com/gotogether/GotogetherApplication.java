@@ -15,17 +15,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @PropertySource(value = {"classpath:/appinfo-${spring.profiles.active}.properties"})
 public class GotogetherApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GotogetherApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GotogetherApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner initRoleTypeDataJPACommandLineRunner(RoleRepository repository) {
-		return (args) -> {
-			repository.save(new Role(RoleType.ROLE_GUEST));
-			repository.save(new Role(RoleType.ROLE_USER));
-			repository.save(new Role(RoleType.ROLE_ADMIN));
-		};
-	}
+    @Bean
+    public CommandLineRunner initRoleTypeDataJPACommandLineRunner(RoleRepository repository) {
+        return (args) -> {
+            repository.save(new Role(RoleType.ROLE_GUEST));
+            repository.save(new Role(RoleType.ROLE_USER));
+            repository.save(new Role(RoleType.ROLE_ADMIN));
+        };
+    }
 
 }

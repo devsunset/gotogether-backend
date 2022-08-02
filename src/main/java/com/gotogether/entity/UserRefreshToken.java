@@ -14,17 +14,17 @@ import java.time.Instant;
 @NoArgsConstructor
 @Entity
 public class UserRefreshToken extends BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long refreshId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long refreshId;
 
-  @OneToOne
-  @JoinColumn(name = "username", referencedColumnName = "username")
-  private User user;
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User user;
 
-  @Column(nullable = false, unique = true)
-  private String token;
+    @Column(nullable = false, unique = true)
+    private String token;
 
-  @Column(nullable = false)
-  private Instant expiryDate;
+    @Column(nullable = false)
+    private Instant expiryDate;
 }

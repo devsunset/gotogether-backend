@@ -24,7 +24,7 @@ public class PostResponse {
     private int hit;
     private int comment_count;
 
-    public PostResponse(Post post){
+    public PostResponse(Post post) {
         this.postId = post.getPostId();
         this.category = post.getCategory();
         this.title = post.getTitle();

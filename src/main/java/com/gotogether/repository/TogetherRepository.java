@@ -17,6 +17,6 @@ public interface TogetherRepository extends JpaRepository<Together, Long> {
 
     Page<Together> findByCategory(String category, Pageable pageable);
 
-    Page<Together> findByCategoryAndTitleLikeIgnoreCaseOrCategoryAndContentLikeIgnoreCase(String categoryOne, String title,String categoryTwo, String content,Pageable pageable);
+    Page<Together> findByCategoryAndTitleLikeIgnoreCaseOrCategoryAndContentLikeIgnoreCase(String categoryOne, String title, String categoryTwo, String content, Pageable pageable);
 
 }

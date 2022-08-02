@@ -20,41 +20,41 @@ import javax.validation.Valid;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-  @Autowired
-  AuthService authService;
+    @Autowired
+    AuthService authService;
 
-  @Autowired
-  UserRefreshTokenService userRefreshTokenService;
+    @Autowired
+    UserRefreshTokenService userRefreshTokenService;
 
-  @Operation(summary = "signin", description = "signin api")
-  @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogInRequest loginRequest)  throws Exception {
-    return CommonResponse.toResponseEntity(authService.authenticaeUser(loginRequest));
-  }
+    @Operation(summary = "signin", description = "signin api")
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogInRequest loginRequest) throws Exception {
+        return CommonResponse.toResponseEntity(authService.authenticaeUser(loginRequest));
+    }
 
-  @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest)  throws Exception {
-    authService.registerUser(signUpRequest);
-    return CommonResponse.toResponseEntity("","User registered successfully");
-  }
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) throws Exception {
+        authService.registerUser(signUpRequest);
+        return CommonResponse.toResponseEntity("", "User registered successfully");
+    }
 
-  @PostMapping("/refreshtoken")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-  public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) throws Exception {
-    return CommonResponse.toResponseEntity(authService.refreshtoken(request));
-  }
+    @PostMapping("/refreshtoken")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) throws Exception {
+        return CommonResponse.toResponseEntity(authService.refreshtoken(request));
+    }
 
-  @PostMapping("/logout")
-  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-  public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) throws Exception {
-    userRefreshTokenService.deleteByUsername(logOutRequest.getUsername());
-    return CommonResponse.toResponseEntity("","Log out successful");
-  }
+    @PostMapping("/logout")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) throws Exception {
+        userRefreshTokenService.deleteByUsername(logOutRequest.getUsername());
+        return CommonResponse.toResponseEntity("", "Log out successful");
+    }
 
-  @GetMapping("/signup/activeuser")
-  public ResponseEntity<?> activeUser(@RequestParam("token") String token) throws Exception {
-    authService.activeUser(token);
-    return CommonResponse.toResponseEntity("","active successful");
-  }
+    @GetMapping("/signup/activeuser")
+    public ResponseEntity<?> activeUser(@RequestParam("token") String token) throws Exception {
+        authService.activeUser(token);
+        return CommonResponse.toResponseEntity("", "active successful");
+    }
 
 }

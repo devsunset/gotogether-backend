@@ -16,39 +16,39 @@ import java.util.UUID;
 @Service
 @Configuration
 public class UserRefreshTokenService {
-  @Value("${go.together.jwtRefreshExpirationMs}")
-  private Long userRefreshTokenDurationMs;
+    @Value("${go.together.jwtRefreshExpirationMs}")
+    private Long userRefreshTokenDurationMs;
 
-  @Autowired
-  private UserRefreshTokenRepository userRefreshTokenRepository;
+    @Autowired
+    private UserRefreshTokenRepository userRefreshTokenRepository;
 
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  public Optional<UserRefreshToken> findByToken(String token) throws Exception {
-    return userRefreshTokenRepository.findByToken(token);
-  }
-
-  public UserRefreshToken createRefreshToken(String username) throws Exception {
-    UserRefreshToken userRefreshToken = new UserRefreshToken();
-
-    userRefreshToken.setUser(userRepository.findByUsername(username).get());
-    userRefreshToken.setExpiryDate(Instant.now().plusMillis(userRefreshTokenDurationMs));
-    userRefreshToken.setToken(UUID.randomUUID().toString());
-
-    userRefreshToken = userRefreshTokenRepository.save(userRefreshToken);
-    return userRefreshToken;
-  }
-
-  public UserRefreshToken verifyExpiration(UserRefreshToken token){
-    if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
-      userRefreshTokenRepository.delete(token);
-      throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+    public Optional<UserRefreshToken> findByToken(String token) throws Exception {
+        return userRefreshTokenRepository.findByToken(token);
     }
-    return token;
-  }
 
-  public int deleteByUsername(String username) throws Exception {
-    return userRefreshTokenRepository.deleteByUser(userRepository.findByUsername(username).get());
-  }
+    public UserRefreshToken createRefreshToken(String username) throws Exception {
+        UserRefreshToken userRefreshToken = new UserRefreshToken();
+
+        userRefreshToken.setUser(userRepository.findByUsername(username).get());
+        userRefreshToken.setExpiryDate(Instant.now().plusMillis(userRefreshTokenDurationMs));
+        userRefreshToken.setToken(UUID.randomUUID().toString());
+
+        userRefreshToken = userRefreshTokenRepository.save(userRefreshToken);
+        return userRefreshToken;
+    }
+
+    public UserRefreshToken verifyExpiration(UserRefreshToken token) {
+        if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
+            userRefreshTokenRepository.delete(token);
+            throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+        }
+        return token;
+    }
+
+    public int deleteByUsername(String username) throws Exception {
+        return userRefreshTokenRepository.deleteByUser(userRepository.findByUsername(username).get());
+    }
 }

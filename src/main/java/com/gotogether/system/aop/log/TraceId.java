@@ -23,20 +23,20 @@ public class TraceId {
         try {
             UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             return user.getUsername();
-        }catch (Exception e ){
-            return String.format("[Anonymous: %S]",UUID.randomUUID().toString().substring(0,8));
+        } catch (Exception e) {
+            return String.format("[Anonymous: %S]", UUID.randomUUID().toString().substring(0, 8));
         }
     }
 
-    public TraceId createNextId(){
+    public TraceId createNextId() {
         return new TraceId(id, level + 1);
     }
 
-    public TraceId createPreviousId(){
+    public TraceId createPreviousId() {
         return new TraceId(id, level - 1);
     }
 
-    public boolean isFirstLevel(){
+    public boolean isFirstLevel() {
         return level == 0;
     }
 

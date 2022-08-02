@@ -95,7 +95,7 @@ public class AuthService {
             throw new CustomException(ErrorCode.EMAIL_ALREADY_USE);
         }
 
-        User user = new User(signUpRequest.getUsername(),signUpRequest.getNickname(), signUpRequest.getEmail(),
+        User user = new User(signUpRequest.getUsername(), signUpRequest.getNickname(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
@@ -149,16 +149,16 @@ public class AuthService {
 
                     List<String> roles = new ArrayList<String>();
 
-                    for (Role element :user.getRoles()) {
+                    for (Role element : user.getRoles()) {
                         roles.add(element.getRolename().toString());
                     }
 
-                    return new TokenRefreshResponse(token, requestRefreshToken, user.getUsername(), user.getNickname(),user.getEmail(),roles);
+                    return new TokenRefreshResponse(token, requestRefreshToken, user.getUsername(), user.getNickname(), user.getEmail(), roles);
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
     }
 
-    public void activeUser (String token) throws Exception {
+    public void activeUser(String token) throws Exception {
         Optional<UserActiveToken> userActiveToken = userActiveTokenService.findUserActiveTokenByToken(token);
         final User user = userActiveToken.get().getUser();
 
@@ -203,7 +203,7 @@ public class AuthService {
     }
 
     public User getUserOrEmptyNull(String username) throws Exception {
-         return userRepository.findByUsername(username).orElse(null);
+        return userRepository.findByUsername(username).orElse(null);
     }
 
     public String getSessionUsername() throws Exception {
@@ -216,7 +216,7 @@ public class AuthService {
         User user = userRepository.findByUsername(userDetail.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userDetail.getUsername()));
         String rolename = RoleType.ROLE_GUEST.toString();
-        for (Role element :user.getRoles()) {
+        for (Role element : user.getRoles()) {
             rolename = element.getRolename().toString();
         }
         return rolename;

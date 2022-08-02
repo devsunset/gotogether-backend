@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+
 @Schema(description = "Login 요청")
 @Getter
 @Setter
@@ -14,12 +15,12 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class LogInRequest {
 
-	@Schema(description = "userid")
-	@NotBlank
-	private String username;
+    @Schema(description = "userid")
+    @NotBlank
+    private String username;
 
-	@Schema(description = "password")
-	@NotBlank
-	private String password;
+    @Schema(description = "password")
+    @NotBlank
+    private String password;
 
 }

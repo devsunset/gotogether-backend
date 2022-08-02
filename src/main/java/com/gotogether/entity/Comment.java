@@ -18,7 +18,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicUpdate
 @Entity
 public class Comment extends BaseEntity {
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long commentId;
 
     @ManyToOne

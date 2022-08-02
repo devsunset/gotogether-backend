@@ -14,13 +14,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Role extends BaseEntity {
-	@Id
-	@Enumerated(EnumType.STRING)
-	@Column(length = 20)
-	private RoleType rolename;
+    @Id
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private RoleType rolename;
 
-	public Role(RoleType rolename) {
-		this.rolename = rolename;
-	}
+    public Role(RoleType rolename) {
+        this.rolename = rolename;
+    }
 
 }

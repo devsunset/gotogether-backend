@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class CommentController {
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{commentId}")
     public ResponseEntity<?> update(@PathVariable("commentId") Long commentId, @Valid @RequestBody CommentRequest commentRequest) throws Exception {
-        return CommonResponse.toResponseEntity(commentService.update(commentId,commentRequest));
+        return CommonResponse.toResponseEntity(commentService.update(commentId, commentRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")

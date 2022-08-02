@@ -9,11 +9,13 @@ public enum SkillLevelType {
     JOB_PROFESSIONAL("JOB_PROFESSIONAL");
 
     final private String name;
+
+    private SkillLevelType(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
-    }
-    private SkillLevelType(String name){
-        this.name = name;
     }
 }
 

@@ -35,10 +35,10 @@ public class UserInfoController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<?> getPageList(@PageableDefault(size=10, sort = "createdDate", direction = Sort.Direction.DESC)
+    public ResponseEntity<?> getPageList(@PageableDefault(size = 10, sort = "createdDate", direction = Sort.Direction.DESC)
                                          Pageable pageable,
-                                         @Valid @RequestBody SearchCondition searchCondition ) throws Exception {
-        return CommonResponse.toResponseEntity(userInfoService.getPageList(pageable,searchCondition));
+                                         @Valid @RequestBody SearchCondition searchCondition) throws Exception {
+        return CommonResponse.toResponseEntity(userInfoService.getPageList(pageable, searchCondition));
     }
 
 }

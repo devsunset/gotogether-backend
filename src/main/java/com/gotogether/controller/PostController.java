@@ -31,13 +31,13 @@ public class PostController {
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{postId}")
     public ResponseEntity<?> update(@PathVariable("postId") Long postId, @Valid @RequestBody PostRequest postRequest) throws Exception {
-        return CommonResponse.toResponseEntity(postService.update(postId,postRequest));
+        return CommonResponse.toResponseEntity(postService.update(postId, postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/updatecategory/{postId}")
     public ResponseEntity<?> changecategory(@PathVariable("postId") Long postId, @Valid @RequestBody PostRequest postRequest) throws Exception {
-        return CommonResponse.toResponseEntity(postService.updatecategory(postId,postRequest));
+        return CommonResponse.toResponseEntity(postService.updatecategory(postId, postRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
@@ -53,10 +53,10 @@ public class PostController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<?> getPageList(@PageableDefault(size=10, sort = "postId", direction = Sort.Direction.DESC)
-                                             Pageable pageable,
-                                    @Valid @RequestBody SearchCondition searchCondition ) throws Exception {
-        return CommonResponse.toResponseEntity(postService.getPageList(pageable,searchCondition));
+    public ResponseEntity<?> getPageList(@PageableDefault(size = 10, sort = "postId", direction = Sort.Direction.DESC)
+                                         Pageable pageable,
+                                         @Valid @RequestBody SearchCondition searchCondition) throws Exception {
+        return CommonResponse.toResponseEntity(postService.getPageList(pageable, searchCondition));
     }
 
 }

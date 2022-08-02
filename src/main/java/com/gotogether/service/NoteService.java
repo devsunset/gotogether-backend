@@ -37,7 +37,7 @@ public class NoteService {
         User user = authService.getSessionUser();
         note.setFromUser(user);
         note.setToUser(authService.getUser(noteRequest.getToUser()));
-        if(user.getUsername().equals(noteRequest.getToUser())){
+        if (user.getUsername().equals(noteRequest.getToUser())) {
             throw new CustomException(ErrorCode.NOT_SEND_NOTE_SELF);
         }
         return noteRepository.save(note).getNoteId();
@@ -47,7 +47,7 @@ public class NoteService {
         User user = authService.getSessionUser();
         Note note = noteRepository.findById(noteId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
-        if(!user.getUsername().equals(note.getFromUser())){
+        if (!user.getUsername().equals(note.getFromUser())) {
             throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
         }
         note.setFromDeleted(Constants.YES);
@@ -59,7 +59,7 @@ public class NoteService {
         Note note = noteRepository.findById(noteId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(!user.getUsername().equals(note.getToDeleted())){
+        if (!user.getUsername().equals(note.getToDeleted())) {
             throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
         }
         note.setToDeleted(Constants.YES);
@@ -71,15 +71,15 @@ public class NoteService {
         Note note = noteRepository.findById(noteId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(!(user.getUsername().equals(note.getFromUser().getUsername())
-                ||  user.getUsername().equals(note.getToUser().getUsername()))){
+        if (!(user.getUsername().equals(note.getFromUser().getUsername())
+                || user.getUsername().equals(note.getToUser().getUsername()))) {
             throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
         }
 
-        if(user.getUsername().equals(note.getToUser().getUsername())){
-             if(Constants.NO.equals(note.getRead())){
-                 note.setRead(Constants.YES);
-                 noteRepository.save(note);
+        if (user.getUsername().equals(note.getToUser().getUsername())) {
+            if (Constants.NO.equals(note.getRead())) {
+                note.setRead(Constants.YES);
+                noteRepository.save(note);
             }
         }
         return new NoteResponse(note);

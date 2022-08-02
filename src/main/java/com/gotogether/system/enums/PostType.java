@@ -5,11 +5,13 @@ public enum PostType {
     QA("QA");
 
     final private String name;
+
+    private PostType(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
-    }
-    private PostType(String name){
-        this.name = name;
     }
 }
 

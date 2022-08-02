@@ -18,31 +18,10 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+
 @Slf4j
 @Order(1)
 public class LoggingFilter extends OncePerRequestFilter {
-
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        MDC.put("traceId", UUID.randomUUID().toString());
-        //xss h2-console skip
-        if (isAsyncDispatch(request) || ((HttpServletRequest) request).getRequestURL().indexOf(Constants.XSS_H2CONSOLE_SKIP) > -1) {
-            filterChain.doFilter(request, response);
-        } else {
-            doFilterWrapped(new LoggingRequestWrapper(request), new LoggingResponseWrapper(response), filterChain);
-        }
-        MDC.clear();
-    }
-
-    protected void doFilterWrapped(LoggingRequestWrapper request, ContentCachingResponseWrapper response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            logRequest(request);
-            filterChain.doFilter(request, response);
-        } finally {
-            logResponse(response);
-            response.copyBodyToResponse();
-        }
-    }
 
     private static void logRequest(LoggingRequestWrapper request) throws IOException {
         String queryString = request.getQueryString();
@@ -85,5 +64,27 @@ public class LoggingFilter extends OncePerRequestFilter {
 
         return VISIBLE_TYPES.stream()
                 .anyMatch(visibleType -> visibleType.includes(mediaType));
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        MDC.put("traceId", UUID.randomUUID().toString());
+        //xss h2-console skip
+        if (isAsyncDispatch(request) || ((HttpServletRequest) request).getRequestURL().indexOf(Constants.XSS_H2CONSOLE_SKIP) > -1) {
+            filterChain.doFilter(request, response);
+        } else {
+            doFilterWrapped(new LoggingRequestWrapper(request), new LoggingResponseWrapper(response), filterChain);
+        }
+        MDC.clear();
+    }
+
+    protected void doFilterWrapped(LoggingRequestWrapper request, ContentCachingResponseWrapper response, FilterChain filterChain) throws ServletException, IOException {
+        try {
+            logRequest(request);
+            filterChain.doFilter(request, response);
+        } finally {
+            logResponse(response);
+            response.copyBodyToResponse();
+        }
     }
 }

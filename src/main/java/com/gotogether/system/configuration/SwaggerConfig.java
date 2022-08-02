@@ -25,6 +25,7 @@ import java.util.List;
 public class SwaggerConfig {
 
     TypeResolver typeResolver = new TypeResolver();
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
@@ -69,7 +70,6 @@ public class SwaggerConfig {
     }
 
 
-
     @Getter
     @Setter
     @ApiModel
@@ -77,7 +77,7 @@ public class SwaggerConfig {
         @ApiModelProperty(value = "페이지 번호(0..N)")
         private Integer page;
 
-        @ApiModelProperty(value = "페이지 크기", allowableValues="range[0, 100]")
+        @ApiModelProperty(value = "페이지 크기", allowableValues = "range[0, 100]")
         private Integer size;
 
         @ApiModelProperty(value = "정렬(사용법: 컬럼명,ASC|DESC)")

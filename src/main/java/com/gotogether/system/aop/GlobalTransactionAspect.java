@@ -17,14 +17,14 @@ import java.util.Collections;
 @Configuration
 public class GlobalTransactionAspect {
 
-    private static final String AOP_TRANSACTION_METHOD_NAME="*";
-    private static final String AOP_TRANSACTION_EXPRESSION="execution(* com.gotogether.service.*Service*.*(..))";
+    private static final String AOP_TRANSACTION_METHOD_NAME = "*";
+    private static final String AOP_TRANSACTION_EXPRESSION = "execution(* com.gotogether.service.*Service*.*(..))";
 
     @Autowired
     private TransactionManager transactionManager;
 
     @Bean
-    public TransactionInterceptor transactionAdvice(){
+    public TransactionInterceptor transactionAdvice() {
         MatchAlwaysTransactionAttributeSource source = new MatchAlwaysTransactionAttributeSource();
         RuleBasedTransactionAttribute transactionAttribute = new RuleBasedTransactionAttribute();
         transactionAttribute.setName(AOP_TRANSACTION_METHOD_NAME);
@@ -34,7 +34,7 @@ public class GlobalTransactionAspect {
     }
 
     @Bean
-    public Advisor transactionAdviceAdvisor(){
+    public Advisor transactionAdviceAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(AOP_TRANSACTION_EXPRESSION);
         return new DefaultPointcutAdvisor(pointcut, transactionAdvice());

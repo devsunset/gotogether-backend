@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class FilterConfig{
+public class FilterConfig {
 
     @Bean
-    public CorsFilter corsFilterBean(){
+    public CorsFilter corsFilterBean() {
         return new CorsFilter();
     }
 
@@ -32,12 +32,12 @@ public class FilterConfig{
      */
 
     @Bean
-    public RequestServletXssFilter requestServletXssFilterBean(){
+    public RequestServletXssFilter requestServletXssFilterBean() {
         return new RequestServletXssFilter();
     }
 
     @Bean
-    public RequestBodyXssFIleter requestBodyXssFIleterBean(){
+    public RequestBodyXssFIleter requestBodyXssFIleterBean() {
         return new RequestBodyXssFIleter();
     }
 }

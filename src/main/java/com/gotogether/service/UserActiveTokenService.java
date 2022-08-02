@@ -11,17 +11,17 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserActiveTokenService {
 
-	private final UserActiveTokenRepository userActiveTokenRepository;
+    private final UserActiveTokenRepository userActiveTokenRepository;
 
-	public void saveUserActiveToken(UserActiveToken userActiveToken) throws Exception {
-		userActiveTokenRepository.save(userActiveToken);
-	}
+    public void saveUserActiveToken(UserActiveToken userActiveToken) throws Exception {
+        userActiveTokenRepository.save(userActiveToken);
+    }
 
-	public void deleteUserActiveToken(Long id) throws Exception {
-		userActiveTokenRepository.deleteById(id);
-	}
+    public void deleteUserActiveToken(Long id) throws Exception {
+        userActiveTokenRepository.deleteById(id);
+    }
 
-	public Optional<UserActiveToken> findUserActiveTokenByToken(String token)  throws Exception {
-		return userActiveTokenRepository.findUserActiveTokenByUserActiveToken(token);
-	}
+    public Optional<UserActiveToken> findUserActiveTokenByToken(String token) throws Exception {
+        return userActiveTokenRepository.findUserActiveTokenByUserActiveToken(token);
+    }
 }

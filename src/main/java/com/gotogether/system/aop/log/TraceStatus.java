@@ -14,9 +14,11 @@ public class TraceStatus {
     public TraceId getTraceId() {
         return traceId;
     }
+
     public Long getStartTimeMs() {
         return startTimeMs;
     }
+
     public String getMessage() {
         return message;
     }

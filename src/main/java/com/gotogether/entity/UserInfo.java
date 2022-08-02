@@ -14,30 +14,30 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 public class UserInfo extends BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long userInfoId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userInfoId;
 
-  @OneToOne(targetEntity=User.class, fetch=FetchType.EAGER)
-  @JoinColumn(name="username")
-  private User user;
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "username")
+    private User user;
 
-  @NotNull
-  @Column(length = 255, nullable = false)
-  private String introduce;
+    @NotNull
+    @Column(length = 255, nullable = false)
+    private String introduce;
 
-  @NotNull
-  @Column(length = 1000)
-  private String note;
+    @NotNull
+    @Column(length = 1000)
+    private String note;
 
-  @Column(length = 500)
-  private String github;
+    @Column(length = 500)
+    private String github;
 
-  @Column(length = 500)
-  private String homepage;
+    @Column(length = 500)
+    private String homepage;
 
-  @Column(length = 500)
-  private String profileImageLink;
+    @Column(length = 500)
+    private String profileImageLink;
 
 }
 

@@ -13,6 +13,18 @@ public class ThreadLocalLogTrace implements LogTrace {
 
     private ThreadLocal<TraceId> traceIdHolder = new ThreadLocal<>();
 
+    private static String addSpace(String prefix, int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append(
+                    (i == level - 1)
+                            ? "|" + prefix
+                            : "|   "
+            );
+        }
+        return sb.toString();
+    }
+
     @Override
     public TraceStatus begin(String message) {
         syncTraceId();
@@ -28,12 +40,12 @@ public class ThreadLocalLogTrace implements LogTrace {
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
-    private void syncTraceId(){
+    private void syncTraceId() {
         TraceId traceId = traceIdHolder.get();
-        if(traceId == null){
+        if (traceId == null) {
             traceIdHolder.set(new TraceId());
 
-        }else {
+        } else {
             traceIdHolder.set(traceId.createNextId());
         }
     }
@@ -72,23 +84,11 @@ public class ThreadLocalLogTrace implements LogTrace {
 
     private void releaseTraceId() {
         TraceId traceId = traceIdHolder.get();
-        if(traceId.isFirstLevel()){
+        if (traceId.isFirstLevel()) {
             traceIdHolder.remove();
-        }else{
+        } else {
             traceIdHolder.set(traceId.createPreviousId());
         }
 
-    }
-
-    private static String addSpace(String prefix, int level) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            sb.append(
-                    (i == level - 1)
-                            ? "|" + prefix
-                            : "|   "
-            );
-        }
-        return sb.toString();
     }
 }

@@ -44,10 +44,10 @@ public class UserInfoService {
 
     public Long save(UserInfoRequest userInfoRequest) throws Exception {
         UserInfo userInfo = userInfoRepository.findByUser(authService.getSessionUser());
-        if(userInfo == null){
+        if (userInfo == null) {
             userInfo = modelMapper.map(userInfoRequest, UserInfo.class);
             userInfo.setUser(authService.getSessionUser());
-        }else{
+        } else {
             userInfo.setIntroduce(userInfoRequest.getIntroduce());
             userInfo.setNote(userInfoRequest.getNote());
             userInfo.setGithub(userInfoRequest.getGithub());
@@ -59,67 +59,67 @@ public class UserInfoService {
 
     public UserInfoResponse get(String userId) throws Exception {
         User user = authService.getUserOrEmptyNull(userId);
-        if(user != null){
+        if (user != null) {
             UserInfo userInfo = userInfoRepository.findByUser(user);
-            if(userInfo != null){
+            if (userInfo != null) {
                 return new UserInfoResponse(userInfo);
-            }else{
+            } else {
                 return null;
             }
-        }else{
+        } else {
             return null;
         }
     }
 
 
-
-
-    private User[] getUserSearch(String searchWord)  throws Exception{
-        return userRepository.findByUsernameContainsIgnoreCaseOrNicknameContainsIgnoreCase(searchWord,searchWord);
+    private User[] getUserSearch(String searchWord) throws Exception {
+        return userRepository.findByUsernameContainsIgnoreCaseOrNicknameContainsIgnoreCase(searchWord, searchWord);
     }
-    private UserInfo[] getUserInfoSearch(String searchWord)  throws Exception{
+
+    private UserInfo[] getUserInfoSearch(String searchWord) throws Exception {
         return userInfoRepository.findByIntroduceContainsIgnoreCase(searchWord);
     }
-    private UserSkill[] getUserSkillSearch(String searchWord)  throws Exception{
+
+    private UserSkill[] getUserSkillSearch(String searchWord) throws Exception {
         return userSkillRepository.findByItemContainsIgnoreCase(searchWord);
     }
 
-    private UserInfo getUserInfo(String userId)  throws Exception{
+    private UserInfo getUserInfo(String userId) throws Exception {
         User user = authService.getUserOrEmptyNull(userId);
-        if(user != null){
-           return userInfoRepository.findByUser(user);
-        }else{
+        if (user != null) {
+            return userInfoRepository.findByUser(user);
+        } else {
             return null;
         }
     }
 
-    private List<HashMap<String,String>> getUserSkills(String userId)  throws Exception{
-        ArrayList<HashMap<String,String>> item = new ArrayList<HashMap<String,String>>();
+    private List<HashMap<String, String>> getUserSkills(String userId) throws Exception {
+        ArrayList<HashMap<String, String>> item = new ArrayList<HashMap<String, String>>();
         User user = authService.getUserOrEmptyNull(userId);
-        if(user != null){
-            UserSkill[]  userSkills = userSkillRepository.findByUser(user);
-            HashMap<String,String> map;
+        if (user != null) {
+            UserSkill[] userSkills = userSkillRepository.findByUser(user);
+            HashMap<String, String> map;
             for (UserSkill userSkill : userSkills) {
-                map = new HashMap<String,String>();
-                map.put("ITEM",userSkill.getItem());
-                map.put("ITEM_LEVEL",userSkill.getItemLevel());
+                map = new HashMap<String, String>();
+                map.put("ITEM", userSkill.getItem());
+                map.put("ITEM_LEVEL", userSkill.getItemLevel());
                 item.add(map);
             }
             return item;
-        }else{
+        } else {
             return null;
         }
     }
 
-    public Page<MembersResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception{
+    public Page<MembersResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
         ArrayList<User> userList = new ArrayList<User>();
 
-        if("".equalsIgnoreCase(searchCondition.getKeyword().trim())){
+        if ("".equalsIgnoreCase(searchCondition.getKeyword().trim())) {
             List<User> users = userRepository.findAll();
             for (User user : users) {
                 userList.add(user);
             }
-        }else{
+        } else {
             User[] users = this.getUserSearch(searchCondition.getKeyword());
             for (User user : users) {
                 userList.add(user);
@@ -142,20 +142,20 @@ public class UserInfoService {
         }
         String[] userIds = params.toArray(new String[params.size()]);
 
-        Page<MembersResponse> page = userRepository.findByUsernameIn(userIds,pageable).map(MembersResponse::new);
-        page = page.map(this :: transformResponse);
+        Page<MembersResponse> page = userRepository.findByUsernameIn(userIds, pageable).map(MembersResponse::new);
+        page = page.map(this::transformResponse);
         return page;
     }
 
-    private MembersResponse transformResponse(final MembersResponse membersResponse){
+    private MembersResponse transformResponse(final MembersResponse membersResponse) {
         UserInfo userInfo = null;
-        try{
+        try {
             userInfo = this.getUserInfo(membersResponse.getUsername());
-        }catch(Exception e){
-            log.error("ERROR",e);
+        } catch (Exception e) {
+            log.error("ERROR", e);
         }
 
-        if(userInfo !=null){
+        if (userInfo != null) {
             membersResponse.setIntroduce(userInfo.getIntroduce());
             membersResponse.setNote(userInfo.getNote());
             membersResponse.setGithub(userInfo.getGithub());
@@ -163,14 +163,14 @@ public class UserInfoService {
             membersResponse.setProfileImageLink(userInfo.getProfileImageLink());
         }
 
-        List<HashMap<String,String>> userSkill = null;
-        try{
-            userSkill  = this.getUserSkills(membersResponse.getUsername());
-        }catch(Exception e){
-            log.error("ERROR",e);
+        List<HashMap<String, String>> userSkill = null;
+        try {
+            userSkill = this.getUserSkills(membersResponse.getUsername());
+        } catch (Exception e) {
+            log.error("ERROR", e);
         }
 
-        if(userSkill !=null){
+        if (userSkill != null) {
             membersResponse.setSkills(userSkill);
         }
         return membersResponse;

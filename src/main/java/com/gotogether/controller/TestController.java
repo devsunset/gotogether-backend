@@ -10,36 +10,37 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
 
-	@GetMapping("/all")
-	public String allAccess() throws Exception {
-		return "Public Content.";
-	}
-	
-	@GetMapping("/user")
-	@PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-	public String userAccess() throws Exception {
-		return "User Content.";
-	}
+    @GetMapping("/all")
+    public String allAccess() throws Exception {
+        return "Public Content.";
+    }
 
-	@GetMapping("/admin")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String adminAccess() throws Exception {
-		return "Admin Board.";
-	}
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public String userAccess() throws Exception {
+        return "User Content.";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String adminAccess() throws Exception {
+        return "Admin Board.";
+    }
 
 
-	@PostMapping("/xss/")
-	public ResponseEntity<?> xss(@Valid @RequestBody PostRequest postRequest, @ModelAttribute CommentRequest commentRequest) throws Exception {
-		log.debug("########### PostRequest : "+postRequest.toString());
-		log.debug("########### CommentRequest : "+commentRequest.toString());
-		ArrayList<Object> result = new ArrayList<Object>();
-		result.add(postRequest);
-		result.add(commentRequest);
-		return CommonResponse.toResponseEntity(result);
-	}
+    @PostMapping("/xss/")
+    public ResponseEntity<?> xss(@Valid @RequestBody PostRequest postRequest, @ModelAttribute CommentRequest commentRequest) throws Exception {
+        log.debug("########### PostRequest : " + postRequest.toString());
+        log.debug("########### CommentRequest : " + commentRequest.toString());
+        ArrayList<Object> result = new ArrayList<Object>();
+        result.add(postRequest);
+        result.add(commentRequest);
+        return CommonResponse.toResponseEntity(result);
+    }
 }

@@ -37,7 +37,7 @@ public class PostService {
     private final ModelMapper modelMapper;
 
     public Long save(PostRequest postRequest) throws Exception {
-        if(!(Utils.isValidPostType(postRequest.getCategory()))){
+        if (!(Utils.isValidPostType(postRequest.getCategory()))) {
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
         Post post = modelMapper.map(postRequest, Post.class);
@@ -46,15 +46,15 @@ public class PostService {
     }
 
     public Long update(Long postId, PostRequest postRequest) throws Exception {
-        if(!(Utils.isValidPostType(postRequest.getCategory()))){
+        if (!(Utils.isValidPostType(postRequest.getCategory()))) {
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
         User user = authService.getSessionUser();
         Post orignal = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(!(Utils.isAdmin(user.getRoles()))){
-            if(!(user.getUsername().equals(orignal.getWriter().getUsername()))){
+        if (!(Utils.isAdmin(user.getRoles()))) {
+            if (!(user.getUsername().equals(orignal.getWriter().getUsername()))) {
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
@@ -66,7 +66,7 @@ public class PostService {
     }
 
     public Long updatecategory(Long postId, PostRequest postRequest) throws Exception {
-        if(!(Utils.isValidPostType(postRequest.getCategory()))){
+        if (!(Utils.isValidPostType(postRequest.getCategory()))) {
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
 
@@ -74,11 +74,11 @@ public class PostService {
         Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(post.getCategory().equals(postRequest.getCategory())){
+        if (post.getCategory().equals(postRequest.getCategory())) {
             throw new CustomException(ErrorCode.NOT_CHANG_EQUAL_CATEGEORY);
         }
 
-        if(!(Utils.isAdmin(user.getRoles()))){
+        if (!(Utils.isAdmin(user.getRoles()))) {
             throw new CustomException(ErrorCode.NOT_ROLE_ADMIN);
         }
 
@@ -90,10 +90,10 @@ public class PostService {
         commentRequest.setPostId(postId);
 
         String content = "";
-        if(PostType.TALK.getName().equals(postRequest.getCategory())){
-            content = "QA ---&gt; TALK 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
-        }else{
-            content = "TALK ---&gt; QA 게시판으로 "+user.getNickname()+"님 (관리자)에 의해 이동 되었습니다.";
+        if (PostType.TALK.getName().equals(postRequest.getCategory())) {
+            content = "QA ---&gt; TALK 게시판으로 " + user.getNickname() + "님 (관리자)에 의해 이동 되었습니다.";
+        } else {
+            content = "TALK ---&gt; QA 게시판으로 " + user.getNickname() + "님 (관리자)에 의해 이동 되었습니다.";
         }
         commentRequest.setContent(content);
         commentService.save(commentRequest);
@@ -106,8 +106,8 @@ public class PostService {
         Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if(!(Utils.isAdmin(user.getRoles()))){
-            if(!(user.getUsername().equals(post.getWriter().getUsername()))){
+        if (!(Utils.isAdmin(user.getRoles()))) {
+            if (!(user.getUsername().equals(post.getWriter().getUsername()))) {
                 throw new CustomException(ErrorCode.NOT_WRITE_POST);
             }
         }
@@ -122,13 +122,13 @@ public class PostService {
     }
 
     public Page<PostResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
-        if(!(Utils.isValidPostType(searchCondition.getCategory()))){
+        if (!(Utils.isValidPostType(searchCondition.getCategory()))) {
             throw new CustomException(ErrorCode.NOT_POST_TYPE);
         }
 
-        if(searchCondition.getKeyword() !=null && "".equalsIgnoreCase(searchCondition.getKeyword().trim())){
-            return postRepository.findByCategoryAndTitleContainsIgnoreCaseOrCategoryAndContentContainsIgnoreCase(searchCondition.getCategory(), searchCondition.getKeyword(),searchCondition.getCategory(), searchCondition.getKeyword(), pageable).map(PostResponse::new);
-        }else{
+        if (searchCondition.getKeyword() != null && "".equalsIgnoreCase(searchCondition.getKeyword().trim())) {
+            return postRepository.findByCategoryAndTitleContainsIgnoreCaseOrCategoryAndContentContainsIgnoreCase(searchCondition.getCategory(), searchCondition.getKeyword(), searchCondition.getCategory(), searchCondition.getKeyword(), pageable).map(PostResponse::new);
+        } else {
             return postRepository.findByCategory(searchCondition.getCategory(), pageable).map(PostResponse::new);
         }
     }

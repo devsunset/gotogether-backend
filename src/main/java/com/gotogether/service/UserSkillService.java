@@ -28,31 +28,30 @@ public class UserSkillService {
     @Autowired
     private final ModelMapper modelMapper;
 
-    public void save(UserSkillRequest[] userSkillRequest) throws Exception{
+    public void save(UserSkillRequest[] userSkillRequest) throws Exception {
         User user = authService.getSessionUser();
         userSkillRepository.deleteByUser(user);
 
 
         TreeSet<String> distinctData = new TreeSet<String>();
 
-        for(UserSkillRequest userSkillParam: userSkillRequest){
-            if(!Utils.isValidSkillLevelType(userSkillParam.getItemLevel())){
+        for (UserSkillRequest userSkillParam : userSkillRequest) {
+            if (!Utils.isValidSkillLevelType(userSkillParam.getItemLevel())) {
                 throw new CustomException(ErrorCode.NOT_SKILL_LEVEL_TYPE);
             }
             distinctData.add(userSkillParam.getItem().toLowerCase());
         }
 
-        if (distinctData.size() != userSkillRequest.length){
+        if (distinctData.size() != userSkillRequest.length) {
             throw new CustomException(ErrorCode.NOT_SKILL_ITEM_DUPLICATE);
         }
 
-        for(UserSkillRequest userSkillParam: userSkillRequest){
+        for (UserSkillRequest userSkillParam : userSkillRequest) {
             UserSkill userSkill = modelMapper.map(userSkillParam, UserSkill.class);
             userSkill.setUser(user);
             userSkillRepository.save(userSkill);
         }
     }
-
 
 
 }

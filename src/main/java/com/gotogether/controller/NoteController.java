@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/note")
 @RequiredArgsConstructor
@@ -46,15 +47,15 @@ public class NoteController {
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/sendlist")
-    public ResponseEntity<?> getPageSendList(@PageableDefault(size=10, sort = "noteId", direction = Sort.Direction.DESC)
+    public ResponseEntity<?> getPageSendList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
                                              Pageable pageable) throws Exception {
         return CommonResponse.toResponseEntity(noteService.getSendList(pageable));
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/receivelist")
-    public ResponseEntity<?> getPageReceiveList(@PageableDefault(size=10, sort = "noteId", direction = Sort.Direction.DESC)
-                                             Pageable pageable) throws Exception {
+    public ResponseEntity<?> getPageReceiveList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
+                                                Pageable pageable) throws Exception {
         return CommonResponse.toResponseEntity(noteService.getReceiveList(pageable));
     }
 }

@@ -25,7 +25,7 @@ public class MembersResponse {
     private String createdDate;
     private String modifiedDate;
 
-    private List<HashMap<String,String>> skills;
+    private List<HashMap<String, String>> skills;
 
     public MembersResponse(User user) {
         this.username = user.getUsername();

@@ -7,27 +7,28 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+
 @Schema(description = "refreshToken 응답")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class TokenRefreshResponse {
-  private String token;
+    private String token;
 
-  private String type = "Bearer";
-  private String refreshToken;
-  private String username;
-  private String nickname;
-  private String email;
-  private List<String> roles;
+    private String type = "Bearer";
+    private String refreshToken;
+    private String username;
+    private String nickname;
+    private String email;
+    private List<String> roles;
 
-  public TokenRefreshResponse(String token, String refreshToken, String username, String nickname, String email, List<String> roles) {
-    this.token = token;
-    this.refreshToken = refreshToken;
-    this.username = username;
-    this.nickname = nickname;
-    this.email = email;
-    this.roles = roles;
-  }
+    public TokenRefreshResponse(String token, String refreshToken, String username, String nickname, String email, List<String> roles) {
+        this.token = token;
+        this.refreshToken = refreshToken;
+        this.username = username;
+        this.nickname = nickname;
+        this.email = email;
+        this.roles = roles;
+    }
 }

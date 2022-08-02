@@ -20,7 +20,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicUpdate
 @Entity
 public class Together extends BaseEntity {
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long togetherId;
 
     @NotNull
