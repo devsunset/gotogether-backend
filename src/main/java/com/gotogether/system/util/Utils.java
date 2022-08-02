@@ -2,7 +2,7 @@ package com.gotogether.system.util;
 
 import com.gotogether.entity.Role;
 import com.gotogether.system.constants.Constants;
-import com.gotogether.system.enums.PostType;
+import com.gotogether.system.enums.PostCategory;
 import com.gotogether.system.enums.SkillLevelType;
 
 import java.io.PrintWriter;
@@ -58,7 +58,7 @@ public class Utils {
 
     public static boolean isValidPostType(String category) {
         boolean result = false;
-        for (PostType type : PostType.values()) {
+        for (PostCategory type : PostCategory.values()) {
             if (type.getName().equals(category)) {
                 result = true;
             }

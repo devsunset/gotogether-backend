@@ -3,9 +3,7 @@ package com.gotogether.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Schema(description = "Together 요청")
 @Getter
@@ -50,9 +48,13 @@ public class TogetherRequest {
     private String longitude;
 
     @NotNull
+    @Max(100)
+    @Min(2)
     private int maxMember;
 
     @NotNull
+    @Max(100)
+    @Min(1)
     private int currentMember;
 
     @NotBlank

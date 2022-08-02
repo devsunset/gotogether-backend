@@ -1,12 +1,12 @@
 package com.gotogether.system.enums;
 
-public enum PostType {
+public enum PostCategory {
     TALK("TALK"),
     QA("QA");
 
     final private String name;
 
-    private PostType(String name) {
+    private PostCategory(String name) {
         this.name = name;
     }
 
