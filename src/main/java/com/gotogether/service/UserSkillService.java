@@ -37,13 +37,13 @@ public class UserSkillService {
 
         for (UserSkillRequest userSkillParam : userSkillRequest) {
             if (!Utils.isValidSkillLevelType(userSkillParam.getItemLevel())) {
-                throw new CustomException(ErrorCode.NOT_SKILL_LEVEL_TYPE);
+                throw new CustomException(ErrorCode.INVALID_SKILL_LEVEL_TYPE);
             }
             distinctData.add(userSkillParam.getItem().toLowerCase());
         }
 
         if (distinctData.size() != userSkillRequest.length) {
-            throw new CustomException(ErrorCode.NOT_SKILL_ITEM_DUPLICATE);
+            throw new CustomException(ErrorCode.SKILL_ITEM_DUPLICATE);
         }
 
         for (UserSkillRequest userSkillParam : userSkillRequest) {

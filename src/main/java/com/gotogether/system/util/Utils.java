@@ -2,8 +2,10 @@ package com.gotogether.system.util;
 
 import com.gotogether.entity.Role;
 import com.gotogether.system.constants.Constants;
+import com.gotogether.system.enums.InvolveType;
 import com.gotogether.system.enums.PostCategory;
 import com.gotogether.system.enums.SkillLevelType;
+import com.gotogether.system.enums.TogetherCategory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -56,7 +58,7 @@ public class Utils {
         return list;
     }
 
-    public static boolean isValidPostType(String category) {
+    public static boolean isValidPostCategory(String category) {
         boolean result = false;
         for (PostCategory type : PostCategory.values()) {
             if (type.getName().equals(category)) {
@@ -70,6 +72,26 @@ public class Utils {
         boolean result = false;
         for (SkillLevelType type : SkillLevelType.values()) {
             if (type.getName().equals(itemLevel)) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public static boolean isValidTogetherCategory(String category) {
+        boolean result = false;
+        for (TogetherCategory type : TogetherCategory.values()) {
+            if (type.getName().equals(category)) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public static boolean isValidInvolveType(String category) {
+        boolean result = false;
+        for (InvolveType type : InvolveType.values()) {
+            if (type.getName().equals(category)) {
                 result = true;
             }
         }

@@ -37,8 +37,8 @@ public class PostService {
     private final ModelMapper modelMapper;
 
     public Long save(PostRequest postRequest) throws Exception {
-        if (!(Utils.isValidPostType(postRequest.getCategory()))) {
-            throw new CustomException(ErrorCode.NOT_POST_TYPE);
+        if (!(Utils.isValidPostCategory(postRequest.getCategory()))) {
+            throw new CustomException(ErrorCode.INVALID_CATEGORY);
         }
         Post post = modelMapper.map(postRequest, Post.class);
         post.setWriter(authService.getSessionUser());
@@ -46,8 +46,8 @@ public class PostService {
     }
 
     public Long update(Long postId, PostRequest postRequest) throws Exception {
-        if (!(Utils.isValidPostType(postRequest.getCategory()))) {
-            throw new CustomException(ErrorCode.NOT_POST_TYPE);
+        if (!(Utils.isValidPostCategory(postRequest.getCategory()))) {
+            throw new CustomException(ErrorCode.INVALID_CATEGORY);
         }
         User user = authService.getSessionUser();
         Post orignal = postRepository.findById(postId).orElseThrow(() ->
@@ -66,8 +66,8 @@ public class PostService {
     }
 
     public Long updatecategory(Long postId, PostRequest postRequest) throws Exception {
-        if (!(Utils.isValidPostType(postRequest.getCategory()))) {
-            throw new CustomException(ErrorCode.NOT_POST_TYPE);
+        if (!(Utils.isValidPostCategory(postRequest.getCategory()))) {
+            throw new CustomException(ErrorCode.INVALID_CATEGORY);
         }
 
         User user = authService.getSessionUser();
@@ -122,8 +122,8 @@ public class PostService {
     }
 
     public Page<PostResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
-        if (!(Utils.isValidPostType(searchCondition.getCategory()))) {
-            throw new CustomException(ErrorCode.NOT_POST_TYPE);
+        if (!(Utils.isValidPostCategory(searchCondition.getCategory()))) {
+            throw new CustomException(ErrorCode.INVALID_CATEGORY);
         }
 
         if (searchCondition.getKeyword() != null && "".equalsIgnoreCase(searchCondition.getKeyword().trim())) {

@@ -32,12 +32,28 @@ public class TogetherService {
     private final ModelMapper modelMapper;
 
     public Long save(TogetherRequest togetherRequest) throws Exception {
+        if (!(Utils.isValidTogetherCategory(togetherRequest.getCategory()))) {
+            throw new CustomException(ErrorCode.INVALID_CATEGORY);
+        }
+
+        if (!(Utils.isValidInvolveType(togetherRequest.getInvolveType()))) {
+            throw new CustomException(ErrorCode.INVALID_INVOLVE_TYPE);
+        }
+
         Together together = modelMapper.map(togetherRequest, Together.class);
         together.setWriter(authService.getSessionUser());
         return togetherRepository.save(together).getTogetherId();
     }
 
     public Long update(Long togetherId, TogetherRequest togetherRequest) throws Exception {
+        if (!(Utils.isValidTogetherCategory(togetherRequest.getCategory()))) {
+            throw new CustomException(ErrorCode.INVALID_CATEGORY);
+        }
+
+        if (!(Utils.isValidInvolveType(togetherRequest.getInvolveType()))) {
+            throw new CustomException(ErrorCode.INVALID_INVOLVE_TYPE);
+        }
+
         User user = authService.getSessionUser();
         Together orignal = togetherRepository.findById(togetherId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
