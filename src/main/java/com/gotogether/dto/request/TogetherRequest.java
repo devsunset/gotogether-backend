@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Schema(description = "Together 요청")
@@ -48,12 +49,10 @@ public class TogetherRequest {
     @Size(max = 25)
     private String longitude;
 
-    @NotBlank
-    @Size(max = 3)
+    @NotNull
     private int maxMember;
 
-    @NotBlank
-    @Size(max = 3)
+    @NotNull
     private int currentMember;
 
     @NotBlank

@@ -18,7 +18,7 @@ public class CommonController {
 
     @GetMapping("/notice")
     public String notice() throws Exception {
-        return "<h1>Hello World</h1>";
+        return "Hello World";
     }
 
     @GetMapping("/all")
