@@ -15,8 +15,6 @@ public interface TogetherRepository extends JpaRepository<Together, Long> {
     @Query("update Together t set t.hit = t.hit + 1 where t.togetherId = :togetherId")
     int updateHit(Long togetherId);
 
-    Page<Together> findByCategory(String category, Pageable pageable);
-
-    Page<Together> findByCategoryAndTitleLikeIgnoreCaseOrCategoryAndContentLikeIgnoreCase(String categoryOne, String title, String categoryTwo, String content, Pageable pageable);
+    Page<Together> findByTitleLikeIgnoreCaseOrContentLikeIgnoreCase(String title, String content, Pageable pageable);
 
 }
