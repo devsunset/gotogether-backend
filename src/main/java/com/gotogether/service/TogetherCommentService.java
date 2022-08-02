@@ -35,9 +35,9 @@ public class TogetherCommentService {
 
     public Long save(TogetherCommentRequest togetherCommentRequest) throws Exception {
         TogetherComment togetherComment = modelMapper.map(togetherCommentRequest, TogetherComment.class);
-        togetherComment.setCommentId(null);
+        togetherComment.setTogetherCommentId(null);
         togetherComment.setWriter(authService.getSessionUser());
-        return togetherCommentRepository.save(togetherComment).getCommentId();
+        return togetherCommentRepository.save(togetherComment).getTogetherCommentId();
     }
 
     public Long update(Long togetherCommentId, TogetherCommentRequest togetherCommentRequest) throws Exception {
@@ -52,9 +52,9 @@ public class TogetherCommentService {
         }
 
         TogetherComment togetherComment = modelMapper.map(togetherCommentRequest, TogetherComment.class);
-        togetherComment.setCommentId(togetherCommentId);
+        togetherComment.setTogetherCommentId(togetherCommentId);
         togetherComment.setWriter(user);
-        return togetherCommentRepository.save(togetherComment).getCommentId();
+        return togetherCommentRepository.save(togetherComment).getTogetherCommentId();
     }
 
     public void delete(Long togetherCommentId) throws Exception {

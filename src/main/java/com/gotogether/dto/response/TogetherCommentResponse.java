@@ -22,7 +22,7 @@ public class TogetherCommentResponse {
     private Long togetherId;
 
     public TogetherCommentResponse(TogetherComment togetherComment) {
-        this.togetherCommentId = togetherComment.getCommentId();
+        this.togetherCommentId = togetherComment.getTogetherCommentId();
         this.content = togetherComment.getContent();
         this.createdDate = togetherComment.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.modifiedDate = togetherComment.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));

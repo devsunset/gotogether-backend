@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class TogetherComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long commentId;
+    private Long togetherCommentId;
 
     @ManyToOne
     @JoinColumn(name = "together_id")

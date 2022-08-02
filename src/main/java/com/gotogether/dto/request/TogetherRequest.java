@@ -18,5 +18,44 @@ public class TogetherRequest {
     private String title;
 
     @NotBlank
+    @Size(max = 120)
+    private String togetherName;
+
+    @NotBlank
+    @Size(max = 20)
+    private String category;
+
+    @NotBlank
+    @Size(max = 1000)
+    private String purpose;
+
+    @NotBlank
     private String content;
+
+    @NotBlank
+    @Size(max = 10)
+    private String involveType;
+
+    @Size(max = 120)
+    private String openKakaoChat;
+
+    @Size(max = 25)
+    private String location;
+
+    @Size(max = 25)
+    private String latitude;
+
+    @Size(max = 25)
+    private String longitude;
+
+    @NotBlank
+    @Size(max = 3)
+    private int maxMember;
+
+    @NotBlank
+    @Size(max = 3)
+    private int currentMember;
+
+    @NotBlank
+    private String skill;
 }

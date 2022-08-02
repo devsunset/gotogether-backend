@@ -13,8 +13,13 @@ import java.util.ArrayList;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/test")
-public class TestController {
+@RequestMapping("/api/common")
+public class CommonController {
+
+    @GetMapping("/notice")
+    public String notice() throws Exception {
+        return "<h1>Hello World</h1>";
+    }
 
     @GetMapping("/all")
     public String allAccess() throws Exception {
@@ -30,7 +35,7 @@ public class TestController {
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminAccess() throws Exception {
-        return "Admin Board.";
+        return "Admin Content.";
     }
 
 
