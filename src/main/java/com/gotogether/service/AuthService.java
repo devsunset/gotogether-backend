@@ -102,35 +102,10 @@ public class AuthService {
         User user = new User(signUpRequest.getUsername(), signUpRequest.getNickname(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByRolename(RoleType.ROLE_GUEST)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByRolename(RoleType.ROLE_ADMIN)
-                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
-                        roles.add(adminRole);
-
-                        break;
-                    case "user":
-                        Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
-                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
-                        roles.add(userRole);
-
-                        break;
-                    default:
-                        Role notApproveRole = roleRepository.findByRolename(RoleType.ROLE_GUEST)
-                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
-                        roles.add(notApproveRole);
-                }
-            });
-        }
+        Role basicRole = roleRepository.findByRolename(RoleType.ROLE_USER)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
+        roles.add(basicRole);
 
         user.setRoles(roles);
         userRepository.save(user);
@@ -186,7 +161,7 @@ public class AuthService {
         UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByUsername(userDetail.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userDetail.getUsername()));
-        String rolename = RoleType.ROLE_GUEST.toString();
+        String rolename = "";
         for (Role element : user.getRoles()) {
             rolename = element.getRolename().toString();
         }

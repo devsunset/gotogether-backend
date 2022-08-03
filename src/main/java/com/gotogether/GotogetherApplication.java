@@ -22,7 +22,6 @@ public class GotogetherApplication {
     @Bean
     public CommandLineRunner initRoleTypeDataJPACommandLineRunner(RoleRepository repository) {
         return (args) -> {
-            repository.save(new Role(RoleType.ROLE_GUEST));
             repository.save(new Role(RoleType.ROLE_USER));
             repository.save(new Role(RoleType.ROLE_ADMIN));
         };

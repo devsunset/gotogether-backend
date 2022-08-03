@@ -32,7 +32,7 @@ public class CommonController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public String userAccess() throws Exception {
         return "User Content.";
     }

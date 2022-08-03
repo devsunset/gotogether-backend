@@ -22,13 +22,13 @@ public class PostController {
     @Autowired
     private final PostService postService;
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody PostRequest postRequest) throws Exception {
         return CommonResponse.toResponseEntity(postService.save(postRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{postId}")
     public ResponseEntity<?> update(@PathVariable("postId") Long postId, @Valid @RequestBody PostRequest postRequest) throws Exception {
         return CommonResponse.toResponseEntity(postService.update(postId, postRequest));
@@ -40,7 +40,7 @@ public class PostController {
         return CommonResponse.toResponseEntity(postService.updatecategory(postId, postRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{postId}")
     public ResponseEntity<?> delete(@PathVariable("postId") Long postId) throws Exception {
         postService.delete(postId);

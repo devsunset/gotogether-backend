@@ -22,7 +22,7 @@ public class UserSkillController {
     @Autowired
     private final UserSkillService userSkillService;
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody UserSkillRequest[] userSkillRequest) throws Exception {
         userSkillService.save(userSkillRequest);

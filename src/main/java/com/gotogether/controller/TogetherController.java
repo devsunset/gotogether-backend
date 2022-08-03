@@ -23,19 +23,19 @@ public class TogetherController {
     @Autowired
     private final TogetherService togetherService;
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody TogetherRequest togetherRequest) throws Exception {
         return CommonResponse.toResponseEntity(togetherService.save(togetherRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{togetherId}")
     public ResponseEntity<?> update(@PathVariable("togetherId") Long togetherId, @Valid @RequestBody TogetherRequest togetherRequest) throws Exception {
         return CommonResponse.toResponseEntity(togetherService.update(togetherId, togetherRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{togetherId}")
     public ResponseEntity<?> delete(@PathVariable("togetherId") Long togetherId) throws Exception {
         togetherService.delete(togetherId);

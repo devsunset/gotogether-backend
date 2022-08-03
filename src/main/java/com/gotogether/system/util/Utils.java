@@ -33,15 +33,6 @@ public class Utils {
         return false;
     }
 
-    public static boolean isGuest(Set<Role> role) {
-        for (Role element : role) {
-            if (element.getRolename().toString().equals(Constants.ROLE_GUEST)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static HashMap<String, String> getRoleHashMap(Set<Role> role) {
         HashMap<String, String> map = new HashMap<String, String>();
         for (Role element : role) {

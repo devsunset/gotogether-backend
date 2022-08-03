@@ -23,7 +23,7 @@ public class UserInfoController {
     @Autowired
     private final UserInfoService userInfoService;
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody UserInfoRequest userInfoRequest) throws Exception {
         return CommonResponse.toResponseEntity(userInfoService.save(userInfoRequest));

@@ -19,19 +19,19 @@ public class TogetherCommentController {
     @Autowired
     private final TogetherCommentService togetherCommentService;
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> save(@Valid @RequestBody TogetherCommentRequest togetherCommentRequest) throws Exception {
         return CommonResponse.toResponseEntity(togetherCommentService.save(togetherCommentRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{togetherCommentId}")
     public ResponseEntity<?> update(@PathVariable("togetherCommentId") Long togetherCommentId, @Valid @RequestBody TogetherCommentRequest togetherCommentRequest) throws Exception {
         return CommonResponse.toResponseEntity(togetherCommentService.update(togetherCommentId, togetherCommentRequest));
     }
 
-    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{togetherCommentId}")
     public ResponseEntity<?> delete(@PathVariable("togetherCommentId") Long commentId) throws Exception {
         togetherCommentService.delete(commentId);

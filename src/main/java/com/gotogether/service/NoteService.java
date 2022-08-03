@@ -89,10 +89,10 @@ public class NoteService {
 
     public HashMap<String, Long> getNewReceiveNote() throws Exception {
         HashMap<String, Long> result = new HashMap<String, Long>();
-        try{
+        try {
             User user = authService.getSessionUser();
             result.put("NOTE", noteRepository.countByToUserAndReadAndToDeleted(user, "N", "N"));
-        }catch(Exception e){
+        } catch (Exception e) {
             result.put("NOTE", 0L);
         }
         return result;
