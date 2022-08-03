@@ -69,12 +69,12 @@ test {
 
 bootJar {
     mainClass = 'com.gotogether.GotogetherApplication'
-	archiveBaseName = '-'
-	archiveFileName = 'gotogether.jar'
-	archiveVersion = "1.0"
+    archiveBaseName = '-'
+    archiveFileName = 'gotogether.jar'
+    archiveVersion = "1.0"
 }
 
 // jar build
 // ./gradlew bootJar
-    // jar execute
-    // ./gradlew bootRun
+// jar execute
+// ./gradlew bootRun

@@ -11,4 +11,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Page<Note> findByFromUserAndFromDeleted(User fromUser, String deleted, Pageable pageable);
 
     Page<Note> findByToUserAndToDeleted(User toUser, String deleted, Pageable pageable);
+
+    long countByToUserAndReadAndToDeleted(User user, String read, String toDeleted);
 }

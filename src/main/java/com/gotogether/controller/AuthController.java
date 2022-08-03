@@ -51,10 +51,14 @@ public class AuthController {
         return CommonResponse.toResponseEntity("", "Log out successful");
     }
 
-    @GetMapping("/signup/activeuser")
-    public ResponseEntity<?> activeUser(@RequestParam("token") String token) throws Exception {
-        authService.activeUser(token);
-        return CommonResponse.toResponseEntity("", "active successful");
+    @GetMapping("/forgetpass")
+    public ResponseEntity<?> forgetPass(@RequestParam("userid") String userid, @RequestParam("emaild") String email) throws Exception {
+        return CommonResponse.toResponseEntity(authService.forgetPass(userid, email));
+    }
+
+    @GetMapping("/resetpass")
+    public ResponseEntity<?> resetPass(@RequestParam("token") String token) throws Exception {
+        return CommonResponse.toResponseEntity(authService.resetPass(token));
     }
 
 }

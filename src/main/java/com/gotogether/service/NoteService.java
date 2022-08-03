@@ -16,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -85,6 +87,13 @@ public class NoteService {
         return new NoteResponse(note);
     }
 
+    public HashMap<String, Long> getNewReceiveNote() throws Exception {
+        User user = authService.getSessionUser();
+        HashMap<String, Long> result = new HashMap<String, Long>();
+        result.put("NOTE", noteRepository.countByToUserAndReadAndToDeleted(user, "N", "N"));
+        return result;
+    }
+
     public Page<NoteResponse> getSendList(Pageable pageable) throws Exception {
         User user = authService.getSessionUser();
         return noteRepository.findByFromUserAndFromDeleted(user, Constants.NO, pageable).map(NoteResponse::new);
@@ -94,4 +103,5 @@ public class NoteService {
         User user = authService.getSessionUser();
         return noteRepository.findByToUserAndToDeleted(user, Constants.NO, pageable).map(NoteResponse::new);
     }
+
 }

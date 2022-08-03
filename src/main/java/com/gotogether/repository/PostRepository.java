@@ -15,6 +15,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("update Post p set p.hit = p.hit + 1 where p.postId = :postId")
     int updateHit(Long postId);
 
+    long countByCategory(String category);
+
     Page<Post> findByCategory(String category, Pageable pageable);
 
     Page<Post> findByCategoryAndTitleContainsIgnoreCaseOrCategoryAndContentContainsIgnoreCase(String categoryOne, String title, String categoryTwo, String content, Pageable pageable);

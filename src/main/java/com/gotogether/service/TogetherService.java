@@ -92,7 +92,7 @@ public class TogetherService {
 
     public Page<TogetherResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
         if (searchCondition.getKeyword() != null && "".equalsIgnoreCase(searchCondition.getKeyword().trim())) {
-            return togetherRepository.findByTitleLikeIgnoreCaseOrContentLikeIgnoreCaseOrTogetherNameLikeIgnoreCaseOrPurposeLikeIgnoreCaseOrCategoryLikeIgnoreCaseOrInvolveTypeLikeIgnoreCaseOrSkillLikeIgnoreCase(searchCondition.getKeyword(),searchCondition.getKeyword(),searchCondition.getKeyword(),searchCondition.getKeyword(),searchCondition.getKeyword(), searchCondition.getKeyword(), searchCondition.getKeyword(), pageable).map(TogetherResponse::new);
+            return togetherRepository.findByTitleLikeIgnoreCaseOrContentLikeIgnoreCaseOrTogetherNameLikeIgnoreCaseOrPurposeLikeIgnoreCaseOrCategoryLikeIgnoreCaseOrInvolveTypeLikeIgnoreCaseOrSkillLikeIgnoreCase(searchCondition.getKeyword(), searchCondition.getKeyword(), searchCondition.getKeyword(), searchCondition.getKeyword(), searchCondition.getKeyword(), searchCondition.getKeyword(), searchCondition.getKeyword(), pageable).map(TogetherResponse::new);
         } else {
             return togetherRepository.findAll(pageable).map(TogetherResponse::new);
         }

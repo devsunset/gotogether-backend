@@ -46,6 +46,12 @@ public class NoteController {
     }
 
     @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/newreceivenote")
+    public ResponseEntity<?> getNewNote() throws Exception {
+        return CommonResponse.toResponseEntity(noteService.getNewReceiveNote());
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUEST') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/sendlist")
     public ResponseEntity<?> getPageSendList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
                                              Pageable pageable) throws Exception {

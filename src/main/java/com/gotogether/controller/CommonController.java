@@ -3,7 +3,9 @@ package com.gotogether.controller;
 import com.gotogether.dto.CommonResponse;
 import com.gotogether.dto.request.CommentRequest;
 import com.gotogether.dto.request.PostRequest;
+import com.gotogether.service.CommonService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,12 @@ import java.util.ArrayList;
 @RequestMapping("/api/common")
 public class CommonController {
 
-    @GetMapping("/notice")
-    public String notice() throws Exception {
-        return "Hello World";
+    @Autowired
+    CommonService commonService;
+
+    @GetMapping("/home")
+    public ResponseEntity<?> home() throws Exception {
+        return CommonResponse.toResponseEntity(commonService.home());
     }
 
     @GetMapping("/all")

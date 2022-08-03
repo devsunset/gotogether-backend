@@ -11,6 +11,7 @@ import com.gotogether.entity.UserActiveToken;
 import com.gotogether.entity.UserRefreshToken;
 import com.gotogether.repository.RoleRepository;
 import com.gotogether.repository.UserRepository;
+import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
 import com.gotogether.system.enums.RoleType;
 import com.gotogether.system.exception.CustomException;
@@ -30,7 +31,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -133,8 +137,6 @@ public class AuthService {
 
         UserActiveToken userActiveToken = new UserActiveToken(user);
         userActiveTokenService.saveUserActiveToken(userActiveToken);
-        sendUserActiveMail(user.getEmail(), userActiveToken.getUserActiveToken());
-
         return null;
     }
 
@@ -156,37 +158,6 @@ public class AuthService {
                     return new TokenRefreshResponse(token, requestRefreshToken, user.getUsername(), user.getNickname(), user.getEmail(), roles);
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
-    }
-
-    public void activeUser(String token) throws Exception {
-        Optional<UserActiveToken> userActiveToken = userActiveTokenService.findUserActiveTokenByToken(token);
-        final User user = userActiveToken.get().getUser();
-
-        Set<Role> roles = new HashSet<>();
-
-        Role userRole = roleRepository.findByRolename(RoleType.ROLE_USER)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXISTS_ROLE));
-        roles.add(userRole);
-
-        user.setRoles(roles);
-        userRepository.save(user);
-        userActiveTokenService.deleteUserActiveToken(userActiveToken.get().getActiveId());
-    }
-
-    public void sendUserActiveMail(String userMail, String token) throws Exception {
-        // To-Do (Gmail security setting)
-        log.info(token);
-        /*
-        final SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(userMail);
-        mailMessage.setSubject("gotogether User Account Active Mail Confirmation Link");
-        mailMessage.setFrom("<MAIL>");
-        mailMessage.setText("Thank you for registering. Please click on the below link to activate your account."
-                + "http://localhost:8081/api/auth/signup/activeuser?token="
-                + token);
-
-        emailSenderService.sendEmail(mailMessage);
-        */
     }
 
     public User getSessionUser() throws Exception {
@@ -222,4 +193,36 @@ public class AuthService {
         return rolename;
     }
 
+    public String forgetPass(String userid, String email) throws Exception {
+        User user = getUserOrEmptyNull(userid);
+        if (user != null) {
+            if (email.equals(user.getEmail())) {
+                sendUserPassWordResetMail(user.getEmail());
+                return Constants.YES;
+            } else {
+                return Constants.NO;
+            }
+        }
+        return Constants.NO;
+    }
+
+    public void sendUserPassWordResetMail(String userMail) throws Exception {
+        log.info("Forget Password Reset :" + userMail);
+        // To-Do (Gmail security setting)
+        // token 값 생성 로직 -> 임시 패스워드 포함 unique 값 조합으로 aes256암호화 값으로 생성
+        /*
+            final SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(userMail);
+            mailMessage.setSubject("Gotogether User Account Password Reset Link");
+            mailMessage.setFrom("<MAIL>");
+            mailMessage.setText("Link 클릭 후 임시 비밀번호로 로그인 후 비밀번호 변경 하시기 바랍니다. 임시 비밀번호  : RandomPassword"
+            +"http://localhost:8081/api/auth/resetpassword?token=");
+            emailSenderService.sendEmail(mailMessage);
+        */
+    }
+
+    public String resetPass(String token) throws Exception {
+        // To-Do (token parsing update temp password)
+        return Constants.YES;
+    }
 }
