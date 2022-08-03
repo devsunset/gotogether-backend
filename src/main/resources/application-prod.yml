@@ -36,7 +36,7 @@ spring:
     url: jdbc:postgresql://193.123.252.22:5432/gotogether
     platform: postgres
     username:
-    password:
+    password: 
   jpa:
     generate-ddl: true
     hibernate:
