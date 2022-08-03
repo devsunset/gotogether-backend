@@ -13,24 +13,30 @@ spring:
   config:
     activate:
       on-profile: prod
-  batch:
-    jdbc:
-      initialize-schema: always
-    job:
-      enabled: false
-    # job:
-    #     names: ${job.name:NONE}
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  #  batch:
+  #    jdbc:
+  #      initialize-schema: always
+  #    job:
+  #      enabled: false
+  #     job:
+  #         names: ${job.name:NONE}
+  #  h2:
+  #    console:
+  #      enabled: true
+  #      path: /h2-console
+  #  datasource:
+  #    driver-class-name: org.h2.Driver
+  #    hikari:
+  #      maximum-pool-size: 30
+  #    password: ''
+  #    url: jdbc:h2:~/temp/gotogether;AUTO_SERVER=true;
+  #    username: sa
   datasource:
-    driver-class-name: org.h2.Driver
-    hikari:
-      maximum-pool-size: 30
-    password: ''
-    url: jdbc:h2:~/temp/gotogether;AUTO_SERVER=true;
-    username: sa
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://193.123.252.22:5432/gotogether
+    platform: postgres
+    username:
+    password:
   jpa:
     generate-ddl: true
     hibernate:

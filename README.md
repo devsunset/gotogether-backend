@@ -1,3 +1,3 @@
-# gotogether-backend - 진행중
+# gotogether-backend
 
-gotogether-frontend - backend go together (springboot - rest - jpa - security - batch) 
+gotogether-frontend - backend go together (springboot - rest - jpa - security) 

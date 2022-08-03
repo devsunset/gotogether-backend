@@ -16,6 +16,7 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 @Entity
+@Table(name = "\"User\"")
 public class User extends BaseEntity {
     @Id
     @Size(max = 20)
