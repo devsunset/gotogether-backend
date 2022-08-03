@@ -68,8 +68,8 @@ test {
 }
 
 bootJar {
-//	comment default
-//	archiveBaseName = '-'
-//	archiveFileName = '-.jar'
-//	archiveVersion = "0.0.0"
+    mainClass = 'com.gotogether.GotogetherApplication'
+	archiveBaseName = '-'
+	archiveFileName = 'gotogether.jar'
+	archiveVersion = "1.0"
 }
