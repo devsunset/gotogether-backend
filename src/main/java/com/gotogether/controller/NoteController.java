@@ -45,6 +45,7 @@ public class NoteController {
         return CommonResponse.toResponseEntity(noteService.get(noteId));
     }
 
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/newreceivenote")
     public ResponseEntity<?> getNewNote() throws Exception {
         return CommonResponse.toResponseEntity(noteService.getNewReceiveNote());
