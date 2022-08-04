@@ -29,9 +29,14 @@ public class UserInfoController {
         return CommonResponse.toResponseEntity(userInfoService.save(userInfoRequest));
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> getSessionByUserInfo() throws Exception {
+        return CommonResponse.toResponseEntity(userInfoService.getSessionByUserInfo());
+    }
+
     @GetMapping("/{userId}")
-    public ResponseEntity<?> get(@PathVariable("userId") String userId) throws Exception {
-        return CommonResponse.toResponseEntity(userInfoService.get(userId));
+    public ResponseEntity<?> getUserIdByUserInfo(@PathVariable("userId") String userId) throws Exception {
+        return CommonResponse.toResponseEntity(userInfoService.getUserIdByUserInfo(userId));
     }
 
     @PostMapping("/list")

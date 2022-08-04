@@ -57,7 +57,21 @@ public class UserInfoService {
         return userInfoRepository.save(userInfo).getUserInfoId();
     }
 
-    public UserInfoResponse get(String userId) throws Exception {
+    public UserInfoResponse getSessionByUserInfo() throws Exception {
+        User user = authService.getSessionUser();
+        if (user != null) {
+            UserInfo userInfo = userInfoRepository.findByUser(user);
+            if (userInfo != null) {
+                return new UserInfoResponse(userInfo);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public UserInfoResponse getUserIdByUserInfo(String userId) throws Exception {
         User user = authService.getUserOrEmptyNull(userId);
         if (user != null) {
             UserInfo userInfo = userInfoRepository.findByUser(user);
@@ -175,5 +189,6 @@ public class UserInfoService {
         }
         return membersResponse;
     }
+
 
 }
