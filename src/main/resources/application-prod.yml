@@ -33,14 +33,14 @@ spring:
   #    username: sa
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://193.123.252.22:5432/gotogether
+    url: jdbc:postgresql://localhost:5432/gotogether
     platform: postgres
     username:
     password:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
       #create       : 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
       #create-drop  : create와 같으나 종료시점에 테이블 DROP
       #update       : 변경분만 반영(운영DB에서는 사용하면 안됨)
