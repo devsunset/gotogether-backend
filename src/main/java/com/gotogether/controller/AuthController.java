@@ -39,13 +39,11 @@ public class AuthController {
     }
 
     @PostMapping("/refreshtoken")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) throws Exception {
         return CommonResponse.toResponseEntity(authService.refreshtoken(request));
     }
 
     @PostMapping("/logout")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) throws Exception {
         userRefreshTokenService.deleteByUsername(logOutRequest.getUsername());
         return CommonResponse.toResponseEntity("", "Log out successful");
