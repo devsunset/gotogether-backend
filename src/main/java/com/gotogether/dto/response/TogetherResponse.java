@@ -2,12 +2,10 @@ package com.gotogether.dto.response;
 
 import com.gotogether.entity.Together;
 import com.gotogether.system.constants.Constants;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.format.DateTimeFormatter;
 
-@Schema(description = "Together 응답")
 @Getter
 @Setter
 @ToString

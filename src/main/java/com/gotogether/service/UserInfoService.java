@@ -2,14 +2,15 @@ package com.gotogether.service;
 
 import com.gotogether.dto.request.SearchCondition;
 import com.gotogether.dto.request.UserInfoRequest;
-import com.gotogether.dto.response.MembersResponse;
 import com.gotogether.dto.response.UserInfoResponse;
 import com.gotogether.entity.User;
 import com.gotogether.entity.UserInfo;
-import com.gotogether.entity.UserSkill;
 import com.gotogether.repository.UserInfoRepository;
 import com.gotogether.repository.UserRepository;
-import com.gotogether.repository.UserSkillRepository;
+import com.gotogether.system.constants.Constants;
+import com.gotogether.system.enums.ErrorCode;
+import com.gotogether.system.exception.CustomException;
+import com.gotogether.system.util.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -19,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -30,11 +30,9 @@ public class UserInfoService {
     @Autowired
     private final UserInfoRepository userInfoRepository;
 
-    @Autowired
-    private final UserRepository userRepository;
 
     @Autowired
-    private final UserSkillRepository userSkillRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     private final AuthService authService;
@@ -43,6 +41,7 @@ public class UserInfoService {
     private final ModelMapper modelMapper;
 
     public Long save(UserInfoRequest userInfoRequest) throws Exception {
+        checkSkillLevelType(userInfoRequest.getSkill());
         UserInfo userInfo = userInfoRepository.findByUser(authService.getSessionUser());
         if (userInfo == null) {
             userInfo = modelMapper.map(userInfoRequest, UserInfo.class);
@@ -52,9 +51,21 @@ public class UserInfoService {
             userInfo.setNote(userInfoRequest.getNote());
             userInfo.setGithub(userInfoRequest.getGithub());
             userInfo.setHomepage(userInfoRequest.getHomepage());
+            userInfo.setSkill(userInfoRequest.getSkill());
             userInfo.setUser(authService.getSessionUser());
         }
         return userInfoRepository.save(userInfo).getUserInfoId();
+    }
+
+    private void checkSkillLevelType(String skill) throws Exception {
+        if (!("".equals(skill) || skill == null)) {
+            String[] skills = skill.split(Constants.SPLIT);
+            for (String item : skills) {
+                if (!Utils.isValidSkillLevelType(item.split(Constants.SPLIT_SUB)[1])) {
+                    throw new CustomException(ErrorCode.INVALID_SKILL_LEVEL_TYPE);
+                }
+            }
+        }
     }
 
     public UserInfoResponse getSessionByUserInfo() throws Exception {
@@ -85,17 +96,12 @@ public class UserInfoService {
         }
     }
 
-
     private User[] getUserSearch(String searchWord) throws Exception {
         return userRepository.findByUsernameContainsIgnoreCaseOrNicknameContainsIgnoreCase(searchWord, searchWord);
     }
 
     private UserInfo[] getUserInfoSearch(String searchWord) throws Exception {
-        return userInfoRepository.findByIntroduceContainsIgnoreCase(searchWord);
-    }
-
-    private UserSkill[] getUserSkillSearch(String searchWord) throws Exception {
-        return userSkillRepository.findByItemContainsIgnoreCase(searchWord);
+        return userInfoRepository.findByIntroduceContainsIgnoreCaseOrNoteContainsIgnoreCaseOrSkillContainsIgnoreCase(searchWord, searchWord, searchWord);
     }
 
     private UserInfo getUserInfo(String userId) throws Exception {
@@ -107,25 +113,8 @@ public class UserInfoService {
         }
     }
 
-    private List<HashMap<String, String>> getUserSkills(String userId) throws Exception {
-        ArrayList<HashMap<String, String>> item = new ArrayList<HashMap<String, String>>();
-        User user = authService.getUserOrEmptyNull(userId);
-        if (user != null) {
-            UserSkill[] userSkills = userSkillRepository.findByUser(user);
-            HashMap<String, String> map;
-            for (UserSkill userSkill : userSkills) {
-                map = new HashMap<String, String>();
-                map.put("ITEM", userSkill.getItem());
-                map.put("ITEM_LEVEL", userSkill.getItemLevel());
-                item.add(map);
-            }
-            return item;
-        } else {
-            return null;
-        }
-    }
 
-    public Page<MembersResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
+    public Page<UserInfoResponse> getPageList(Pageable pageable, SearchCondition searchCondition) throws Exception {
         ArrayList<User> userList = new ArrayList<User>();
 
         if ("".equalsIgnoreCase(searchCondition.getKeyword().trim())) {
@@ -143,11 +132,6 @@ public class UserInfoService {
             for (UserInfo userInfo : userInfos) {
                 userList.add(userInfo.getUser());
             }
-
-            UserSkill[] userSkills = this.getUserSkillSearch(searchCondition.getKeyword());
-            for (UserSkill userSkill : userSkills) {
-                userList.add(userSkill.getUser());
-            }
         }
 
         TreeSet<String> params = new TreeSet<String>();
@@ -156,39 +140,28 @@ public class UserInfoService {
         }
         String[] userIds = params.toArray(new String[params.size()]);
 
-        Page<MembersResponse> page = userRepository.findByUsernameIn(userIds, pageable).map(MembersResponse::new);
+        Page<UserInfoResponse> page = userRepository.findByUsernameIn(userIds, pageable).map(UserInfoResponse::new);
         page = page.map(this::transformResponse);
         return page;
     }
 
-    private MembersResponse transformResponse(final MembersResponse membersResponse) {
+    private UserInfoResponse transformResponse(final UserInfoResponse userInfoResponse) {
         UserInfo userInfo = null;
         try {
-            userInfo = this.getUserInfo(membersResponse.getUsername());
+            userInfo = this.getUserInfo(userInfoResponse.getUsername());
         } catch (Exception e) {
             log.error("ERROR", e);
         }
 
         if (userInfo != null) {
-            membersResponse.setIntroduce(userInfo.getIntroduce());
-            membersResponse.setNote(userInfo.getNote());
-            membersResponse.setGithub(userInfo.getGithub());
-            membersResponse.setHomepage(userInfo.getHomepage());
-            membersResponse.setProfileImageLink(userInfo.getProfileImageLink());
+            userInfoResponse.setUserInfoId(userInfo.getUserInfoId());
+            userInfoResponse.setIntroduce(userInfo.getIntroduce());
+            userInfoResponse.setNote(userInfo.getNote());
+            userInfoResponse.setGithub(userInfo.getGithub());
+            userInfoResponse.setHomepage(userInfo.getHomepage());
+            userInfoResponse.setSkill(userInfo.getSkill());
         }
-
-        List<HashMap<String, String>> userSkill = null;
-        try {
-            userSkill = this.getUserSkills(membersResponse.getUsername());
-        } catch (Exception e) {
-            log.error("ERROR", e);
-        }
-
-        if (userSkill != null) {
-            membersResponse.setSkills(userSkill);
-        }
-        return membersResponse;
+        return userInfoResponse;
     }
-
 
 }

@@ -42,7 +42,7 @@ public class Post extends BaseEntity {
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("createdDate asc")
-    private List<Comment> comments;
+    private List<PostComment> comments;
 
     @NotNull
     @ManyToOne(fetch = LAZY)

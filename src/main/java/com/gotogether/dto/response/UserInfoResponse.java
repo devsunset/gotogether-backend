@@ -1,13 +1,12 @@
 package com.gotogether.dto.response;
 
+import com.gotogether.entity.User;
 import com.gotogether.entity.UserInfo;
 import com.gotogether.system.constants.Constants;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.format.DateTimeFormatter;
 
-@Schema(description = "UserInfo 응답")
 @Getter
 @Setter
 @ToString
@@ -19,7 +18,7 @@ public class UserInfoResponse {
     private String note;
     private String github;
     private String homepage;
-    private String profileImageLink;
+    private String skill;
     private String createdDate;
     private String modifiedDate;
     private String nickname;
@@ -31,10 +30,17 @@ public class UserInfoResponse {
         this.note = userInfo.getNote();
         this.github = userInfo.getGithub();
         this.homepage = userInfo.getHomepage();
-        this.profileImageLink = userInfo.getProfileImageLink();
+        this.skill = userInfo.getSkill();
         this.createdDate = userInfo.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.modifiedDate = userInfo.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.nickname = userInfo.getUser().getNickname();
         this.username = userInfo.getUser().getUsername();
+    }
+
+    public UserInfoResponse(User user) {
+        this.createdDate = user.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
+        this.modifiedDate = user.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
+        this.nickname = user.getNickname();
+        this.username = user.getUsername();
     }
 }

@@ -29,6 +29,7 @@ public class UserInfoController {
         return CommonResponse.toResponseEntity(userInfoService.save(userInfoRequest));
     }
 
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/")
     public ResponseEntity<?> getSessionByUserInfo() throws Exception {
         return CommonResponse.toResponseEntity(userInfoService.getSessionByUserInfo());

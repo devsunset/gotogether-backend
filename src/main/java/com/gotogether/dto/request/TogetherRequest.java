@@ -1,11 +1,9 @@
 package com.gotogether.dto.request;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.validation.constraints.*;
 
-@Schema(description = "Together 요청")
 @Getter
 @Setter
 @ToString

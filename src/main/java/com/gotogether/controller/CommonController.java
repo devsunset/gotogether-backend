@@ -1,7 +1,7 @@
 package com.gotogether.controller;
 
 import com.gotogether.dto.CommonResponse;
-import com.gotogether.dto.request.CommentRequest;
+import com.gotogether.dto.request.PostCommentRequest;
 import com.gotogether.dto.request.PostRequest;
 import com.gotogether.service.CommonService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,26 +26,28 @@ public class CommonController {
         return CommonResponse.toResponseEntity(commonService.home());
     }
 
-    @GetMapping("/all")
+
+    ///////////////////////////////////////////////////////////////////
+    @GetMapping("/test/all")
     public String allAccess() throws Exception {
         return "Public Content.";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/test/user")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public String userAccess() throws Exception {
         return "User Content.";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/test/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminAccess() throws Exception {
         return "Admin Content.";
     }
 
 
-    @PostMapping("/xss/")
-    public ResponseEntity<?> xss(@Valid @RequestBody PostRequest postRequest, @ModelAttribute CommentRequest commentRequest) throws Exception {
+    @PostMapping("/test/xss/")
+    public ResponseEntity<?> xss(@Valid @RequestBody PostRequest postRequest, @ModelAttribute PostCommentRequest commentRequest) throws Exception {
         log.debug("########### PostRequest : " + postRequest.toString());
         log.debug("########### CommentRequest : " + commentRequest.toString());
         ArrayList<Object> result = new ArrayList<Object>();
@@ -53,4 +55,5 @@ public class CommonController {
         result.add(commentRequest);
         return CommonResponse.toResponseEntity(result);
     }
+    ///////////////////////////////////////////////////////////////////
 }

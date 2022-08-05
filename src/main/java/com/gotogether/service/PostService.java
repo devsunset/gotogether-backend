@@ -1,6 +1,6 @@
 package com.gotogether.service;
 
-import com.gotogether.dto.request.CommentRequest;
+import com.gotogether.dto.request.PostCommentRequest;
 import com.gotogether.dto.request.PostRequest;
 import com.gotogether.dto.request.SearchCondition;
 import com.gotogether.dto.response.PostResponse;
@@ -31,7 +31,7 @@ public class PostService {
     private final AuthService authService;
 
     @Autowired
-    private final CommentService commentService;
+    private final PostCommentService commentService;
 
     @Autowired
     private final ModelMapper modelMapper;
@@ -79,14 +79,14 @@ public class PostService {
         }
 
         if (!(Utils.isAdmin(user.getRoles()))) {
-            throw new CustomException(ErrorCode.NOT_ROLE_ADMIN);
+            throw new CustomException(ErrorCode.NOT_ADMIN);
         }
 
         post.setCategory(postRequest.getCategory());
         Long postId_result = postRepository.save(post).getPostId();
 
         //Comment Service
-        CommentRequest commentRequest = new CommentRequest();
+        PostCommentRequest commentRequest = new PostCommentRequest();
         commentRequest.setPostId(postId);
 
         String content = "";

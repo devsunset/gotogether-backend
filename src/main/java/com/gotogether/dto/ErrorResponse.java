@@ -4,7 +4,6 @@ import com.gotogether.system.constants.Constants;
 import com.gotogether.system.enums.ErrorCode;
 import com.gotogether.system.exception.CustomException;
 import com.gotogether.system.exception.TokenRefreshException;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Schema(description = "공통 에러 응답")
 @Getter
 @ToString
 @Builder

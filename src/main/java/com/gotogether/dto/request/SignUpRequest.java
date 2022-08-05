@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Schema(description = "Signup 요청")
 @Getter
 @Setter
 @ToString

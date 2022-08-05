@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 
-@Schema(description = "Login 요청")
 @Getter
 @Setter
 @ToString
@@ -19,7 +18,6 @@ public class LogInRequest {
     @NotBlank
     private String username;
 
-    @Schema(description = "password")
     @NotBlank
     private String password;
 

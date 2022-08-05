@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -22,11 +21,9 @@ public class UserInfo extends BaseEntity {
     @JoinColumn(name = "username")
     private User user;
 
-    @NotNull
     @Column(length = 255, nullable = false)
     private String introduce;
 
-    @NotNull
     @Column(length = 1000)
     private String note;
 
@@ -36,8 +33,8 @@ public class UserInfo extends BaseEntity {
     @Column(length = 500)
     private String homepage;
 
-    @Column(length = 500)
-    private String profileImageLink;
+    @Lob
+    private String skill;
 
 }
 

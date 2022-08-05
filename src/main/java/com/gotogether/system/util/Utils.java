@@ -17,7 +17,7 @@ public class Utils {
 
     public static boolean isAdmin(Set<Role> role) {
         for (Role element : role) {
-            if (element.getRolename().toString().equals(Constants.ROLE_ADMIN)) {
+            if (element.getRolename().toString().equals(Constants.ADMIN)) {
                 return true;
             }
         }
@@ -26,7 +26,7 @@ public class Utils {
 
     public static boolean isUser(Set<Role> role) {
         for (Role element : role) {
-            if (element.getRolename().toString().equals(Constants.ROLE_USER)) {
+            if (element.getRolename().toString().equals(Constants.USER)) {
                 return true;
             }
         }

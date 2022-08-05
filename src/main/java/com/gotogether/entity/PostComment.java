@@ -17,10 +17,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Comment extends BaseEntity {
+public class PostComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long commentId;
+    private Long postCommentId;
 
     @ManyToOne
     @JoinColumn(name = "post_id")

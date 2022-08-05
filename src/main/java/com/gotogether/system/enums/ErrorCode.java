@@ -23,7 +23,7 @@ public enum ErrorCode {
     NOT_EXISTS_DATA(HttpStatus.BAD_REQUEST, "해당 데이터가 존재 하지 않습니다."),
     INVALID_CATEGORY(HttpStatus.BAD_REQUEST, "유효한 Category 값이 아닙니다."),
     NOT_CHANG_EQUAL_CATEGEORY(HttpStatus.BAD_REQUEST, "동일한 Post Category 로 변경이 안됩니다."),
-    NOT_ROLE_ADMIN(HttpStatus.BAD_REQUEST, "Admin 권한이 아닙니다."),
+    NOT_ADMIN(HttpStatus.BAD_REQUEST, "Admin 권한이 아닙니다."),
     NOT_SEND_NOTE_SELF(HttpStatus.BAD_REQUEST, "자신에게 Note를 전송 할 수 없습니다."),
     INVALID_SKILL_LEVEL_TYPE(HttpStatus.BAD_REQUEST, "유효한 Skill Level 값이 아닙니다."),
     SKILL_ITEM_DUPLICATE(HttpStatus.BAD_REQUEST, "Skill 값이 중복 됩니다."),

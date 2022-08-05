@@ -29,7 +29,5 @@ public class UserInfoRequest {
     @Column(length = 250)
     private String homepage;
 
-    @Column(length = 250)
-    private String profileImageLink;
-
+    private String skill;
 }
