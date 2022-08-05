@@ -21,7 +21,7 @@ public class UserInfo extends BaseEntity {
     @JoinColumn(name = "username")
     private User user;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String introduce;
 
     @Column(length = 1000)

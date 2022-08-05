@@ -15,11 +15,9 @@ import javax.validation.constraints.Size;
 @ToString
 public class UserInfoRequest {
 
-    @NotBlank
     @Size(max = 100)
     private String introduce;
 
-    @NotBlank
     @Size(max = 500)
     private String note;
 
