@@ -45,7 +45,7 @@ public class MemoService {
         return memoRepository.save(note).getMemoId();
     }
 
-    public Long deleteFrom(Long memoId) throws Exception {
+    public Long deleteSend(Long memoId) throws Exception {
         User user = authService.getSessionUser();
         Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
@@ -56,7 +56,7 @@ public class MemoService {
         return memoRepository.save(memo).getMemoId();
     }
 
-    public Long deleteTo(Long memoId) throws Exception {
+    public Long deleteReceive(Long memoId) throws Exception {
         User user = authService.getSessionUser();
         Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));

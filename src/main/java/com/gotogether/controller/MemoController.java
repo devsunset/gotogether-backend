@@ -28,15 +28,15 @@ public class MemoController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deletefrom/{memoId}")
-    public ResponseEntity<?> deleteFrom(@PathVariable("noteId") Long memoId) throws Exception {
-        return CommonResponse.toResponseEntity(memoService.deleteFrom(memoId));
+    @DeleteMapping("/deletesend/{memoId}")
+    public ResponseEntity<?> deleteSend(@PathVariable("noteId") Long memoId) throws Exception {
+        return CommonResponse.toResponseEntity(memoService.deleteSend(memoId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deleteto/{memoId}")
-    public ResponseEntity<?> deleteTo(@PathVariable("noteId") Long memoId) throws Exception {
-        return CommonResponse.toResponseEntity(memoService.deleteTo(memoId));
+    @DeleteMapping("/deletereceive/{memoId}")
+    public ResponseEntity<?> deleteReceive(@PathVariable("noteId") Long memoId) throws Exception {
+        return CommonResponse.toResponseEntity(memoService.deleteReceive(memoId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
