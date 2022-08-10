@@ -40,13 +40,13 @@ public class MemoController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/{noteId}")
-    public ResponseEntity<?> get(@PathVariable("noteId") Long noteId) throws Exception {
+    @GetMapping("/{memoId}")
+    public ResponseEntity<?> get(@PathVariable("memoId") Long noteId) throws Exception {
         return CommonResponse.toResponseEntity(memoService.get(noteId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/newreceivenote")
+    @GetMapping("/newreceivememo")
     public ResponseEntity<?> getNewNote() throws Exception {
         return CommonResponse.toResponseEntity(memoService.getNewReceiveNote());
     }
