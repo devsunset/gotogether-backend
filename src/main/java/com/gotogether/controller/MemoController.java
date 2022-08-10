@@ -46,9 +46,9 @@ public class MemoController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/newreceivememo")
-    public ResponseEntity<?> getNewNote() throws Exception {
-        return CommonResponse.toResponseEntity(memoService.getNewReceiveNote());
+    @GetMapping("/newreceive")
+    public ResponseEntity<?> getNewReceive() throws Exception {
+        return CommonResponse.toResponseEntity(memoService.getNewReceiveMemo());
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")

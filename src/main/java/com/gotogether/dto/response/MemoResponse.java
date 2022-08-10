@@ -16,31 +16,31 @@ public class MemoResponse {
     private String createdDate;
     private String modifiedDate;
 
-    private String read;
+    private String readflag;
 
-    private String fromDeleted;
+    private String sdelete;
 
-    private String toDeleted;
+    private String rdelete;
 
-    private String from_username;
+    private String senderUsername;
 
-    private String from_nickname;
+    private String senderNickname;
 
-    private String to_username;
+    private String receiverUsername;
 
-    private String to_nickname;
+    private String receiverNickname;
 
-    public MemoResponse(Memo note) {
-        this.memoId = note.getMemoId();
-        this.memo = note.getMemo();
-        this.createdDate = note.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
-        this.modifiedDate = note.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
-        this.read = note.getRead();
-        this.fromDeleted = note.getFromDeleted();
-        this.toDeleted = note.getToDeleted();
-        this.from_username = note.getFromUser().getUsername();
-        this.from_nickname = note.getFromUser().getNickname();
-        this.to_username = note.getToUser().getUsername();
-        this.to_nickname = note.getToUser().getNickname();
+    public MemoResponse(Memo memo) {
+        this.memoId = memo.getMemoId();
+        this.memo = memo.getMemo();
+        this.createdDate = memo.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
+        this.modifiedDate = memo.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
+        this.readflag = memo.getReadflag();
+        this.sdelete = memo.getSdelete();
+        this.rdelete = memo.getRdelete();
+        this.senderUsername = memo.getSender().getUsername();
+        this.senderNickname = memo.getSender().getNickname();
+        this.receiverUsername = memo.getReceiver().getUsername();
+        this.receiverNickname = memo.getReceiver().getNickname();
     }
 }

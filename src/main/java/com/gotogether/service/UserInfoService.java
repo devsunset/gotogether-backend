@@ -101,7 +101,7 @@ public class UserInfoService {
     }
 
     private UserInfo[] getUserInfoSearch(String searchWord) throws Exception {
-        return userInfoRepository.findByIntroduceContainsIgnoreCaseOrNoteContainsIgnoreCaseOrSkillContainsIgnoreCase(searchWord, searchWord, searchWord);
+        return userInfoRepository.findByIntroduceContainsIgnoreCaseOrNoteContainsIgnoreCaseOrGithubContainsIgnoreCaseOrHomepageContainsIgnoreCaseOrSkillContainsIgnoreCase(searchWord, searchWord, searchWord, searchWord, searchWord);
     }
 
     private UserInfo getUserInfo(String userId) throws Exception {

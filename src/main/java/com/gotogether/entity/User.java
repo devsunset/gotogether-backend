@@ -16,7 +16,6 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "USER_MAIN") // dev : H2 , prod : postgresql postgresql not use table name user.
 public class User extends BaseEntity {
     @Id
     @Size(max = 20)

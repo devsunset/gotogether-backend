@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface MemoRepository extends JpaRepository<Memo, Long> {
-    Page<Memo> findByFromUserAndFromDeleted(User fromUser, String deleted, Pageable pageable);
+    Page<Memo> findBySenderAndSdelete(User user, String sdelete, Pageable pageable);
 
-    Page<Memo> findByToUserAndToDeleted(User toUser, String deleted, Pageable pageable);
+    Page<Memo> findByReceiverAndRdelete(User user, String rdelete, Pageable pageable);
 
-    long countByToUserAndReadAndToDeleted(User user, String read, String toDeleted);
+    long countByReceiverAndReadflagAndRdelete(User user, String readflag, String rdelete);
 }

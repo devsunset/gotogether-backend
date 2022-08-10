@@ -14,5 +14,5 @@ public class MemoRequest {
     private String memo;
 
     @NotBlank
-    private String toUser;
+    private String receiver;
 }

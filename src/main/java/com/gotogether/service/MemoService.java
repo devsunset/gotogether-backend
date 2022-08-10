@@ -33,13 +33,13 @@ public class MemoService {
 
     public Long save(MemoRequest memoRequest) throws Exception {
         Memo note = modelMapper.map(memoRequest, Memo.class);
-        note.setRead(Constants.NO);
-        note.setFromDeleted(Constants.NO);
-        note.setToDeleted(Constants.NO);
+        note.setReadflag(Constants.NO);
+        note.setSdelete(Constants.NO);
+        note.setRdelete(Constants.NO);
         User user = authService.getSessionUser();
-        note.setFromUser(user);
-        note.setToUser(authService.getUser(memoRequest.getToUser()));
-        if (user.getUsername().equals(memoRequest.getToUser())) {
+        note.setSender(user);
+        note.setReceiver(authService.getUser(memoRequest.getReceiver()));
+        if (user.getUsername().equals(memoRequest.getReceiver())) {
             throw new CustomException(ErrorCode.NOT_SEND_NOTE_SELF);
         }
         return memoRepository.save(note).getMemoId();
@@ -49,10 +49,10 @@ public class MemoService {
         User user = authService.getSessionUser();
         Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
-        if (!user.getUsername().equals(memo.getFromUser())) {
+        if (!user.getUsername().equals(memo.getSender())) {
             throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
         }
-        memo.setFromDeleted(Constants.YES);
+        memo.setSdelete(Constants.YES);
         return memoRepository.save(memo).getMemoId();
     }
 
@@ -61,10 +61,10 @@ public class MemoService {
         Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if (!user.getUsername().equals(memo.getToDeleted())) {
+        if (!user.getUsername().equals(memo.getRdelete())) {
             throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
         }
-        memo.setToDeleted(Constants.YES);
+        memo.setRdelete(Constants.YES);
         return memoRepository.save(memo).getMemoId();
     }
 
@@ -73,25 +73,25 @@ public class MemoService {
         Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
 
-        if (!(user.getUsername().equals(memo.getFromUser().getUsername())
-                || user.getUsername().equals(memo.getToUser().getUsername()))) {
+        if (!(user.getUsername().equals(memo.getSender().getUsername())
+                || user.getUsername().equals(memo.getReceiver().getUsername()))) {
             throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
         }
 
-        if (user.getUsername().equals(memo.getToUser().getUsername())) {
-            if (Constants.NO.equals(memo.getRead())) {
-                memo.setRead(Constants.YES);
+        if (user.getUsername().equals(memo.getReceiver().getUsername())) {
+            if (Constants.NO.equals(memo.getReadflag())) {
+                memo.setReadflag(Constants.YES);
                 memoRepository.save(memo);
             }
         }
         return new MemoResponse(memo);
     }
 
-    public HashMap<String, Long> getNewReceiveNote() throws Exception {
+    public HashMap<String, Long> getNewReceiveMemo() throws Exception {
         HashMap<String, Long> result = new HashMap<String, Long>();
         try {
             User user = authService.getSessionUser();
-            result.put("MEMO", memoRepository.countByToUserAndReadAndToDeleted(user, "N", "N"));
+            result.put("MEMO", memoRepository.countByReceiverAndReadflagAndRdelete(user, Constants.NO, Constants.NO));
         } catch (Exception e) {
             result.put("MEMO", 0L);
         }
@@ -100,12 +100,12 @@ public class MemoService {
 
     public Page<MemoResponse> getSendList(Pageable pageable) throws Exception {
         User user = authService.getSessionUser();
-        return memoRepository.findByFromUserAndFromDeleted(user, Constants.NO, pageable).map(MemoResponse::new);
+        return memoRepository.findBySenderAndSdelete(user, Constants.NO, pageable).map(MemoResponse::new);
     }
 
     public Page<MemoResponse> getReceiveList(Pageable pageable) throws Exception {
         User user = authService.getSessionUser();
-        return memoRepository.findByToUserAndToDeleted(user, Constants.NO, pageable).map(MemoResponse::new);
+        return memoRepository.findByReceiverAndRdelete(user, Constants.NO, pageable).map(MemoResponse::new);
     }
 
 }

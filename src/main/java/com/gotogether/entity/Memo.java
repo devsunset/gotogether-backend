@@ -1,6 +1,7 @@
 package com.gotogether.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -27,22 +28,22 @@ public class Memo extends BaseEntity {
     @Column(nullable = false)
     private String memo;
 
-    //    @ColumnDefault("'N'")
-    private String read;
+    @ColumnDefault("'N'")
+    private String readflag;
 
-    //    @ColumnDefault("'N'")
-    private String fromDeleted;
+    @ColumnDefault("'N'")
+    private String sdelete;
 
-    //    @ColumnDefault("'N'")
-    private String toDeleted;
-
-    @NotNull
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "from_username")
-    private User fromUser;
+    @ColumnDefault("'N'")
+    private String rdelete;
 
     @NotNull
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "to_username")
-    private User toUser;
+    @JoinColumn(name="sender_username")
+    private User sender;
+
+    @NotNull
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name="receiver_username")
+    private User receiver;
 }

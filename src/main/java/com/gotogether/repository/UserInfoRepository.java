@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
     UserInfo findByUser(User user);
 
-    UserInfo[] findByIntroduceContainsIgnoreCaseOrNoteContainsIgnoreCaseOrSkillContainsIgnoreCase(String searchWordIntroduce, String searchWordNote, String searchWordSkill);
+    UserInfo[] findByIntroduceContainsIgnoreCaseOrNoteContainsIgnoreCaseOrGithubContainsIgnoreCaseOrHomepageContainsIgnoreCaseOrSkillContainsIgnoreCase(String searchWordIntroduce, String searchWordNote, String searchWordGithub,String searchWordHomepage,String searchWordSkill);
 
 }
