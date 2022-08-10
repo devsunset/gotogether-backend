@@ -1,8 +1,8 @@
 package com.gotogether.controller;
 
 import com.gotogether.dto.CommonResponse;
-import com.gotogether.dto.request.NoteRequest;
-import com.gotogether.service.NoteService;
+import com.gotogether.dto.request.MemoRequest;
+import com.gotogether.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -15,53 +15,53 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/note")
+@RequestMapping("/api/memo")
 @RequiredArgsConstructor
-public class NoteController {
+public class MemoController {
     @Autowired
-    private final NoteService noteService;
+    private final MemoService memoService;
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/")
-    public ResponseEntity<?> save(@Valid @RequestBody NoteRequest noteRequest) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.save(noteRequest));
+    public ResponseEntity<?> save(@Valid @RequestBody MemoRequest memoRequest) throws Exception {
+        return CommonResponse.toResponseEntity(memoService.save(memoRequest));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deletefrom/{noteId}")
-    public ResponseEntity<?> deleteFrom(@PathVariable("noteId") Long noteId) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.deleteFrom(noteId));
+    @DeleteMapping("/deletefrom/{memoId}")
+    public ResponseEntity<?> deleteFrom(@PathVariable("noteId") Long memoId) throws Exception {
+        return CommonResponse.toResponseEntity(memoService.deleteFrom(memoId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deleteto/{noteId}")
-    public ResponseEntity<?> deleteTo(@PathVariable("noteId") Long noteId) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.deleteTo(noteId));
+    @DeleteMapping("/deleteto/{memoId}")
+    public ResponseEntity<?> deleteTo(@PathVariable("noteId") Long memoId) throws Exception {
+        return CommonResponse.toResponseEntity(memoService.deleteTo(memoId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{noteId}")
     public ResponseEntity<?> get(@PathVariable("noteId") Long noteId) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.get(noteId));
+        return CommonResponse.toResponseEntity(memoService.get(noteId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/newreceivenote")
     public ResponseEntity<?> getNewNote() throws Exception {
-        return CommonResponse.toResponseEntity(noteService.getNewReceiveNote());
+        return CommonResponse.toResponseEntity(memoService.getNewReceiveNote());
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/sendlist")
     public ResponseEntity<?> getPageSendList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
                                              Pageable pageable) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.getSendList(pageable));
+        return CommonResponse.toResponseEntity(memoService.getSendList(pageable));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/receivelist")
     public ResponseEntity<?> getPageReceiveList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
                                                 Pageable pageable) throws Exception {
-        return CommonResponse.toResponseEntity(noteService.getReceiveList(pageable));
+        return CommonResponse.toResponseEntity(memoService.getReceiveList(pageable));
     }
 }

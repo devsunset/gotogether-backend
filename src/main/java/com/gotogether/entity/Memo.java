@@ -1,7 +1,6 @@
 package com.gotogether.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -18,23 +17,23 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Note extends BaseEntity {
+public class Memo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long noteId;
+    private Long memoId;
 
     @Lob
     @NotNull
     @Column(nullable = false)
-    private String note;
+    private String memo;
 
-    @ColumnDefault("'N'")
+    //    @ColumnDefault("'N'")
     private String read;
 
-    @ColumnDefault("'N'")
+    //    @ColumnDefault("'N'")
     private String fromDeleted;
 
-    @ColumnDefault("'N'")
+    //    @ColumnDefault("'N'")
     private String toDeleted;
 
     @NotNull

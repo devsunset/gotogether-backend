@@ -1,6 +1,6 @@
 package com.gotogether.dto.response;
 
-import com.gotogether.entity.Note;
+import com.gotogether.entity.Memo;
 import com.gotogether.system.constants.Constants;
 import lombok.*;
 
@@ -10,9 +10,9 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class NoteResponse {
-    private Long noteId;
-    private String note;
+public class MemoResponse {
+    private Long memoId;
+    private String memo;
     private String createdDate;
     private String modifiedDate;
 
@@ -30,9 +30,9 @@ public class NoteResponse {
 
     private String to_nickname;
 
-    public NoteResponse(Note note) {
-        this.noteId = note.getNoteId();
-        this.note = note.getNote();
+    public MemoResponse(Memo note) {
+        this.memoId = note.getMemoId();
+        this.memo = note.getMemo();
         this.createdDate = note.getCreatedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.modifiedDate = note.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.read = note.getRead();

@@ -8,10 +8,10 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class NoteRequest {
+public class MemoRequest {
 
     @NotBlank
-    private String note;
+    private String memo;
 
     @NotBlank
     private String toUser;

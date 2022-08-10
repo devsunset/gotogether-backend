@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Schema(description = "UserInfo 요청")
