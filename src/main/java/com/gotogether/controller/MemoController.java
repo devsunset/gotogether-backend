@@ -41,8 +41,8 @@ public class MemoController {
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{memoId}")
-    public ResponseEntity<?> get(@PathVariable("memoId") Long noteId) throws Exception {
-        return CommonResponse.toResponseEntity(memoService.get(noteId));
+    public ResponseEntity<?> get(@PathVariable("memoId") Long memoId) throws Exception {
+        return CommonResponse.toResponseEntity(memoService.get(memoId));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
@@ -52,15 +52,15 @@ public class MemoController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("/sendlist")
-    public ResponseEntity<?> getPageSendList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
+    @GetMapping("/sendlist")
+    public ResponseEntity<?> getPageSendList(@PageableDefault(size = 10, sort = "memoId", direction = Sort.Direction.DESC)
                                              Pageable pageable) throws Exception {
         return CommonResponse.toResponseEntity(memoService.getSendList(pageable));
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("/receivelist")
-    public ResponseEntity<?> getPageReceiveList(@PageableDefault(size = 10, sort = "noteId", direction = Sort.Direction.DESC)
+    @GetMapping("/receivelist")
+    public ResponseEntity<?> getPageReceiveList(@PageableDefault(size = 10, sort = "memoId", direction = Sort.Direction.DESC)
                                                 Pageable pageable) throws Exception {
         return CommonResponse.toResponseEntity(memoService.getReceiveList(pageable));
     }
