@@ -48,13 +48,13 @@ public class MemoService {
 
     public void deleteSend(CommonRequest commonRequest) throws Exception {
         User user = authService.getSessionUser();
-        if (commonRequest.getIdSeparatorValues() != null && commonRequest.getIdSeparatorValues().trim().equals("")) {
+        if (commonRequest.getIdSeparatorValues() != null &&!commonRequest.getIdSeparatorValues().trim().equals("")) {
             String[] memoIds = commonRequest.getIdSeparatorValues().split(Constants.SEPARATOR_COMMA);
             for (String el : memoIds) {
                 Long memoId = Long.parseLong(el);
                 Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                         new CustomException(ErrorCode.NOT_EXISTS_DATA));
-                if (!user.getUsername().equals(memo.getSender())) {
+                if (!user.getUsername().equals(memo.getSender().getUsername())) {
                     throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
                 }
                 memo.setSdelete(Constants.YES);
@@ -65,13 +65,13 @@ public class MemoService {
 
     public void deleteReceive(CommonRequest commonRequest) throws Exception {
         User user = authService.getSessionUser();
-        if (commonRequest.getIdSeparatorValues() != null && commonRequest.getIdSeparatorValues().trim().equals("")) {
+        if (commonRequest.getIdSeparatorValues() != null && !commonRequest.getIdSeparatorValues().trim().equals("")) {
             String[] memoIds = commonRequest.getIdSeparatorValues().split(Constants.SEPARATOR_COMMA);
             for (String el : memoIds) {
                 Long memoId = Long.parseLong(el);
                 Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                         new CustomException(ErrorCode.NOT_EXISTS_DATA));
-                if (!user.getUsername().equals(memo.getReceiver())) {
+                if (!user.getUsername().equals(memo.getReceiver().getUsername())) {
                     throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
                 }
                 memo.setRdelete(Constants.YES);
