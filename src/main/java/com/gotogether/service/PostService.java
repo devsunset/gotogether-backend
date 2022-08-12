@@ -126,7 +126,7 @@ public class PostService {
             throw new CustomException(ErrorCode.INVALID_CATEGORY);
         }
 
-        if (searchCondition.getKeyword() != null && "".equalsIgnoreCase(searchCondition.getKeyword().trim())) {
+        if (searchCondition.getKeyword() != null && !"".equalsIgnoreCase(searchCondition.getKeyword().trim())) {
             return postRepository.findByCategoryAndTitleContainsIgnoreCaseOrCategoryAndContentContainsIgnoreCase(searchCondition.getCategory(), searchCondition.getKeyword(), searchCondition.getCategory(), searchCondition.getKeyword(), pageable).map(PostResponse::new);
         } else {
             return postRepository.findByCategory(searchCondition.getCategory(), pageable).map(PostResponse::new);
