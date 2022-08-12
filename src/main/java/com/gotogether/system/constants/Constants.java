@@ -16,9 +16,12 @@ public class Constants {
     public static final String NO = "N";
 
     public static final String XSS_H2CONSOLE_SKIP = "/h2-console";
-    public static final String SPLIT = "\\|";
+    public static final String SEPARATOR_PIFE = "\\|";
 
-    public static final String SPLIT_SUB = "\\^";
+    public static final String SEPARATOR_ANGLE_BRACKET = "\\^";
+
+
+    public static final String SEPARATOR_COMMA = ",";
 
     public static class Result {
         public static final String SUCCESS = "S"; // Success

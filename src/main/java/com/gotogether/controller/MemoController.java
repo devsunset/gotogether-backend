@@ -1,6 +1,7 @@
 package com.gotogether.controller;
 
 import com.gotogether.dto.CommonResponse;
+import com.gotogether.dto.request.CommonRequest;
 import com.gotogether.dto.request.MemoRequest;
 import com.gotogether.service.MemoService;
 import lombok.RequiredArgsConstructor;
@@ -28,21 +29,24 @@ public class MemoController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deletesend/{memoId}")
-    public ResponseEntity<?> deleteSend(@PathVariable("noteId") Long memoId) throws Exception {
-        return CommonResponse.toResponseEntity(memoService.deleteSend(memoId));
+    @DeleteMapping("/deletesend")
+    public ResponseEntity<?> deleteSend(@RequestBody CommonRequest commonRequest) throws Exception {
+        memoService.deleteSend(commonRequest);
+        return CommonResponse.toResponseEntity();
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deletereceive/{memoId}")
-    public ResponseEntity<?> deleteReceive(@PathVariable("noteId") Long memoId) throws Exception {
-        return CommonResponse.toResponseEntity(memoService.deleteReceive(memoId));
+    @DeleteMapping("/deletereceive")
+    public ResponseEntity<?> deleteReceive(@RequestBody CommonRequest commonRequest) throws Exception {
+        memoService.deleteReceive(commonRequest);
+        return CommonResponse.toResponseEntity();
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/{memoId}")
-    public ResponseEntity<?> get(@PathVariable("memoId") Long memoId) throws Exception {
-        return CommonResponse.toResponseEntity(memoService.get(memoId));
+    @PostMapping("/updateread/{memoId}")
+    public ResponseEntity<?> updateRead(@PathVariable("memoId") Long memoId) throws Exception {
+        memoService.updateRead(memoId);
+        return CommonResponse.toResponseEntity();
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")

@@ -1,5 +1,6 @@
 package com.gotogether.service;
 
+import com.gotogether.dto.request.CommonRequest;
 import com.gotogether.dto.request.MemoRequest;
 import com.gotogether.dto.response.MemoResponse;
 import com.gotogether.entity.Memo;
@@ -45,30 +46,41 @@ public class MemoService {
         return memoRepository.save(note).getMemoId();
     }
 
-    public Long deleteSend(Long memoId) throws Exception {
+    public void deleteSend(CommonRequest commonRequest) throws Exception {
         User user = authService.getSessionUser();
-        Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_DATA));
-        if (!user.getUsername().equals(memo.getSender())) {
-            throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
+        if (commonRequest.getIdSeparatorValues() != null && commonRequest.getIdSeparatorValues().trim().equals("")) {
+            String[] memoIds = commonRequest.getIdSeparatorValues().split(Constants.SEPARATOR_COMMA);
+            for (String el : memoIds) {
+                Long memoId = Long.parseLong(el);
+                Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
+                        new CustomException(ErrorCode.NOT_EXISTS_DATA));
+                if (!user.getUsername().equals(memo.getSender())) {
+                    throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
+                }
+                memo.setSdelete(Constants.YES);
+                memoRepository.save(memo);
+            }
         }
-        memo.setSdelete(Constants.YES);
-        return memoRepository.save(memo).getMemoId();
     }
 
-    public Long deleteReceive(Long memoId) throws Exception {
+    public void deleteReceive(CommonRequest commonRequest) throws Exception {
         User user = authService.getSessionUser();
-        Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
-                new CustomException(ErrorCode.NOT_EXISTS_DATA));
-
-        if (!user.getUsername().equals(memo.getRdelete())) {
-            throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
+        if (commonRequest.getIdSeparatorValues() != null && commonRequest.getIdSeparatorValues().trim().equals("")) {
+            String[] memoIds = commonRequest.getIdSeparatorValues().split(Constants.SEPARATOR_COMMA);
+            for (String el : memoIds) {
+                Long memoId = Long.parseLong(el);
+                Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
+                        new CustomException(ErrorCode.NOT_EXISTS_DATA));
+                if (!user.getUsername().equals(memo.getReceiver())) {
+                    throw new CustomException(ErrorCode.NOT_AUTH_NOTE);
+                }
+                memo.setRdelete(Constants.YES);
+                memoRepository.save(memo);
+            }
         }
-        memo.setRdelete(Constants.YES);
-        return memoRepository.save(memo).getMemoId();
     }
 
-    public MemoResponse get(Long memoId) throws Exception {
+    public void updateRead(Long memoId) throws Exception {
         User user = authService.getSessionUser();
         Memo memo = memoRepository.findById(memoId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
@@ -84,7 +96,6 @@ public class MemoService {
                 memoRepository.save(memo);
             }
         }
-        return new MemoResponse(memo);
     }
 
     public HashMap<String, Long> getNewReceiveMemo() throws Exception {

@@ -39,11 +39,11 @@ public class Memo extends BaseEntity {
 
     @NotNull
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name="sender_username")
+    @JoinColumn(name = "sender_username")
     private User sender;
 
     @NotNull
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name="receiver_username")
+    @JoinColumn(name = "receiver_username")
     private User receiver;
 }

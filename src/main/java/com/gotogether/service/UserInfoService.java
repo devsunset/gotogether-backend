@@ -59,9 +59,9 @@ public class UserInfoService {
 
     private void checkSkillLevelType(String skill) throws Exception {
         if (!("".equals(skill) || skill == null)) {
-            String[] skills = skill.split(Constants.SPLIT);
+            String[] skills = skill.split(Constants.SEPARATOR_PIFE);
             for (String item : skills) {
-                if (!Utils.isValidSkillLevelType(item.split(Constants.SPLIT_SUB)[1])) {
+                if (!Utils.isValidSkillLevelType(item.split(Constants.SEPARATOR_ANGLE_BRACKET)[1])) {
                     throw new CustomException(ErrorCode.INVALID_SKILL_LEVEL_TYPE);
                 }
             }
