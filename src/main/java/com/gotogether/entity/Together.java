@@ -29,10 +29,6 @@ public class Together extends BaseEntity {
     private String title;
 
     @NotNull
-    @Column(length = 255)
-    private String togetherName;
-
-    @NotNull
     @Column(length = 20, nullable = false)
     private String category;
 
@@ -51,9 +47,6 @@ public class Together extends BaseEntity {
 
     @Column(length = 255, nullable = false)
     private String openKakaoChat;
-
-    @Column(length = 50)
-    private String location;
 
     @Column(length = 50)
     private String latitude;

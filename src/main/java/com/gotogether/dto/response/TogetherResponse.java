@@ -13,13 +13,11 @@ import java.time.format.DateTimeFormatter;
 public class TogetherResponse {
     private Long togetherId;
     private String title;
-    private String togetherName;
     private String category;
     private String purpose;
     private String content;
     private String involveType;
     private String openKakaoChat;
-    private String location;
     private String latitude;
     private String longitude;
     private int hit;
@@ -36,13 +34,11 @@ public class TogetherResponse {
     public TogetherResponse(Together together) {
         this.togetherId = together.getTogetherId();
         this.title = together.getTitle();
-        this.togetherName = together.getTogetherName();
         this.category = together.getCategory();
         this.purpose = together.getPurpose();
         this.content = together.getContent();
         this.involveType = together.getInvolveType();
         this.openKakaoChat = together.getOpenKakaoChat();
-        this.location = together.getLocation();
         this.latitude = together.getLatitude();
         this.longitude = together.getLongitude();
         this.hit = together.getHit();

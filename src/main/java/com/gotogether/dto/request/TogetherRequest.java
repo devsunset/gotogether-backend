@@ -15,10 +15,6 @@ public class TogetherRequest {
     private String title;
 
     @NotBlank
-    @Size(max = 120)
-    private String togetherName;
-
-    @NotBlank
     @Size(max = 20)
     private String category;
 
@@ -35,9 +31,6 @@ public class TogetherRequest {
 
     @Size(max = 120)
     private String openKakaoChat;
-
-    @Size(max = 25)
-    private String location;
 
     @Size(max = 25)
     private String latitude;

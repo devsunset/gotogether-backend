@@ -19,7 +19,7 @@ public interface TogetherRepository extends JpaRepository<Together, Long> {
 
     List<Together> findTop5ByTogetherIdGreaterThanOrderByTogetherIdDesc(Long togetherId);
 
-    Page<Together> findByTitleLikeIgnoreCaseOrContentLikeIgnoreCaseOrTogetherNameLikeIgnoreCaseOrPurposeLikeIgnoreCaseOrCategoryLikeIgnoreCaseOrInvolveTypeLikeIgnoreCaseOrSkillLikeIgnoreCase(String title, String content, String togetherName, String purpose, String category, String involveType, String skill, Pageable pageable);
+    Page<Together> findByTitleLikeIgnoreCaseOrContentLikeIgnoreCaseOrPurposeLikeIgnoreCaseOrCategoryLikeIgnoreCaseOrInvolveTypeLikeIgnoreCaseOrSkillLikeIgnoreCase(String title, String content, String purpose, String category, String involveType, String skill, Pageable pageable);
 
 }
 
