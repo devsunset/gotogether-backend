@@ -65,24 +65,24 @@ public class PostService {
         return postRepository.save(post).getPostId();
     }
 
-    public Long updatecategory(Long postId, PostRequest postRequest) throws Exception {
-        if (!(Utils.isValidPostCategory(postRequest.getCategory()))) {
-            throw new CustomException(ErrorCode.INVALID_CATEGORY);
-        }
-
+    public String changeCategory(Long postId) throws Exception {
         User user = authService.getSessionUser();
         Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(ErrorCode.NOT_EXISTS_DATA));
-
-        if (post.getCategory().equals(postRequest.getCategory())) {
-            throw new CustomException(ErrorCode.NOT_CHANG_EQUAL_CATEGEORY);
-        }
 
         if (!(Utils.isAdmin(user.getRoles()))) {
             throw new CustomException(ErrorCode.NOT_ADMIN);
         }
 
-        post.setCategory(postRequest.getCategory());
+        String category = "";
+        if(PostCategory.TALK.getName().equals(post.getCategory())){
+            category = PostCategory.QA.getName();
+        }else{
+            category = PostCategory.TALK.getName();
+        }
+
+        post.setCategory(category);
+
         Long postId_result = postRepository.save(post).getPostId();
 
         //Comment Service
@@ -90,7 +90,7 @@ public class PostService {
         commentRequest.setPostId(postId);
 
         String content = "";
-        if (PostCategory.TALK.getName().equals(postRequest.getCategory())) {
+        if (PostCategory.TALK.getName().equals(category)) {
             content = "QA ---&gt; TALK 게시판으로 " + user.getNickname() + "님 (관리자)에 의해 이동 되었습니다.";
         } else {
             content = "TALK ---&gt; QA 게시판으로 " + user.getNickname() + "님 (관리자)에 의해 이동 되었습니다.";
@@ -98,7 +98,7 @@ public class PostService {
         commentRequest.setContent(content);
         commentService.save(commentRequest);
 
-        return postId_result;
+        return category;
     }
 
     public void delete(Long postId) throws Exception {
