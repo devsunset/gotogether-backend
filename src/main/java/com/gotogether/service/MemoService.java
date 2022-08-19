@@ -48,7 +48,7 @@ public class MemoService {
 
     public void deleteSend(CommonRequest commonRequest) throws Exception {
         User user = authService.getSessionUser();
-        if (commonRequest.getIdSeparatorValues() != null &&!commonRequest.getIdSeparatorValues().trim().equals("")) {
+        if (commonRequest.getIdSeparatorValues() != null && !commonRequest.getIdSeparatorValues().trim().equals("")) {
             String[] memoIds = commonRequest.getIdSeparatorValues().split(Constants.SEPARATOR_COMMA);
             for (String el : memoIds) {
                 Long memoId = Long.parseLong(el);

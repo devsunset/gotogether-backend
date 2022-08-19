@@ -17,6 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -96,6 +99,11 @@ public class TogetherService {
         } else {
             return togetherRepository.findAll(pageable).map(TogetherResponse::new);
         }
+    }
+
+    public List<TogetherResponse> getRecentList() throws Exception {
+        List<Together> togethers = togetherRepository.findTop5ByTogetherIdGreaterThanOrderByTogetherIdDesc(0L);
+        return togethers.stream().map(TogetherResponse::new).collect(Collectors.toList());
     }
 
 }

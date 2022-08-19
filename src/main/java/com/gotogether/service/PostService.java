@@ -75,9 +75,9 @@ public class PostService {
         }
 
         String category = "";
-        if(PostCategory.TALK.getName().equals(post.getCategory())){
+        if (PostCategory.TALK.getName().equals(post.getCategory())) {
             category = PostCategory.QA.getName();
-        }else{
+        } else {
             category = PostCategory.TALK.getName();
         }
 

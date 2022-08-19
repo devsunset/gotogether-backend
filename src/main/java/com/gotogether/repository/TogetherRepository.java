@@ -8,12 +8,16 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 public interface TogetherRepository extends JpaRepository<Together, Long> {
     @Transactional
     @Modifying
     @Query("update Together t set t.hit = t.hit + 1 where t.togetherId = :togetherId")
     int updateHit(Long togetherId);
+
+    List<Together> findTop5ByTogetherIdGreaterThanOrderByTogetherIdDesc(Long togetherId);
 
     Page<Together> findByTitleLikeIgnoreCaseOrContentLikeIgnoreCaseOrTogetherNameLikeIgnoreCaseOrPurposeLikeIgnoreCaseOrCategoryLikeIgnoreCaseOrInvolveTypeLikeIgnoreCaseOrSkillLikeIgnoreCase(String title, String content, String togetherName, String purpose, String category, String involveType, String skill, Pageable pageable);
 
