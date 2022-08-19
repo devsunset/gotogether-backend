@@ -32,7 +32,7 @@ public class CommonService {
         result.put("USER", decFormat.format(userRepository.count()));
         result.put("TALK", decFormat.format(postRepository.countByCategory("TALK")));
         result.put("QA", decFormat.format(postRepository.countByCategory("QA")));
-        result.put("NOTICE", "[공지사항]<br>함꼐 공부 해요<br>로그인 없이도 기본 조회는 가능 합니다.<br>프로필 작성해 보세요 누군가 나를 찾을지도 몰라요 ^^");
+        result.put("NOTICE", "함꼐 공부 해요<br>로그인 없이도 기본 조회는 가능 합니다.<br>프로필 작성해 보세요 누군가 나를 찾을지도 몰라요 ^^");
         return result;
     }
 }
