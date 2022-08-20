@@ -24,7 +24,7 @@ public class TogetherResponse {
     private int currentMember;
     private int maxMember;
 
-    private int process;
+    private int progress;
     private String skill;
     private int togetherComment_count;
     private String createdDate;
@@ -54,13 +54,13 @@ public class TogetherResponse {
         this.username = together.getWriter().getUsername();
 
         if(together.getMaxMember() == 0 || together.getCurrentMember() == 0){
-            this.process = 0;
+            this.progress = 0;
         }else{
             float temp = (((float)together.getCurrentMember() / (float)together.getMaxMember()) * 100);
             if (temp > 100 ){
-                this.process = 100;
+                this.progress = 100;
             }else{
-                this.process = Math.round(temp);
+                this.progress = Math.round(temp);
             }
         }
     }
