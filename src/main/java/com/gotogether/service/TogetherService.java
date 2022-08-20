@@ -102,7 +102,7 @@ public class TogetherService {
     }
 
     public List<TogetherResponse> getRecentList() throws Exception {
-        List<Together> togethers = togetherRepository.findTop5ByTogetherIdGreaterThanOrderByTogetherIdDesc(0L);
+        List<Together> togethers = togetherRepository.findTop3ByTogetherIdGreaterThanOrderByTogetherIdDesc(0L);
         return togethers.stream().map(TogetherResponse::new).collect(Collectors.toList());
     }
 

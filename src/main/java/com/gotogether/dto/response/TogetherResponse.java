@@ -23,15 +23,15 @@ public class TogetherResponse {
     private int hit;
     private int currentMember;
     private int maxMember;
-
     private int progress;
+
+    private String progressLegend;
     private String skill;
     private int togetherComment_count;
     private String createdDate;
     private String modifiedDate;
     private String nickname;
     private String username;
-
 
     public TogetherResponse(Together together) {
         this.togetherId = together.getTogetherId();
@@ -55,12 +55,23 @@ public class TogetherResponse {
 
         if(together.getMaxMember() == 0 || together.getCurrentMember() == 0){
             this.progress = 0;
+            this.progressLegend = "danger";
         }else{
             float temp = (((float)together.getCurrentMember() / (float)together.getMaxMember()) * 100);
             if (temp > 100 ){
                 this.progress = 100;
             }else{
                 this.progress = Math.round(temp);
+            }
+            // progress 0~25 : danger   26~50 :  warning  51~75 :  primary  76~ 100  :  success
+            if(this.progress > 0 && this.progress <= 25){
+                this.progressLegend = "danger";
+            }else if(this.progress > 25 && this.progress <= 50){
+                this.progressLegend = "warning";
+            }else if(this.progress > 50 && this.progress <= 75){
+                this.progressLegend = "primary";
+            }else{
+                this.progressLegend = "success";
             }
         }
     }

@@ -17,7 +17,7 @@ public interface TogetherRepository extends JpaRepository<Together, Long> {
     @Query("update Together t set t.hit = t.hit + 1 where t.togetherId = :togetherId")
     int updateHit(Long togetherId);
 
-    List<Together> findTop5ByTogetherIdGreaterThanOrderByTogetherIdDesc(Long togetherId);
+    List<Together> findTop3ByTogetherIdGreaterThanOrderByTogetherIdDesc(Long togetherId);
 
     Page<Together> findByTitleLikeIgnoreCaseOrContentLikeIgnoreCaseOrPurposeLikeIgnoreCaseOrCategoryLikeIgnoreCaseOrInvolveTypeLikeIgnoreCaseOrSkillLikeIgnoreCase(String title, String content, String purpose, String category, String involveType, String skill, Pageable pageable);
 
