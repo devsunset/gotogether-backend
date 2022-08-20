@@ -23,6 +23,8 @@ public class TogetherResponse {
     private int hit;
     private int currentMember;
     private int maxMember;
+
+    private int process;
     private String skill;
     private int togetherComment_count;
     private String createdDate;
@@ -50,5 +52,16 @@ public class TogetherResponse {
         this.modifiedDate = together.getModifiedDate().format(DateTimeFormatter.ofPattern(Constants.GLOBAL_DATETIME_FORMAT));
         this.nickname = together.getWriter().getNickname();
         this.username = together.getWriter().getUsername();
+
+        if(together.getMaxMember() == 0 || together.getCurrentMember() == 0){
+            this.process = 0;
+        }else{
+            float temp = (((float)together.getCurrentMember() / (float)together.getMaxMember()) * 100);
+            if (temp > 100 ){
+                this.process = 100;
+            }else{
+                this.process = Math.round(temp);
+            }
+        }
     }
 }
