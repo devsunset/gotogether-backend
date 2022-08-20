@@ -32,10 +32,6 @@ public class Together extends BaseEntity {
     @Column(length = 20, nullable = false)
     private String category;
 
-    @NotNull
-    @Column(length = 2000, nullable = false)
-    private String purpose;
-
     @Lob
     @NotNull
     @Column(nullable = false)

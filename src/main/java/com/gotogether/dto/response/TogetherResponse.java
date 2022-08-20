@@ -14,7 +14,6 @@ public class TogetherResponse {
     private Long togetherId;
     private String title;
     private String category;
-    private String purpose;
     private String content;
     private String involveType;
     private String openKakaoChat;
@@ -37,7 +36,6 @@ public class TogetherResponse {
         this.togetherId = together.getTogetherId();
         this.title = together.getTitle();
         this.category = together.getCategory();
-        this.purpose = together.getPurpose();
         this.content = together.getContent();
         this.involveType = together.getInvolveType();
         this.openKakaoChat = together.getOpenKakaoChat();
@@ -58,11 +56,7 @@ public class TogetherResponse {
             this.progressLegend = "danger";
         }else{
             float temp = (((float)together.getCurrentMember() / (float)together.getMaxMember()) * 100);
-            if (temp > 100 ){
-                this.progress = 100;
-            }else{
-                this.progress = Math.round(temp);
-            }
+            this.progress = Math.round(temp);
             // progress 0~25 : danger   26~50 :  warning  51~75 :  primary  76~ 100  :  success
             if(this.progress > 0 && this.progress <= 25){
                 this.progressLegend = "danger";

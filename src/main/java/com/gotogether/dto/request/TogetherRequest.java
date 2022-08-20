@@ -19,10 +19,6 @@ public class TogetherRequest {
     private String category;
 
     @NotBlank
-    @Size(max = 1000)
-    private String purpose;
-
-    @NotBlank
     private String content;
 
     @NotBlank
