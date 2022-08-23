@@ -39,4 +39,5 @@ out/
 ### logs ###
 /logs
 
+### web root git exclude ###
 /src/main/resources/static/
