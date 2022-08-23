@@ -47,9 +47,9 @@ spring:
   config:
     activate:
       on-profile: prod
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+  thymeleaf:
+    prefix:
+      classpath: /templates/
   #  h2:
   #    console:
   #      enabled: true

@@ -47,6 +47,9 @@ spring:
   config:
     activate:
       on-profile: dev
+  thymeleaf:
+    prefix:
+      classpath: /templates/
   h2:
     console:
       enabled: true
