@@ -51,20 +51,20 @@ public class TogetherResponse {
         this.nickname = together.getWriter().getNickname();
         this.username = together.getWriter().getUsername();
 
-        if(together.getMaxMember() == 0 || together.getCurrentMember() == 0){
+        if (together.getMaxMember() == 0 || together.getCurrentMember() == 0) {
             this.progress = 0;
             this.progressLegend = "danger";
-        }else{
-            float temp = (((float)together.getCurrentMember() / (float)together.getMaxMember()) * 100);
+        } else {
+            float temp = (((float) together.getCurrentMember() / (float) together.getMaxMember()) * 100);
             this.progress = Math.round(temp);
             // progress 0~25 : danger   26~50 :  warning  51~75 :  primary  76~ 100  :  success
-            if(this.progress > 0 && this.progress <= 25){
+            if (this.progress > 0 && this.progress <= 25) {
                 this.progressLegend = "danger";
-            }else if(this.progress > 25 && this.progress <= 50){
+            } else if (this.progress > 25 && this.progress <= 50) {
                 this.progressLegend = "warning";
-            }else if(this.progress > 50 && this.progress <= 75){
+            } else if (this.progress > 50 && this.progress <= 75) {
                 this.progressLegend = "primary";
-            }else{
+            } else {
                 this.progressLegend = "success";
             }
         }
