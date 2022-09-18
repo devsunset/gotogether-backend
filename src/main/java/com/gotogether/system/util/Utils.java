@@ -79,10 +79,10 @@ public class Utils {
         return result;
     }
 
-    public static boolean isValidInvolveType(String category) {
+    public static boolean isValidInvolveType(String involveType) {
         boolean result = false;
         for (InvolveType type : InvolveType.values()) {
-            if (type.getName().equals(category)) {
+            if (type.getName().equals(involveType)) {
                 result = true;
             }
         }
