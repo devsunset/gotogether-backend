@@ -25,16 +25,21 @@ http://gotogether.ga/
   select now();
 
 데이터베이스 확인
+
       SHOW DATABASES;
 
 데이터베이스 생성
+
     CREATE DATABASE gotogether;
 
 아이디 생성
+
     CREATE USER 'gotogether'@'%' IDENTIFIED BY 'PASSWORD';
 
 사용자 권한 주기
+
     GRANT ALL PRIVILEGES ON gotogether.* TO 'gotogether'@'%';
 
 새로고침
+
     FLUSH PRIVILEGES;
