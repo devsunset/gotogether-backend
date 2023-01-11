@@ -61,8 +61,8 @@ spring:
   datasource:
     url: jdbc:mariadb://localhost:3306/gotogether?useSSL=false&characterEncoding=UTF-8
     driver-class-name: org.mariadb.jdbc.Driver
-    username:
-    password:
+    username: gotogether
+    password: gotogether???
   jpa:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     generate-ddl: true
