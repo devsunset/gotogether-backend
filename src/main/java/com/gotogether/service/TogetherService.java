@@ -70,6 +70,7 @@ public class TogetherService {
         Together together = modelMapper.map(togetherRequest, Together.class);
         together.setTogetherId(togetherId);
         together.setWriter(authService.getSessionUser());
+        together.setHit(orignal.getHit());
         return togetherRepository.save(together).getTogetherId();
     }
 

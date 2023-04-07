@@ -62,6 +62,7 @@ public class PostService {
         Post post = modelMapper.map(postRequest, Post.class);
         post.setPostId(postId);
         post.setWriter(authService.getSessionUser());
+        post.setHit(orignal.getHit());
         return postRepository.save(post).getPostId();
     }
 
@@ -82,6 +83,7 @@ public class PostService {
         }
 
         post.setCategory(category);
+        post.setHit(post.getHit());
 
         Long postId_result = postRepository.save(post).getPostId();
 

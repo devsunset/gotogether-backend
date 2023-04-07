@@ -44,6 +44,9 @@ http://193.123.252.22:8282/swagger-ui/index.html
 새로고침
 
     FLUSH PRIVILEGES;
-    
+   
+ 
+Build
+./gradlew bootJar
     
 http://localhost:8081/swagger-ui/index.html    
