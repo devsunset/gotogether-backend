@@ -3,8 +3,6 @@
 gotogether-frontend - backend go together (springboot - rest - jpa - security) 
 
 
-http://gotogether.ga/
-
 http://193.123.252.22:8282/swagger-ui/index.html
 
 * mariadb
