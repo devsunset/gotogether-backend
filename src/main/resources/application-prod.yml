@@ -1,5 +1,11 @@
 server:
   port: 8282
+  ssl:
+    enabled: true
+    key-store: src/main/resources/gotogether.p12
+    key-store-password: gotogether
+    key-store-type: PKCS12
+    key-alias: gotogether
   tomcat:
     uri-encoding: UTF-8
   error:
@@ -7,6 +13,8 @@ server:
     include-message: never        # Response 에 Exception Message 를 표시할지 (never | always | on_param)
     include-stacktrace: never     # Response 에 Stack Trace 를 표시할지 (never | always | on_param) on_trace_params 은 deprecated
     whitelabel.enabled: false     # 에러 발생 시 Spring 기본 에러 페이지 노출 여부
+
+#  keytool -genkeypair -alias gotogether -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore gotogether.p12 -validity 3650
 
 logging:
   file:
