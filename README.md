@@ -42,6 +42,10 @@ http://193.123.252.22:8282/swagger-ui/index.html
 새로고침
 
     FLUSH PRIVILEGES;
+
+사설인증서 적용 (prod 설정에서만 https 서비스)
+
+    keytool -genkeypair -alias gotogether -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore gotogether.p12 -validity 3650
    
  
 Build
