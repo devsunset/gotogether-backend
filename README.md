@@ -42,6 +42,14 @@ http://193.123.252.22:8282/swagger-ui/index.html
 새로고침
 
     FLUSH PRIVILEGES;
+    
+FeeDNS (무료 도메인)
+https://freedns.afraid.org/
+
+SSL for Free
+https://www.sslforfree.com/
+openssl pkcs12 -export -in certificate.crt -inkey private.key -out gotogether.p12 -name gotogether
+
 
 사설인증서 적용 (prod 설정에서만 https 서비스)
 
