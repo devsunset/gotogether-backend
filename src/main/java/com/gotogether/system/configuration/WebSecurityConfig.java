@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers("/.well-known/pki-validation/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/v3/api-docs", "/swagger*/**").permitAll()
