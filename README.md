@@ -55,7 +55,7 @@ FeeDNS (무료 도메인)
     sudo apt-get update
     sudo apt-get install certbot
     sudo certbot certonly --standalone -d yourdomain.com
-    sudo openssl pkcs12 -export -in /etc/letsencrypt/live/devsunset.mooo.com/fullchain.pem -inkey /etc/letsencrypt/live/devsunset.mooo.com/privkey.pem -out gotogether.p12 -name gotogether -CAfile /etc/letsencrypt/live/devsunset.mooo.com/chain.pem -caname root
+    sudo openssl pkcs12 -export -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem -inkey /etc/letsencrypt/live/yourdomain.com/privkey.pem -out gotogether.p12 -name gotogether -CAfile /etc/letsencrypt/live/devsunset.mooo.com/chain.pem -caname root
 
     sudo certbot renew
 
