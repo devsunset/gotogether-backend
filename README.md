@@ -49,18 +49,22 @@ FeeDNS (무료 도메인)
 
     https://freedns.afraid.org/
 
-SSL for Free
+ FreeSSL
 
-    https://www.sslforfree.com/
-    openssl pkcs12 -export -in certificate.crt -inkey private.key -out gotogether.p12 -name gotogether
+    https://letsencrypt.org/
+    sudo apt-get update
+    sudo apt-get install certbot
+    sudo certbot certonly --standalone -d yourdomain.com
+    sudo openssl pkcs12 -export -in /etc/letsencrypt/live/devsunset.mooo.com/fullchain.pem -inkey /etc/letsencrypt/live/devsunset.mooo.com/privkey.pem -out gotogether.p12 -name gotogether -CAfile /etc/letsencrypt/live/devsunset.mooo.com/chain.pem -caname root
 
+    sudo certbot renew
 
-사설인증서 적용 (prod 설정에서만 https 서비스)
+사설인증서 (PROD 환경만 https 설정 - 로컬에서 PROD 환경 테스트시 사설인증서 생성하여 사용 )
 
     keytool -genkeypair -alias gotogether -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore gotogether.p12 -validity 3650
    
  
 Build
-./gradlew bootJar
-    
-http://localhost:8081/swagger-ui/index.html    
+
+    ./gradlew bootJar
+
